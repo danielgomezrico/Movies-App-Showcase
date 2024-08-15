@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart' show ChangeNotifier;
+import 'package:movie_flutter/common/log.dart';
 
 class ViewModel<S> extends ChangeNotifier {
   ViewModel() : _isDisposed = false;
@@ -10,11 +11,11 @@ class ViewModel<S> extends ChangeNotifier {
 
   set status(S status) {
     if (_isDisposed) {
-      print('[vm] view model is disposed, no status updated');
+      log.i('[vm] view model is disposed, no status updated');
       return;
     }
 
-    print('[vm][$runtimeType] status updated: $status');
+    log.i('[vm] status updated: $status');
 
     _status = status;
     notifyListeners();

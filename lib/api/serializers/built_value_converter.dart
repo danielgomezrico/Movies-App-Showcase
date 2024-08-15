@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:built_value/serializer.dart';
 import 'package:chopper/chopper.dart';
+import 'package:movie_flutter/common/log.dart';
 
 /// src https://resocoder.com/2019/07/14/chopper-retrofit-for-flutter-3-converters-built-value-integration/
 class BuiltValueConverter extends JsonConverter {
@@ -54,7 +55,7 @@ class BuiltValueConverter extends JsonConverter {
     } else if (element is Map<String, dynamic>?) {
       return _deserialize<SingleItemType>(element);
     } else {
-      print('Unknown response body type: $element');
+      log.e('Unknown response body type: $element');
 
       return null;
     }

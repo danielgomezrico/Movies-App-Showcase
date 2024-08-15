@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:movie_flutter/api/repositories/movies_repository.dart';
+import 'package:movie_flutter/common/log.dart';
 import 'package:movie_flutter/common/result.dart';
 import 'package:movie_flutter/common/view_model.dart';
 import 'package:movie_flutter/widgets/movie_showcase/movie_showcase_status.dart';
@@ -48,7 +49,7 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
         );
       },
       onError: (error) {
-        print('[vm] Error fetching movies: $error');
+        log.e('[vm] Error fetching movies: $error');
 
         status = status.rebuild(
           (b) => b
