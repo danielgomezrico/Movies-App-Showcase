@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:movie_flutter/api/movies_repository.dart';
 import 'package:movie_flutter/common/result.dart';
 import 'package:movie_flutter/common/view_model.dart';
@@ -8,6 +9,7 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
     status = MovieShowcaseStatus(
       (b) => b
         ..isLoadingVisible = true
+        ..isEmptyVisible = false
         ..items = [],
     );
   }
@@ -19,17 +21,19 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
     status = status.rebuild(
       (b) => b
         ..isLoadingVisible = true
+        ..isEmptyVisible = false
         ..errorMessage = null,
     );
 
-    await _showNextMovies();
+    await showNextMovies();
   }
 
   Future<void> onBottomReached() async {
-    await _showNextMovies();
+    await showNextMovies();
   }
 
-  Future<void> _showNextMovies() async {
+  @visibleForTesting
+  Future<void> showNextMovies() async {
     await _moviesRepository.movies(_page).match(
       onSuccess: (data) {
         _page++;
@@ -39,6 +43,7 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
         status = status.rebuild(
           (b) => b
             ..items = allItems
+            ..isEmptyVisible = allItems.isEmpty
             ..isLoadingVisible = false,
         );
       },
@@ -47,7 +52,7 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
 
         status = status.rebuild(
           (b) => b
-            ..errorMessage = 'Error'
+            ..errorMessage = error
             ..isLoadingVisible = false,
         );
       },

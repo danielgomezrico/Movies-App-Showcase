@@ -1,11 +1,10 @@
 class MovieSummary {
-  const MovieSummary(
-      this.url,
-      this.title,
-
-    this.voteAverage,
-    this.voteCount,
-  );
+  const MovieSummary({
+    required this.url,
+    required this.title,
+    required this.voteAverage,
+    required this.voteCount,
+  });
 
   final String title;
   final double voteAverage;
@@ -28,7 +27,7 @@ class Movie {
   final String posterUrl;
   final List<String> genres;
   final String overview;
-  final DateTime releaseDate;
+  final DateTime? releaseDate;
   final List<String> languages;
   final double voteAverage;
 }

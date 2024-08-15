@@ -21,6 +21,8 @@ dev_dependencies:
   flutter_lints: 4.0.0
   build_runner: 2.4.11 # 2.4.12 is not compatible
   built_value_generator: 8.9.2
+  mockito: 5.4.4
+  collection: 1.18.0
 
 flutter:
   uses-material-design: true

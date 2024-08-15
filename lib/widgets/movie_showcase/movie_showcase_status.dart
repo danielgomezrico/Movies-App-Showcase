@@ -14,5 +14,7 @@ abstract class MovieShowcaseStatus
 
   bool get isLoadingVisible;
 
+  bool get isEmptyVisible;
+
   String? get errorMessage;
 }
