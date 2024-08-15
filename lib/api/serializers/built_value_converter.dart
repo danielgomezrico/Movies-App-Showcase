@@ -24,8 +24,8 @@ class BuiltValueConverter extends JsonConverter {
 
     if (serializer == null) {
       throw Exception(
-              'No serializer for request exists for type $type for ${request.body}',
-              );
+        'No serializer for request exists for type $type for ${request.body}',
+      );
     }
 
     final body = serializers.serializeWith(serializer, request.body);
@@ -35,13 +35,13 @@ class BuiltValueConverter extends JsonConverter {
 
   @override
   FutureOr<Response<BodyType>> convertResponse<BodyType, SingleItemType>(
-  Response<dynamic> response,
+    Response<dynamic> response,
   ) async {
     final dynamicResponse =
-    await super.convertResponse<dynamic, dynamic>(response);
+        await super.convertResponse<dynamic, dynamic>(response);
 
     final customBody =
-    _convertToCustomObject<SingleItemType>(dynamicResponse.body)
+        _convertToCustomObject<SingleItemType>(dynamicResponse.body)
             as BodyType?;
 
     return dynamicResponse.copyWith<BodyType>(body: customBody);
@@ -62,32 +62,32 @@ class BuiltValueConverter extends JsonConverter {
   }
 
   List<SingleItemType> _deserializeListOf<SingleItemType>(
-  List<dynamic> dynamicList,
+    List<dynamic> dynamicList,
   ) {
     // Make a BuiltList holding individual custom objects
     final iterables = dynamicList.map((element) {
-    if (element is SingleItemType) {
-      return element;
-    } else {
-      return _deserialize<SingleItemType>(element as Map<String, dynamic>);
-    }
+      if (element is SingleItemType) {
+        return element;
+      } else {
+        return _deserialize<SingleItemType>(element as Map<String, dynamic>);
+      }
     });
 
     return List<SingleItemType>.from(iterables);
   }
 
   SingleItemType? _deserialize<SingleItemType>(
-  Map<String, dynamic>? value,
-          ) {
+    Map<String, dynamic>? value,
+  ) {
     final serializer = serializers.serializerForType(SingleItemType);
 
     if (serializer == null) {
       throw Exception(
-              'No serializer exists for response for type $SingleItemType for $value',
-              );
+        'No serializer exists for response for type $SingleItemType for $value',
+      );
     }
 
     return serializers.deserializeWith<SingleItemType?>(
-            serializer as Serializer<SingleItemType?>, value);
+        serializer as Serializer<SingleItemType?>, value);
   }
 }

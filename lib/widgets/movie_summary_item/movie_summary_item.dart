@@ -22,7 +22,8 @@ class MovieSummaryItem extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           child: Material(
             color: Colors.blueAccent, // Make sure the material is transparent
-            borderRadius: BorderRadius.circular(12), // Optional: match the border radius
+            borderRadius:
+                BorderRadius.circular(12), // Optional: match the border radius
             child: InkWell(
               onTap: viewModel.onTap,
               child: Stack(
