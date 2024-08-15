@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movie_flutter/api/models.dart';
+import 'package:movie_flutter/common/di/common_module.dart';
+import 'package:movie_flutter/common/router/sites/movie_detail_site.dart';
 import 'package:movie_flutter/widgets/image_container.dart';
 
+// TODO: move this simple logic into viewmodel and test it
 class MovieSummaryItem extends StatelessWidget {
   const MovieSummaryItem({
     super.key,
@@ -14,11 +17,17 @@ class MovieSummaryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8),
-      child: Stack(
-        children: [
-          _image(),
-          _details(),
-        ],
+      child: InkWell(
+        onTap: () {
+          final site = MovieDetailSite(_movieSummary);
+          CommonModule.router().pushTo(site);
+        },
+        child: Stack(
+          children: [
+            _image(),
+            _details(),
+          ],
+        ),
       ),
     );
   }

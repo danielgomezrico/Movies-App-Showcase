@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:movie_flutter/common/change_notifier/change_notifier_value.dart';
 import 'package:movie_flutter/common/di/modules.dart';
-import 'package:movie_flutter/widgets/movie_item/movie_summary_item.dart';
+import 'package:movie_flutter/widgets/movie_summary_item/movie_summary_item.dart';
 import 'package:movie_flutter/widgets/movie_showcase/movie_showcase_view_model.dart';
 
 class MovieShowcase extends StatefulWidget {
@@ -19,7 +19,7 @@ class _MovieShowcaseState extends State<MovieShowcase> {
   @override
   void initState() {
     _scrollController = ScrollController();
-    _viewModel = ViewModelModules.movieShowcaseViewModel();
+    _viewModel = ViewModelModule.movieShowcaseViewModel();
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
       _viewModel.onInit();

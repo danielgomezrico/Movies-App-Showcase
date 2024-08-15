@@ -39,6 +39,7 @@ abstract class MovieMother {
 
 abstract class MovieSummaryMother {
   static const base = MovieSummary(
+    movieId: '1',
     url: 'https://image.tmdb.org/t/p/w500/a.jpg',
     title: 'The Dark Knight',
     voteAverage: 3.4,
@@ -46,12 +47,14 @@ abstract class MovieSummaryMother {
   );
 
   static MovieSummary build({
+    String movieId = '1',
     String url = 'https://image.tmdb.org/t/p/w500/a.jpg',
     String title = 'The Dark Knight',
     double voteAverage = 8.4,
     int voteCount = 24169,
   }) {
     return MovieSummary(
+      movieId: movieId,
       url: url,
       title: title,
       voteAverage: voteAverage,
