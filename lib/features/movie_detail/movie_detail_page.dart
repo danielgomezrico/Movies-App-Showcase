@@ -6,6 +6,7 @@ import 'package:movie_flutter/common/change_notifier/change_notifier_value.dart'
 import 'package:movie_flutter/common/di/modules.dart';
 import 'package:movie_flutter/features/movie_detail/movie_detail_status.dart';
 import 'package:movie_flutter/features/movie_detail/movie_detail_view_model.dart';
+import 'package:movie_flutter/widgets/image_frame.dart';
 
 class MovieDetailPage extends StatefulWidget {
   const MovieDetailPage({super.key, required this.movieSummary});
@@ -104,16 +105,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     return SliverAppBar(
       expandedHeight: 400,
       pinned: true,
-      iconTheme: const IconThemeData(
-        color: Colors.white
-      ),
+      iconTheme: const IconThemeData(color: Colors.white),
       flexibleSpace: FlexibleSpaceBar(
         title: Text(status.title,
             style: const TextStyle(fontSize: 16.0, color: Colors.white)),
         background: Stack(
           fit: StackFit.expand,
           children: [
-            CachedNetworkImage(imageUrl: status.imageUrl, fit: BoxFit.cover),
+            ImageFrame(imageUrl: status.imageUrl),
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(

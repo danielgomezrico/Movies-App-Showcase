@@ -46,6 +46,7 @@ abstract class MovieSummaryMother {
         ..movieId = 1
         ..imagePath = '/a.jpg'
         ..title = 'The Dark Knight'
+        ..overview = 'overview'
         ..voteAverage = 3.4
         ..voteCount = 24169,
     );
@@ -55,6 +56,7 @@ abstract class MovieSummaryMother {
     int movieId = 1,
     String imagePath = '/a.jpg',
     String title = 'The Dark Knight',
+    String overview = 'overview',
     double voteAverage = 8.4,
     int voteCount = 24169,
   }) {
@@ -63,6 +65,7 @@ abstract class MovieSummaryMother {
         ..movieId = movieId
         ..imagePath = imagePath
         ..title = title
+        ..overview = overview
         ..voteAverage = voteAverage
         ..voteCount = voteCount,
     );

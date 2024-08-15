@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
-import 'package:movie_flutter/common/di/common_module.dart';
-import 'package:movie_flutter/common/router/sites/movie_detail_site.dart';
-import 'package:movie_flutter/widgets/image_container.dart';
+import 'package:movie_flutter/common/change_notifier/change_notifier_watcher.dart';
+import 'package:movie_flutter/common/di/modules.dart';
+import 'package:movie_flutter/widgets/image_frame.dart';
 
 // TODO: move this simple logic into viewmodel and test it
 class MovieSummaryItem extends StatelessWidget {
@@ -15,20 +15,26 @@ class MovieSummaryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: InkWell(
-        onTap: () {
-          final site = MovieDetailSite(_movieSummary);
-          CommonModule.router().pushTo(site);
-        },
-        child: Stack(
-          children: [
-            _image(),
-            _details(),
-          ],
-        ),
-      ),
+    return ChangeNotifierWatcher(
+      create: () => ViewModelModule.moveSummaryItemViewModel(_movieSummary),
+      builder: (_, viewModel) {
+        return Padding(
+          padding: const EdgeInsets.all(8),
+          child: Material(
+            color: Colors.blueAccent, // Make sure the material is transparent
+            borderRadius: BorderRadius.circular(12), // Optional: match the border radius
+            child: InkWell(
+              onTap: viewModel.onTap,
+              child: Stack(
+                children: [
+                  _image(),
+                  _details(),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 

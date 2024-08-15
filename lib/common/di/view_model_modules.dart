@@ -3,6 +3,7 @@ import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
 import 'package:movie_flutter/common/di/common_module.dart';
 import 'package:movie_flutter/features/movie_detail/movie_detail_view_model.dart';
 import 'package:movie_flutter/widgets/movie_showcase/movie_showcase_view_model.dart';
+import 'package:movie_flutter/widgets/movie_summary_item/movie_summary_item_view_model.dart';
 
 abstract class ViewModelModule {
   static MovieShowcaseViewModel movieShowcaseViewModel() {
@@ -16,6 +17,15 @@ abstract class ViewModelModule {
       Api.moviesRepository(),
       movieSummary,
       CommonModule.dateFormatter(),
+    );
+  }
+
+  static MovieSummaryItemViewModel moveSummaryItemViewModel(
+    MovieSummary movieSummary,
+  ) {
+    return MovieSummaryItemViewModel(
+      movieSummary,
+      CommonModule.router(),
     );
   }
 }

@@ -3,6 +3,7 @@
 
 import 'package:mockito/annotations.dart';
 import 'package:movie_flutter/api/repositories/movies_repository.dart';
+import 'package:movie_flutter/common/router/router.dart';
 
 export 'package:mockito/mockito.dart';
 export '../test_utils/extensions/provider_extensions.dart';
@@ -14,6 +15,7 @@ export 'mocks.mocks.dart';
 @GenerateMocks(
   [
     MoviesRepository,
+    Router,
   ],
 )
 // not required for mocks

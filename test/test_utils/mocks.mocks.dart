@@ -3,15 +3,19 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i4;
+import 'dart:async' as _i5;
 
-import 'package:chopper/chopper.dart' as _i8;
+import 'package:chopper/chopper.dart' as _i9;
+import 'package:flutter/material.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:movie_flutter/api/repositories/models/movie.dart' as _i7;
+import 'package:mockito/src/dummies.dart' as _i11;
+import 'package:movie_flutter/api/repositories/models/movie.dart' as _i8;
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart'
-    as _i6;
-import 'package:movie_flutter/api/repositories/movies_repository.dart' as _i3;
-import 'package:movie_flutter/common/result.dart' as _i5;
+    as _i7;
+import 'package:movie_flutter/api/repositories/movies_repository.dart' as _i4;
+import 'package:movie_flutter/common/result.dart' as _i6;
+import 'package:movie_flutter/common/router/router.dart' as _i10;
+import 'package:movie_flutter/common/router/site.dart' as _i12;
 import 'package:result_monad/src/result_monad_base.dart' as _i2;
 
 // ignore_for_file: type=lint
@@ -37,55 +41,66 @@ class _FakeResult_0<T, E> extends _i1.SmartFake implements _i2.Result<T, E> {
         );
 }
 
+class _FakeGlobalKey_1<T extends _i3.State<_i3.StatefulWidget>>
+    extends _i1.SmartFake implements _i3.GlobalKey<T> {
+  _FakeGlobalKey_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [MoviesRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMoviesRepository extends _i1.Mock implements _i3.MoviesRepository {
+class MockMoviesRepository extends _i1.Mock implements _i4.MoviesRepository {
   MockMoviesRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.Future<
-      _i2.Result<_i5.PagedContent<List<_i6.MovieSummary>>, dynamic>> getMovies(
+  _i5.Future<
+      _i2.Result<_i6.PagedContent<List<_i7.MovieSummary>>, dynamic>> getMovies(
           int? currentPage) =>
       (super.noSuchMethod(
         Invocation.method(
           #getMovies,
           [currentPage],
         ),
-        returnValue: _i4.Future<
-                _i2.Result<_i5.PagedContent<List<_i6.MovieSummary>>,
+        returnValue: _i5.Future<
+                _i2.Result<_i6.PagedContent<List<_i7.MovieSummary>>,
                     dynamic>>.value(
-            _FakeResult_0<_i5.PagedContent<List<_i6.MovieSummary>>, dynamic>(
+            _FakeResult_0<_i6.PagedContent<List<_i7.MovieSummary>>, dynamic>(
           this,
           Invocation.method(
             #getMovies,
             [currentPage],
           ),
         )),
-      ) as _i4.Future<
-          _i2.Result<_i5.PagedContent<List<_i6.MovieSummary>>, dynamic>>);
+      ) as _i5.Future<
+          _i2.Result<_i6.PagedContent<List<_i7.MovieSummary>>, dynamic>>);
 
   @override
-  _i4.Future<_i2.Result<_i7.Movie, dynamic>> get(int? movieId) =>
+  _i5.Future<_i2.Result<_i8.Movie, dynamic>> get(int? movieId) =>
       (super.noSuchMethod(
         Invocation.method(
           #get,
           [movieId],
         ),
-        returnValue: _i4.Future<_i2.Result<_i7.Movie, dynamic>>.value(
-            _FakeResult_0<_i7.Movie, dynamic>(
+        returnValue: _i5.Future<_i2.Result<_i8.Movie, dynamic>>.value(
+            _FakeResult_0<_i8.Movie, dynamic>(
           this,
           Invocation.method(
             #get,
             [movieId],
           ),
         )),
-      ) as _i4.Future<_i2.Result<_i7.Movie, dynamic>>);
+      ) as _i5.Future<_i2.Result<_i8.Movie, dynamic>>);
 
   @override
-  _i2.Result<T, dynamic> toResult<T>(_i8.Response<T>? response) =>
+  _i2.Result<T, dynamic> toResult<T>(_i9.Response<T>? response) =>
       (super.noSuchMethod(
         Invocation.method(
           #toResult,
@@ -101,38 +116,109 @@ class MockMoviesRepository extends _i1.Mock implements _i3.MoviesRepository {
       ) as _i2.Result<T, dynamic>);
 
   @override
-  _i4.Future<_i2.Result<T, dynamic>> handleResult<T>(
-          _i4.Future<_i2.Result<T, dynamic>> Function()? doRequest) =>
+  _i5.Future<_i2.Result<T, dynamic>> handleResult<T>(
+          _i5.Future<_i2.Result<T, dynamic>> Function()? doRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #handleResult,
           [doRequest],
         ),
         returnValue:
-            _i4.Future<_i2.Result<T, dynamic>>.value(_FakeResult_0<T, dynamic>(
+            _i5.Future<_i2.Result<T, dynamic>>.value(_FakeResult_0<T, dynamic>(
           this,
           Invocation.method(
             #handleResult,
             [doRequest],
           ),
         )),
-      ) as _i4.Future<_i2.Result<T, dynamic>>);
+      ) as _i5.Future<_i2.Result<T, dynamic>>);
 
   @override
-  _i4.Future<_i2.Result<T, dynamic>> responseToResult<T>(
-          _i4.Future<_i8.Response<T>> Function()? doRequest) =>
+  _i5.Future<_i2.Result<T, dynamic>> responseToResult<T>(
+          _i5.Future<_i9.Response<T>> Function()? doRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #responseToResult,
           [doRequest],
         ),
         returnValue:
-            _i4.Future<_i2.Result<T, dynamic>>.value(_FakeResult_0<T, dynamic>(
+            _i5.Future<_i2.Result<T, dynamic>>.value(_FakeResult_0<T, dynamic>(
           this,
           Invocation.method(
             #responseToResult,
             [doRequest],
           ),
         )),
-      ) as _i4.Future<_i2.Result<T, dynamic>>);
+      ) as _i5.Future<_i2.Result<T, dynamic>>);
+}
+
+/// A class which mocks [Router].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockRouter extends _i1.Mock implements _i10.Router {
+  MockRouter() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.GlobalKey<_i3.NavigatorState> get navigatorKey => (super.noSuchMethod(
+        Invocation.getter(#navigatorKey),
+        returnValue: _FakeGlobalKey_1<_i3.NavigatorState>(
+          this,
+          Invocation.getter(#navigatorKey),
+        ),
+      ) as _i3.GlobalKey<_i3.NavigatorState>);
+
+  @override
+  String get initialRoute => (super.noSuchMethod(
+        Invocation.getter(#initialRoute),
+        returnValue: _i11.dummyValue<String>(
+          this,
+          Invocation.getter(#initialRoute),
+        ),
+      ) as String);
+
+  @override
+  _i5.Future<T?> pushTo<T extends _i12.SiteResult?>(_i12.Site<T>? site) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #pushTo,
+          [site],
+        ),
+        returnValue: _i5.Future<T?>.value(),
+      ) as _i5.Future<T?>);
+
+  @override
+  _i5.Future<_i2.Result<T?, dynamic>> replaceTo<T extends _i12.SiteResult>(
+          _i12.Site<T>? route) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #replaceTo,
+          [route],
+        ),
+        returnValue: _i5.Future<_i2.Result<T?, dynamic>>.value(
+            _FakeResult_0<T?, dynamic>(
+          this,
+          Invocation.method(
+            #replaceTo,
+            [route],
+          ),
+        )),
+      ) as _i5.Future<_i2.Result<T?, dynamic>>);
+
+  @override
+  void pop<T extends _i2.Result<T, dynamic>>([T? result]) => super.noSuchMethod(
+        Invocation.method(
+          #pop,
+          [result],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  _i3.Route<dynamic>? onGenerateRoute(_i3.RouteSettings? settings) =>
+      (super.noSuchMethod(Invocation.method(
+        #onGenerateRoute,
+        [settings],
+      )) as _i3.Route<dynamic>?);
 }
