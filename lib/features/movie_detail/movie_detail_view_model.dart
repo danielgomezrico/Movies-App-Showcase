@@ -1,12 +1,17 @@
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
 import 'package:movie_flutter/api/repositories/movies_repository.dart';
+import 'package:movie_flutter/common/date_formatter.dart';
 import 'package:movie_flutter/common/result.dart';
 import 'package:movie_flutter/common/view_model.dart';
 
 import 'movie_detail_status.dart';
 
 class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
-  MovieDetailViewModel(this._moviesRepository, this._movieSummary) {
+  MovieDetailViewModel(
+    this._moviesRepository,
+    this._movieSummary,
+    this._dateFormatter,
+  ) {
     var voteAverage = '(${_movieSummary.voteAverage} votes)';
 
     status = MovieDetailStatus(
@@ -27,15 +32,15 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
 
   final MoviesRepository _moviesRepository;
   final MovieSummary _movieSummary;
+  final DateFormatter _dateFormatter;
 
   Future<void> onInit() async {
     status = status.rebuild((b) => b..isLoadingVisible = true);
 
     await _moviesRepository.get(_movieSummary.movieId).match(
       onSuccess: (movie) {
-        // TODO: use a date formatter
         final releaseDate = movie.releaseDate != null
-            ? movie.releaseDate!.toLocal().toString().split(' ')[0]
+            ? _dateFormatter.formatDate(movie.releaseDate!)
             : 'Unknown';
 
         final String language;

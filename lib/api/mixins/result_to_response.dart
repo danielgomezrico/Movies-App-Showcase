@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
 import 'package:chopper/chopper.dart';
+
 import 'package:http/http.dart' show ClientException;
 import 'package:movie_flutter/common/result.dart';
 
