@@ -12,11 +12,15 @@ dependencies:
   flutter:
     sdk: flutter
   result_monad: 2.3.2
+  built_value: 8.9.2
+  provider: 6.1.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: 4.0.0
+  build_runner: 2.4.11 # 2.4.12 is not compatible
+  built_value_generator: 8.9.2
 
 flutter:
   uses-material-design: true

@@ -1,6 +1,15 @@
 class MovieSummary {
-  const MovieSummary(this.url);
+  const MovieSummary(
+      this.url,
+      this.title,
 
+    this.voteAverage,
+    this.voteCount,
+  );
+
+  final String title;
+  final double voteAverage;
+  final int voteCount;
   final String url;
 }
 
