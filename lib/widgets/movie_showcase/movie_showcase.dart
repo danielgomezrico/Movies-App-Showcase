@@ -14,21 +14,27 @@ class MovieShowcase extends StatefulWidget {
 
 class _MovieShowcaseState extends State<MovieShowcase> {
   late MovieShowcaseViewModel _viewModel;
+  late ScrollController _scrollController;
 
   @override
   void initState() {
+    _scrollController = ScrollController();
     _viewModel = ViewModelModules.movieShowcaseViewModel();
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
       _viewModel.onInit();
     });
 
+    _scrollController.addListener(_onScroll);
+
     super.initState();
   }
 
   @override
   void dispose() {
+    _scrollController.dispose();
     _viewModel.dispose();
+
     super.dispose();
   }
 
@@ -38,6 +44,7 @@ class _MovieShowcaseState extends State<MovieShowcase> {
       value: _viewModel,
       builder: (_, viewModel) {
         return ListView.separated(
+          controller: _scrollController,
           itemCount: viewModel.status.items.length,
           separatorBuilder: (_, __) => const SizedBox(height: 8),
           itemBuilder: (_, index) {
@@ -47,5 +54,14 @@ class _MovieShowcaseState extends State<MovieShowcase> {
         );
       },
     );
+  }
+
+  void _onScroll() {
+    var scrolledToEnd = _scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent;
+
+    if (scrolledToEnd) {
+      _viewModel.onBottomReached();
+    }
   }
 }

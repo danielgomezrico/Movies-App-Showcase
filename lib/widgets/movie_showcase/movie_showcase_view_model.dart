@@ -13,6 +13,7 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
   }
 
   final MoviesRepository _moviesRepository;
+  int _page = 1;
 
   Future<void> onInit() async {
     status = status.rebuild(
@@ -21,16 +22,28 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
         ..errorMessage = null,
     );
 
-    await _moviesRepository.movies().match(
-      onSuccess: (movies) {
+    await _showNextMovies();
+  }
+
+  Future<void> onBottomReached() async {
+    await _showNextMovies();
+  }
+
+  Future<void> _showNextMovies() async {
+    await _moviesRepository.movies(_page).match(
+      onSuccess: (data) {
+        _page++;
+
+        final allItems = List.of(status.items)..addAll(data.payload);
+
         status = status.rebuild(
           (b) => b
-            ..items = movies
+            ..items = allItems
             ..isLoadingVisible = false,
         );
       },
       onError: (error) {
-        print('[vm] Error fetching decks: $error');
+        print('[vm] Error fetching movies: $error');
 
         status = status.rebuild(
           (b) => b
