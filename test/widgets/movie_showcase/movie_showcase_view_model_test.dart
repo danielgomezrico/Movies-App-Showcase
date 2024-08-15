@@ -3,7 +3,7 @@ import 'package:movie_flutter/widgets/movie_showcase/movie_showcase_status.dart'
 import 'package:movie_flutter/widgets/movie_showcase/movie_showcase_view_model.dart';
 
 import '../../test_utils/mocks.dart';
-import 'stubs.dart';
+import 'spies.dart';
 
 typedef _Status = MovieShowcaseStatus;
 
