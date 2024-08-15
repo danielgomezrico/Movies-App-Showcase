@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movie_flutter/api/models.dart';
+import 'package:movie_flutter/widgets/image_container.dart';
 
 class MovieSummaryItem extends StatelessWidget {
   const MovieSummaryItem({
@@ -72,12 +73,7 @@ class MovieSummaryItem extends StatelessWidget {
           Colors.black.withOpacity(0.3), // Shadow effect
           BlendMode.darken,
         ),
-        child: Image.network(
-          _movieSummary.url,
-          fit: BoxFit.cover,
-          width: double.infinity,
-          height: 200,
-        ),
+        child: ImageFrame(imageUrl: _movieSummary.url),
       ),
     );
   }

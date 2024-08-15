@@ -1,6 +1,5 @@
 import 'dart:collection';
 
-import 'package:collection/collection.dart';
 import 'package:mockito/mockito.dart';
 import 'package:movie_flutter/common/result.dart';
 
