@@ -77,7 +77,7 @@ void main() {
   group('.showNextMovies', () {
     group('having multiple pages', () {
       test('it joins them all', () async {
-        when(moviesRepository.movies(any)).thenFutureInOrder([
+        when(moviesRepository.getMovies(any)).thenFutureInOrder([
           ResultMother.okPagedResult(
             payload: [MovieSummaryMother.base],
           ),
@@ -105,7 +105,7 @@ void main() {
 
     group('after getting empty movies', () {
       test('updates the UI', () async {
-        when(moviesRepository.movies(any)).thenOk(const []);
+        when(moviesRepository.getMovies(any)).thenOk(const []);
 
         final viewModel = subject();
 
@@ -129,7 +129,7 @@ void main() {
 
       group('after getting all items', () {
         test('shows the items', () async {
-          when(moviesRepository.movies(any)).thenOk(const [
+          when(moviesRepository.getMovies(any)).thenOk([
             MovieSummaryMother.base,
             MovieSummaryMother.base,
           ]);
@@ -162,7 +162,7 @@ void main() {
 
       group('after getting an error', () {
         test('shows the error', () async {
-          when(moviesRepository.movies(any)).thenError();
+          when(moviesRepository.getMovies(any)).thenError();
 
           final viewModel = subject();
 
@@ -194,7 +194,7 @@ void main() {
 
     group('after getting an error getting movies', () {
       test('emits the status', () async {
-        when(moviesRepository.movies(any)).thenError();
+        when(moviesRepository.getMovies(any)).thenError();
 
         final viewModel = subject();
         final status = viewModel.statusChanges();

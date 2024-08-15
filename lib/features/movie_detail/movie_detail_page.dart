@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:movie_flutter/api/models.dart';
+import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
 import 'package:movie_flutter/common/change_notifier/change_notifier_value.dart';
 import 'package:movie_flutter/common/di/modules.dart';
 import 'package:movie_flutter/features/movie_detail/movie_detail_status.dart';

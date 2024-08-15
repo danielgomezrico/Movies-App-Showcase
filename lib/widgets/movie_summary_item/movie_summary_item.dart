@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_flutter/api/models.dart';
+import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
 import 'package:movie_flutter/common/di/common_module.dart';
 import 'package:movie_flutter/common/router/sites/movie_detail_site.dart';
 import 'package:movie_flutter/widgets/image_container.dart';

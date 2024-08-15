@@ -1,5 +1,5 @@
-import 'package:movie_flutter/api/models.dart';
-import 'package:movie_flutter/api/movies_repository.dart';
+import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
+import 'package:movie_flutter/api/repositories/movies_repository.dart';
 import 'package:movie_flutter/common/result.dart';
 import 'package:movie_flutter/common/view_model.dart';
 
@@ -15,7 +15,7 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
           ..isLoadingVisible = true
           ..genres = []
           ..releaseDate = null
-          ..overview = null
+          ..overview = _movieSummary.overview
           ..title = _movieSummary.title
           ..imageUrl = _movieSummary.url
           ..voteAverage = voteAverage
@@ -31,8 +31,9 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
   Future<void> onInit() async {
     status = status.rebuild((b) => b..isLoadingVisible = true);
 
-    await _moviesRepository.movie(_movieSummary.movieId).match(
+    await _moviesRepository.get(_movieSummary.movieId).match(
       onSuccess: (movie) {
+        // TODO: use a date formatter
         final releaseDate = movie.releaseDate != null
             ? movie.releaseDate!.toLocal().toString().split(' ')[0]
             : 'Unknown';
@@ -44,12 +45,13 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
           language = movie.languages.join(', ');
         }
 
+        final genres = movie.genres.map((g) => g.name).toList();
+
         status = status.rebuild(
           (b) {
             return b
               ..isLoadingVisible = false
-              ..genres = movie.genres
-              ..overview = movie.overview
+              ..genres = genres
               ..releaseDate = releaseDate
               ..language = language;
           },

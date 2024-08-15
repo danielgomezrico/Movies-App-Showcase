@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:movie_flutter/api/api.dart';
 import 'package:movie_flutter/common/di/modules.dart';
 
 void main() {
+  Api.setup(CommonModule.config().apiBaseUrl());
+
   runApp(const MyApp());
 }
 

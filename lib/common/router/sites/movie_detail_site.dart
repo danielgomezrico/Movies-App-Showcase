@@ -1,4 +1,4 @@
-import 'package:movie_flutter/api/models.dart';
+import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
 import 'package:movie_flutter/common/router/site.dart';
 import 'package:movie_flutter/features/movie_detail/movie_detail_page.dart';
 

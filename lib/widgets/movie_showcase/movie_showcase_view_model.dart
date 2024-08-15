@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart' show visibleForTesting;
-import 'package:movie_flutter/api/movies_repository.dart';
+import 'package:movie_flutter/api/repositories/movies_repository.dart';
 import 'package:movie_flutter/common/result.dart';
 import 'package:movie_flutter/common/view_model.dart';
 import 'package:movie_flutter/widgets/movie_showcase/movie_showcase_status.dart';
@@ -34,7 +34,7 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
 
   @visibleForTesting
   Future<void> showNextMovies() async {
-    await _moviesRepository.movies(_page).match(
+    await _moviesRepository.getMovies(_page).match(
       onSuccess: (data) {
         _page++;
 

@@ -5,9 +5,12 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
+import 'package:chopper/chopper.dart' as _i8;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:movie_flutter/api/models.dart' as _i6;
-import 'package:movie_flutter/api/movies_repository.dart' as _i3;
+import 'package:movie_flutter/api/repositories/models/movie.dart' as _i7;
+import 'package:movie_flutter/api/repositories/models/movie_summary.dart'
+    as _i6;
+import 'package:movie_flutter/api/repositories/movies_repository.dart' as _i3;
 import 'package:movie_flutter/common/result.dart' as _i5;
 import 'package:result_monad/src/result_monad_base.dart' as _i2;
 
@@ -44,11 +47,11 @@ class MockMoviesRepository extends _i1.Mock implements _i3.MoviesRepository {
 
   @override
   _i4.Future<
-      _i2.Result<_i5.PagedContent<List<_i6.MovieSummary>>, dynamic>> movies(
+      _i2.Result<_i5.PagedContent<List<_i6.MovieSummary>>, dynamic>> getMovies(
           int? currentPage) =>
       (super.noSuchMethod(
         Invocation.method(
-          #movies,
+          #getMovies,
           [currentPage],
         ),
         returnValue: _i4.Future<
@@ -57,7 +60,7 @@ class MockMoviesRepository extends _i1.Mock implements _i3.MoviesRepository {
             _FakeResult_0<_i5.PagedContent<List<_i6.MovieSummary>>, dynamic>(
           this,
           Invocation.method(
-            #movies,
+            #getMovies,
             [currentPage],
           ),
         )),
@@ -65,19 +68,71 @@ class MockMoviesRepository extends _i1.Mock implements _i3.MoviesRepository {
           _i2.Result<_i5.PagedContent<List<_i6.MovieSummary>>, dynamic>>);
 
   @override
-  _i4.Future<_i2.Result<_i6.Movie, dynamic>> movie(String? movieId) =>
+  _i4.Future<_i2.Result<_i7.Movie, dynamic>> get(int? movieId) =>
       (super.noSuchMethod(
         Invocation.method(
-          #movie,
+          #get,
           [movieId],
         ),
-        returnValue: _i4.Future<_i2.Result<_i6.Movie, dynamic>>.value(
-            _FakeResult_0<_i6.Movie, dynamic>(
+        returnValue: _i4.Future<_i2.Result<_i7.Movie, dynamic>>.value(
+            _FakeResult_0<_i7.Movie, dynamic>(
           this,
           Invocation.method(
-            #movie,
+            #get,
             [movieId],
           ),
         )),
-      ) as _i4.Future<_i2.Result<_i6.Movie, dynamic>>);
+      ) as _i4.Future<_i2.Result<_i7.Movie, dynamic>>);
+
+  @override
+  _i2.Result<T, dynamic> toResult<T>(_i8.Response<T>? response) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #toResult,
+          [response],
+        ),
+        returnValue: _FakeResult_0<T, dynamic>(
+          this,
+          Invocation.method(
+            #toResult,
+            [response],
+          ),
+        ),
+      ) as _i2.Result<T, dynamic>);
+
+  @override
+  _i4.Future<_i2.Result<T, dynamic>> handleResult<T>(
+          _i4.Future<_i2.Result<T, dynamic>> Function()? doRequest) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #handleResult,
+          [doRequest],
+        ),
+        returnValue:
+            _i4.Future<_i2.Result<T, dynamic>>.value(_FakeResult_0<T, dynamic>(
+          this,
+          Invocation.method(
+            #handleResult,
+            [doRequest],
+          ),
+        )),
+      ) as _i4.Future<_i2.Result<T, dynamic>>);
+
+  @override
+  _i4.Future<_i2.Result<T, dynamic>> responseToResult<T>(
+          _i4.Future<_i8.Response<T>> Function()? doRequest) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #responseToResult,
+          [doRequest],
+        ),
+        returnValue:
+            _i4.Future<_i2.Result<T, dynamic>>.value(_FakeResult_0<T, dynamic>(
+          this,
+          Invocation.method(
+            #responseToResult,
+            [doRequest],
+          ),
+        )),
+      ) as _i4.Future<_i2.Result<T, dynamic>>);
 }

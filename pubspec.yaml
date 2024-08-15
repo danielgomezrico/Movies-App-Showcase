@@ -14,7 +14,9 @@ dependencies:
   cached_network_image: 3.4.1
   result_monad: 2.3.2
   built_value: 8.9.2
+  built_collection: 5.1.1
   provider: 6.1.2
+  chopper: 8.0.1+1
 
 dev_dependencies:
   flutter_test:
@@ -22,6 +24,7 @@ dev_dependencies:
   flutter_lints: 4.0.0
   build_runner: 2.4.11 # 2.4.12 is not compatible
   built_value_generator: 8.9.2
+  chopper_generator: 8.0.1
   mockito: 5.4.4
   collection: 1.18.0
 

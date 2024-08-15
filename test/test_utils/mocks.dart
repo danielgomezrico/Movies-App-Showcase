@@ -2,7 +2,7 @@
 // ignore_for_file: prefer-correct-test-file-name
 
 import 'package:mockito/annotations.dart';
-import 'package:movie_flutter/api/movies_repository.dart';
+import 'package:movie_flutter/api/repositories/movies_repository.dart';
 
 export 'package:mockito/mockito.dart';
 export '../test_utils/extensions/provider_extensions.dart';
