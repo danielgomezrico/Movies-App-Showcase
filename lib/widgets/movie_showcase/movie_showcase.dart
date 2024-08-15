@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:movie_flutter/common/change_notifier/change_notifier_value.dart';
 import 'package:movie_flutter/common/di/modules.dart';
@@ -43,15 +44,23 @@ class _MovieShowcaseState extends State<MovieShowcase> {
     return ChangeNotifierValue(
       value: _viewModel,
       builder: (_, viewModel) {
-        return ListView.separated(
-          controller: _scrollController,
-          itemCount: viewModel.status.items.length,
-          separatorBuilder: (_, __) => const SizedBox(height: 8),
-          itemBuilder: (_, index) {
-            final item = viewModel.status.items[index];
-            return MovieSummaryItem(movieSummary: item);
-          },
-        );
+        if (viewModel.status.isEmptyVisible) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (viewModel.status.isEmptyVisible) {
+          return const Center(child: Text('No movies found'));
+        } else if (viewModel.status.errorMessage != null) {
+          return Center(child: Text('Error: ${viewModel.status.errorMessage}'));
+        } else {
+          return ListView.separated(
+            controller: _scrollController,
+            itemCount: viewModel.status.items.length,
+            separatorBuilder: (_, __) => const SizedBox(height: 8),
+            itemBuilder: (_, index) {
+              final item = viewModel.status.items[index];
+              return MovieSummaryItem(movieSummary: item);
+            },
+          );
+        }
       },
     );
   }
