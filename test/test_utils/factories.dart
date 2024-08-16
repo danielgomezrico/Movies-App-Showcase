@@ -1,7 +1,13 @@
+import 'dart:io';
+
 import 'package:built_collection/built_collection.dart';
+import 'package:built_value/serializer.dart';
+import 'package:chopper/chopper.dart';
 import 'package:movie_flutter/api/repositories/models/movie.dart';
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
 import 'package:movie_flutter/common/result.dart';
+
+import 'package:http/http.dart' as http;
 
 abstract class MovieMother {
   static get base {
@@ -87,5 +93,60 @@ abstract class ResultMother {
         payload: payload,
       ),
     );
+  }
+
+  static Result<T> ok<T>(T payload) {
+    return Result.ok(payload);
+  }
+}
+
+abstract class ResponseMother {
+  static Response<T> success<T>(
+    T body, {
+    int code = 200,
+    Map<String, String> headers = const {},
+  }) {
+    return Response(
+      http.Response(body.toString(), code, headers: headers),
+      body,
+    );
+  }
+
+  static Response<T> failure<T>({
+    String message = 'any',
+    T? body,
+    Object? error,
+    Map<String, String> headers = const {},
+    int statusCode = 400,
+  }) {
+    return Response(
+      http.Response(message, statusCode, headers: headers),
+      body,
+      error: error,
+    );
+  }
+}
+
+abstract class ApiErrorMother {
+  static List<Object> get errors {
+    return [
+      ...networkErrors,
+      ...deserializationErrors,
+    ];
+  }
+
+  static List<Object> get networkErrors {
+    return [
+      const SocketException('any'),
+      const HandshakeException('any'),
+      http.ClientException('any'),
+    ];
+  }
+
+  static List<Object> get deserializationErrors {
+    return [
+      DeserializationError(null, FullType.object, TypeError()),
+      const FormatException(),
+    ];
   }
 }

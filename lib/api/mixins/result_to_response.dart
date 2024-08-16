@@ -8,7 +8,17 @@ import 'package:http/http.dart' show ClientException;
 import 'package:movie_flutter/common/result.dart';
 
 mixin ResultToResponse {
-  Result<T> toResult<T>(Response<T> response) {
+  Future<Result<T>> responseToResult<T>(
+    Future<Response<T>> Function() doRequest,
+  ) async {
+    return _handleResult(() async {
+      final response = await doRequest();
+
+      return _toResult(response);
+    });
+  }
+
+  Result<T> _toResult<T>(Response<T> response) {
     if (response.isSuccessful) {
       final body = response.body;
       if (body != null) {
@@ -24,7 +34,7 @@ mixin ResultToResponse {
   }
 
   /// Do a request and return a [Result] with the response
-  Future<Result<T>> handleResult<T>(
+  Future<Result<T>> _handleResult<T>(
     Future<Result<T>> Function() doRequest,
   ) async {
     //TODO: improve error handling
@@ -46,16 +56,5 @@ mixin ResultToResponse {
     } on ClientException catch (e) {
       return Result.error(e);
     }
-  }
-
-  /// Do a request and return a [Result] with the response
-  Future<Result<T>> responseToResult<T>(
-    Future<Response<T>> Function() doRequest,
-  ) async {
-    return handleResult(() async {
-      final response = await doRequest();
-
-      return toResult(response);
-    });
   }
 }
