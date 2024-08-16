@@ -15,6 +15,7 @@ dependencies:
   chopper: 8.0.1+1
   flutter:
     sdk: flutter
+  flutter_dotenv: 5.1.0
   hive_built_value_flutter:
     # Adding from git because the author has not made the update to pub.dev
     git:
@@ -54,3 +55,6 @@ dependency_overrides:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/.env

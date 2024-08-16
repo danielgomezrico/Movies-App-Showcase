@@ -3,6 +3,9 @@
 **.chopper.dart
 coverage/
 
+# Setup
+*.env
+
 # Miscellaneous
 *.class
 *.log

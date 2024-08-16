@@ -1,18 +1,18 @@
 help:
 	@egrep -h '\s##\s' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m  %-30s\033[0m %s\n", $$1, $$2}'
 
+doctor: ## Run you if you have any issues starting the project
+	 ./scripts/doctor.sh
+
 test: ## Run tests
-	make autogenerate
 	flutter test
 
 test_with_coverage: ## Run tests with coverage
-	make autogenerate
 	flutter test --coverage --no-pub
 	genhtml coverage/lcov.info -o coverage/html
 	@echo "--> Check coverage report at coverage/html/index.html"
 
 run: ## Run the project on device
-	make autogenerate
 	flutter run
 
 lint: ## Run all linters

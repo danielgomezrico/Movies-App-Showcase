@@ -8,8 +8,11 @@ Run `$make` on console to see the available commands:
 
 ```console
 $ make
+  doctor                         Run you if you have any issues starting the project
   test                           Run tests
+  test_with_coverage             Run tests with coverage
   run                            Run the project on device
+  lint                           Run all linters
   autogenerate                   Auto generate files
   prepare_watch                  Auto generate files
   build_android                  Build android
@@ -18,14 +21,31 @@ $ make
   app_uninstall                  Uninstall app from android device for tests
 ```
 
+### How to run
+You can run the project with the following commands:
+```console
+$ make doctor
+$ make autogenerate
+$ make run
+```
+
+### How to test
+You will see a report with the test coverage:
+```console
+$ make doctor
+$ make autogenerate
+$ make test_with_covereage
+```
+
 ## Architecture
 - Is a layered architecture based on Clean Architecture and SOLID principles. 
+- The presentation layer is designed with `MVVM` and `view states` with unidirectional data flow.
+- Environment variables should live in `assets/.env`, you must run `make doctor` to create that file.
 - Differences with clean architecture:
   - Not all interfaces are created from the beginning.
   - For everything I did not create a use case, I used the repository directly.
   - I don't mean that clean architecture does not work, but that for a small  project, it is good to follow what you need and works for you and not go creating 1000x clases without having a return on that.
-- The presentation layer is designed with MVVM and view states with a single.
-- The Widgets/Pages/Flutter code is meant to be vanilla, so most of the logic remains in the ViewModel and can be tested.
+- The Widgets/Pages/Flutter code is meant to be vanilla, so most of the logic remains in the ViewModel/UseCase and can be tested.
 - Folders:
   - `features/`: contains UI components that represent a full window 
   - `widgets/`: contains UI components that represent one small part of a window

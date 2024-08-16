@@ -3,10 +3,21 @@ import 'package:movie_flutter/api/api.dart';
 import 'package:movie_flutter/common/database/database.dart';
 import 'package:movie_flutter/common/di/modules.dart';
 import 'package:movie_flutter/common/custom_theme.dart';
+import 'package:movie_flutter/common/log.dart';
+import 'package:movie_flutter/common/result.dart';
 
 Future<void> main() async {
+  await CommonModule.config().setup().onError((e, s) {
+    log.e('[main] Error initializing .env', error: e, stackTrace: s);
+    return Result.error(e);
+  });
+
   Api.setup(CommonModule.config().apiBaseUrl());
-  await Database.initialize(CommonModule.storages());
+
+  await Database.initialize(CommonModule.storages()).onError((e, s) {
+    log.e('[main] Error initializing database', error: e, stackTrace: s);
+    return Result.error(e);
+  });
 
   runApp(const MyApp());
 }
