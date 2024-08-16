@@ -3,11 +3,8 @@
 // We use this class only on this test
 // ignore_for_file: prefer-match-file-name
 
-import 'package:built_value/built_value.dart';
-import 'package:built_value/serializer.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_flutter/api/mixins/result_to_response.dart';
-import 'package:movie_flutter/common/result.dart';
 
 import '../../test_utils/factories.dart';
 

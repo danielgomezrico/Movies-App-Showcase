@@ -105,9 +105,20 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       expandedHeight: 400,
       pinned: true,
       iconTheme: const IconThemeData(color: Colors.white),
+      actions: [
+        if (_viewModel.status.isFavoriteVisible)
+          IconButton(
+            icon: _viewModel.status.isFavorite ?? false
+                ? const Icon(Icons.favorite, color: Colors.red)
+                : const Icon(Icons.favorite, color: Colors.white),
+            onPressed: _viewModel.onSaveFavorite,
+          ),
+      ],
       flexibleSpace: FlexibleSpaceBar(
-        title: Text(status.title,
-            style: const TextStyle(fontSize: 16.0, color: Colors.white)),
+        title: Text(
+          status.title,
+          style: const TextStyle(fontSize: 16.0, color: Colors.white),
+        ),
         background: Stack(
           fit: StackFit.expand,
           children: [

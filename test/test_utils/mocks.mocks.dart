@@ -109,40 +109,6 @@ class MockMoviesRepository extends _i1.Mock implements _i4.MoviesRepository {
       ) as _i5.Future<_i2.Result<_i9.Movie, dynamic>>);
 
   @override
-  _i2.Result<T, dynamic> toResult<T>(_i10.Response<T>? response) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #toResult,
-          [response],
-        ),
-        returnValue: _FakeResult_0<T, dynamic>(
-          this,
-          Invocation.method(
-            #toResult,
-            [response],
-          ),
-        ),
-      ) as _i2.Result<T, dynamic>);
-
-  @override
-  _i5.Future<_i2.Result<T, dynamic>> handleResult<T>(
-          _i5.Future<_i2.Result<T, dynamic>> Function()? doRequest) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #handleResult,
-          [doRequest],
-        ),
-        returnValue:
-            _i5.Future<_i2.Result<T, dynamic>>.value(_FakeResult_0<T, dynamic>(
-          this,
-          Invocation.method(
-            #handleResult,
-            [doRequest],
-          ),
-        )),
-      ) as _i5.Future<_i2.Result<T, dynamic>>);
-
-  @override
   _i5.Future<_i2.Result<T, dynamic>> responseToResult<T>(
           _i5.Future<_i10.Response<T>> Function()? doRequest) =>
       (super.noSuchMethod(

@@ -11,6 +11,10 @@ abstract class MovieDetailStatus
 
   bool get isLoadingVisible;
 
+  bool get isFavoriteVisible;
+
+  bool? get isFavorite;
+
   String get title;
 
   String? get imageUrl;
