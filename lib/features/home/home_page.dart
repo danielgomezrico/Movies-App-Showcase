@@ -15,7 +15,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Movies')),
       bottomNavigationBar: BottomNavigationBar(
         onTap: _onItemTapped,
         currentIndex: _selectedIndex,

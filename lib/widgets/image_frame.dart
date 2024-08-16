@@ -16,7 +16,7 @@ class ImageFrame extends StatelessWidget {
       return CachedNetworkImage(
         imageUrl: imageUrl,
         fit: BoxFit.cover,
-        height: 200,
+        height: 400,
         memCacheWidth: 250 * devicePixel,
         memCacheHeight: 100 * devicePixel,
         imageBuilder: (context, imageProvider) {
