@@ -50,7 +50,12 @@ class _MovieShowcaseState extends State<MovieShowcase> {
         } else if (viewModel.status.isEmptyVisible) {
           return const Center(child: Text('No movies found'));
         } else if (viewModel.status.errorMessage != null) {
-          return Center(child: Text('Error: ${viewModel.status.errorMessage}'));
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text('Error: ${viewModel.status.errorMessage}'),
+            ),
+          );
         } else {
           return _body(viewModel);
         }

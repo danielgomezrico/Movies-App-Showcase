@@ -75,7 +75,7 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
 
         status = status.rebuild(
           (b) => b
-            ..errorMessage = error
+            ..errorMessage = error.toString()
             ..isLoadingVisible = false,
         );
       },
