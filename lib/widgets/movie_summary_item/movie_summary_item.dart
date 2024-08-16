@@ -5,11 +5,11 @@ import 'package:movie_flutter/common/di/modules.dart';
 import 'package:movie_flutter/widgets/image_frame.dart';
 import 'package:movie_flutter/widgets/movie_summary_item/movie_summary_item_view_model.dart';
 
-// TODO: move this simple logic into viewmodel and test it
+// TODO(danielgomezrico): move this simple logic into viewmodel and test it
 class MovieSummaryItem extends StatelessWidget {
   const MovieSummaryItem({
-    super.key,
     required MovieSummary movieSummary,
+    super.key,
   }) : _movieSummary = movieSummary;
 
   final MovieSummary _movieSummary;

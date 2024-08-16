@@ -1,11 +1,12 @@
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:movie_flutter/api/repositories/models/movie.dart';
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
 import 'package:movie_flutter/api/repositories/movies_repository.dart';
 import 'package:movie_flutter/common/date_formatter.dart';
 import 'package:movie_flutter/common/result.dart';
+import 'package:movie_flutter/common/use_case/is_movie_favorite_use_case.dart';
 import 'package:movie_flutter/common/use_case/remove_favorite_movie_use_case.dart';
 import 'package:movie_flutter/common/use_case/save_favorite_movie_use_case.dart';
-import 'package:movie_flutter/common/use_case/is_movie_favorite_use_case.dart';
 import 'package:movie_flutter/common/view_model.dart';
 
 import '../../common/log.dart';
@@ -20,7 +21,7 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
     this._isMovieFavorite,
     this._removeFavoriteMovie,
   ) {
-    var voteAverage = '(${_movieSummary.voteAverage} votes)';
+    final voteAverage = '(${_movieSummary.voteAverage} votes)';
 
     status = MovieDetailStatus(
       (b) {
@@ -45,7 +46,9 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
   final SaveFavoriteMovieUseCase _saveFavoriteMovie;
   final IsMovieFavoriteUseCase _isMovieFavorite;
   final RemoveFavoriteMovieUseCase _removeFavoriteMovie;
-  Movie? _movie;
+
+  @visibleForTesting
+  Movie? movie;
 
   Future<void> onInit() async {
     status = status.rebuild(
@@ -56,8 +59,8 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
 
     await _moviesRepository.get(_movieSummary.movieId).match(
       onSuccess: (movie) {
-        _movie = movie;
-        _showMovie(movie);
+        this.movie = movie;
+        showMovie(movie);
       },
       onError: (error) {
         log.e(
@@ -70,16 +73,15 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
     );
   }
 
-  // TODO: Add tests
-  void onSaveFavorite() async {
-    var movie = _movie;
+  Future<void> onSaveFavorite() async {
+    final movie = this.movie;
     if (movie == null) {
       log.w('[vm] Movie is null saving a favorite movie');
       return;
     }
 
     final bool isFavorite;
-    if (status.isFavorite == true) {
+    if (status.isFavorite ?? false) {
       status = status.rebuild((b) => b..isFavorite = false);
 
       final result = await _removeFavoriteMovie(movie, _movieSummary);
@@ -98,11 +100,12 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
     status = status.rebuild((b) => b..isFavorite = isFavorite);
   }
 
-  void _showMovie(Movie movie) async {
+  @visibleForTesting
+  Future<void> showMovie(Movie movie) async {
     final releaseDate = _releaseDate(movie);
     final language = _language(movie);
     final genres = movie.genres.map((g) => g.name).toList();
-    bool isFavorite = await _isFavorite(movie);
+    final isFavorite = await _isFavorite(movie);
 
     status = status.rebuild(
       (b) {
@@ -118,7 +121,7 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
   }
 
   Future<bool> _isFavorite(Movie movie) async {
-    bool isMovieFavorite = false;
+    var isMovieFavorite = false;
 
     await _isMovieFavorite(movie).match(
       onSuccess: (isFavorite) => isMovieFavorite = isFavorite,

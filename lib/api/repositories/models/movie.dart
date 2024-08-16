@@ -7,8 +7,9 @@ part 'movie.g.dart';
 
 @HiveType(typeId: 0, adapterName: 'MovieAdapter')
 abstract class Movie implements Built<Movie, MovieBuilder> {
-  Movie._();
   factory Movie([void Function(MovieBuilder) updates]) = _$Movie;
+
+  Movie._();
 
   static Serializer<Movie> get serializer => _$movieSerializer;
 
@@ -24,7 +25,7 @@ abstract class Movie implements Built<Movie, MovieBuilder> {
   String get posterPath;
 
   String get url {
-    // TODO: use different sizes for different devices
+    // TODO(danielgomezrico): use different sizes for different devices
     return 'https://image.tmdb.org/t/p/w500$posterPath';
   }
 
@@ -45,8 +46,9 @@ abstract class Movie implements Built<Movie, MovieBuilder> {
 
 @HiveType(typeId: 1, adapterName: 'MovieGenreAdapter')
 abstract class Genre implements Built<Genre, GenreBuilder> {
-  Genre._();
   factory Genre([void Function(GenreBuilder) updates]) = _$Genre;
+
+  Genre._();
 
   static Serializer<Genre> get serializer => _$genreSerializer;
 
@@ -56,8 +58,9 @@ abstract class Genre implements Built<Genre, GenreBuilder> {
 
 @HiveType(typeId: 2, adapterName: 'MovieLanguageAdapter')
 abstract class Language implements Built<Language, LanguageBuilder> {
-  Language._();
   factory Language([void Function(LanguageBuilder) updates]) = _$Language;
+
+  Language._();
 
   static Serializer<Language> get serializer => _$languageSerializer;
 

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:movie_flutter/api/repositories/storages/favorite_movie_storage.dart';
 import 'package:movie_flutter/api/repositories/models/movie.dart';
+import 'package:movie_flutter/api/repositories/storages/favorite_movie_storage.dart';
 import 'package:movie_flutter/common/database/database.dart';
 import 'package:movie_flutter/common/result.dart';
 
@@ -75,7 +75,7 @@ void main() async {
       await runClosingDb(
         [storage()],
         () {
-          var storage = subject();
+          final storage = subject();
 
           storage.append(MovieMother.build(id: 1));
           return storage.append(MovieMother.build(id: 2));

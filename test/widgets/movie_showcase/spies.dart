@@ -1,7 +1,7 @@
 import 'package:movie_flutter/api/repositories/models/movie_sort.dart';
 import 'package:movie_flutter/widgets/movie_showcase/movie_showcase_view_model.dart';
 
-mixin ShowNextMovies on MovieShowcaseViewModel {
+mixin _ShowNextMoviesSpy on MovieShowcaseViewModel {
   int showNextMoviesCount = 0;
 
   @override
@@ -11,21 +11,21 @@ mixin ShowNextMovies on MovieShowcaseViewModel {
 }
 
 class MovieShowcaseViewModelShowNextMoviesSpy extends MovieShowcaseViewModel
-    with ShowNextMovies {
+    with _ShowNextMoviesSpy {
   MovieShowcaseViewModelShowNextMoviesSpy(
     super.moviesRepository,
   );
 }
 
 class MovieShowcaseViewModelOnInitSpy extends MovieShowcaseViewModel
-    with ShowNextMovies {
+    with _ShowNextMoviesSpy {
   MovieShowcaseViewModelOnInitSpy(
     super.moviesRepository,
   );
 }
 
 class MovieShowcaseViewModelOnSortChanges extends MovieShowcaseViewModel
-    with ShowNextMovies {
+    with _ShowNextMoviesSpy {
   MovieShowcaseViewModelOnSortChanges(
     super.moviesRepository,
   );

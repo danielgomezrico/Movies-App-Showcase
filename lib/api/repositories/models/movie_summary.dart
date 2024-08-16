@@ -7,9 +7,10 @@ part 'movie_summary.g.dart';
 @HiveType(typeId: 4, adapterName: 'MovieSummaryAdapter')
 abstract class MovieSummary
     implements Built<MovieSummary, MovieSummaryBuilder> {
-  MovieSummary._();
   factory MovieSummary([void Function(MovieSummaryBuilder) updates]) =
-      _$MovieSummary;
+  _$MovieSummary;
+
+  MovieSummary._();
 
   static Serializer<MovieSummary> get serializer => _$movieSummarySerializer;
 
@@ -38,7 +39,7 @@ abstract class MovieSummary
   String? get url {
     if (imagePath == null) return null;
 
-    // TODO: use different sizes for different devices
+    // TODO(danielgomezrico): use different sizes for different devices
     return 'https://image.tmdb.org/t/p/w500$imagePath';
   }
 }

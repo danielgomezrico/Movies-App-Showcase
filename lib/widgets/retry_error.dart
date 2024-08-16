@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class RetryError extends StatelessWidget {
-  const RetryError({super.key, required this.onRetry, required this.message});
+  const RetryError({required this.onRetry, required this.message, super.key});
 
   final String message;
   final VoidCallback onRetry;

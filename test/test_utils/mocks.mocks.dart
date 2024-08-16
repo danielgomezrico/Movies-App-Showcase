@@ -14,13 +14,20 @@ import 'package:movie_flutter/api/repositories/models/movie_sort.dart' as _i8;
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart'
     as _i7;
 import 'package:movie_flutter/api/repositories/movies_repository.dart' as _i4;
-import 'package:movie_flutter/common/database/storage.dart' as _i14;
+import 'package:movie_flutter/common/database/storage.dart' as _i18;
+import 'package:movie_flutter/common/date_formatter.dart' as _i14;
 import 'package:movie_flutter/common/result.dart' as _i6;
 import 'package:movie_flutter/common/router/router.dart' as _i11;
 import 'package:movie_flutter/common/router/site.dart' as _i13;
+import 'package:movie_flutter/common/use_case/is_movie_favorite_use_case.dart'
+    as _i16;
+import 'package:movie_flutter/common/use_case/remove_favorite_movie_use_case.dart'
+    as _i17;
+import 'package:movie_flutter/common/use_case/save_favorite_movie_use_case.dart'
+    as _i15;
 import 'package:result_monad/src/result_monad_base.dart' as _i2;
 
-import 'mocks.dart' as _i15;
+import 'mocks.dart' as _i19;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -201,15 +208,138 @@ class MockRouter extends _i1.Mock implements _i11.Router {
       )) as _i3.Route<dynamic>?);
 }
 
+/// A class which mocks [DateFormatter].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockDateFormatter extends _i1.Mock implements _i14.DateFormatter {
+  MockDateFormatter() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String formatDate(DateTime? dateTime) => (super.noSuchMethod(
+        Invocation.method(
+          #formatDate,
+          [dateTime],
+        ),
+        returnValue: _i12.dummyValue<String>(
+          this,
+          Invocation.method(
+            #formatDate,
+            [dateTime],
+          ),
+        ),
+      ) as String);
+}
+
+/// A class which mocks [SaveFavoriteMovieUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSaveFavoriteMovieUseCase extends _i1.Mock
+    implements _i15.SaveFavoriteMovieUseCase {
+  MockSaveFavoriteMovieUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>> call(
+    _i9.Movie? movie,
+    _i7.MovieSummary? summary,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [
+            movie,
+            summary,
+          ],
+        ),
+        returnValue: _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>>.value(
+            _FakeResult_0<_i6.EmptyContent, dynamic>(
+          this,
+          Invocation.method(
+            #call,
+            [
+              movie,
+              summary,
+            ],
+          ),
+        )),
+      ) as _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>>);
+}
+
+/// A class which mocks [IsMovieFavoriteUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockIsMovieFavoriteUseCase extends _i1.Mock
+    implements _i16.IsMovieFavoriteUseCase {
+  MockIsMovieFavoriteUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.Future<_i2.Result<bool, dynamic>> call(_i9.Movie? movie) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [movie],
+        ),
+        returnValue: _i5.Future<_i2.Result<bool, dynamic>>.value(
+            _FakeResult_0<bool, dynamic>(
+          this,
+          Invocation.method(
+            #call,
+            [movie],
+          ),
+        )),
+      ) as _i5.Future<_i2.Result<bool, dynamic>>);
+}
+
+/// A class which mocks [RemoveFavoriteMovieUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockRemoveFavoriteMovieUseCase extends _i1.Mock
+    implements _i17.RemoveFavoriteMovieUseCase {
+  MockRemoveFavoriteMovieUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>> call(
+    _i9.Movie? movie,
+    _i7.MovieSummary? summary,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [
+            movie,
+            summary,
+          ],
+        ),
+        returnValue: _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>>.value(
+            _FakeResult_0<_i6.EmptyContent, dynamic>(
+          this,
+          Invocation.method(
+            #call,
+            [
+              movie,
+              summary,
+            ],
+          ),
+        )),
+      ) as _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>>);
+}
+
 /// A class which mocks [Storage].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockStorage extends _i1.Mock implements _i14.Storage {
+class MockStorage extends _i1.Mock implements _i18.Storage {
   @override
   String get name => (super.noSuchMethod(
         Invocation.getter(#name),
-        returnValue: _i15.name(),
-        returnValueForMissingStub: _i15.name(),
+        returnValue: _i19.name(),
+        returnValueForMissingStub: _i19.name(),
       ) as String);
 
   @override

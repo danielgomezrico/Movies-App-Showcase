@@ -69,7 +69,7 @@ void main() {
     }
 
     test('after it reaches the bottom it shows next movies', () async {
-      var viewModel = subject();
+      final viewModel = subject();
       await viewModel.onBottomReached();
       expect(viewModel.showNextMoviesCount, 1);
     });

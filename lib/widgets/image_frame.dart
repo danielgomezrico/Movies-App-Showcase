@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ImageFrame extends StatelessWidget {
-  const ImageFrame({super.key, required this.imageUrl});
+  const ImageFrame({required this.imageUrl, super.key});
 
   final String? imageUrl;
 
@@ -46,7 +46,7 @@ class ImageFrame extends StatelessWidget {
         },
       );
     } else {
-      // TODO: Improve the loading indicator
+      // TODO(danielgomezrico): Improve the loading indicator
       return const _EmptyImage();
     }
   }

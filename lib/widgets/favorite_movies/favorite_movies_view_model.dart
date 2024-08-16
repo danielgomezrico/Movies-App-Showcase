@@ -15,7 +15,7 @@ class FavoriteMoviesViewModel extends ViewModel<FavoriteMoviesStatus> {
 
   final FindFavoriteMovieSummariesUseCase _findFavoriteMovies;
 
-  void onInit() async {
+  Future<void> onInit() async {
     status = status.rebuild((b) => b
       ..isLoadingVisible = true
       ..isEmptyVisible = false);

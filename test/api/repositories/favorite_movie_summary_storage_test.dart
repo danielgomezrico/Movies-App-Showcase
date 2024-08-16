@@ -78,7 +78,7 @@ void main() async {
       await runClosingDb(
         [storage()],
         () {
-          var storage = subject();
+          final storage = subject();
 
           storage.append(MovieSummaryMother.build(movieId: 1));
           return storage.append(MovieSummaryMother.build(movieId: 2));

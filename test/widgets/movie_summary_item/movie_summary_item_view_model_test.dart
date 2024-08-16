@@ -22,7 +22,7 @@ void main() {
     test('', () {
       final movieSummary = MovieSummaryMother.build(
         title: 'my title',
-        voteAverage: 5.0,
+        voteAverage: 5,
         imagePath: '/mypath',
       );
 

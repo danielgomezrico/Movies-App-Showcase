@@ -6,7 +6,6 @@ final _printer = PrettyPrinter(
   lineLength: 20,
   colors: true,
   printEmojis: false,
-  printTime: false,
 );
 
 final log = Logger(

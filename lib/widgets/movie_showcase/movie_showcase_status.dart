@@ -5,10 +5,11 @@ part 'movie_showcase_status.g.dart';
 
 abstract class MovieShowcaseStatus
     implements Built<MovieShowcaseStatus, MovieShowcaseStatusBuilder> {
-  MovieShowcaseStatus._();
   factory MovieShowcaseStatus(
           [void Function(MovieShowcaseStatusBuilder) updates]) =
       _$MovieShowcaseStatus;
+
+  MovieShowcaseStatus._();
 
   List<MovieSummary> get items;
 

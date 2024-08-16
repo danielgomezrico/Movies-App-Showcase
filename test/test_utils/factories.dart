@@ -3,14 +3,13 @@ import 'dart:io';
 import 'package:built_collection/built_collection.dart';
 import 'package:built_value/serializer.dart';
 import 'package:chopper/chopper.dart';
+import 'package:http/http.dart' as http;
 import 'package:movie_flutter/api/repositories/models/movie.dart';
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
 import 'package:movie_flutter/common/result.dart';
 
-import 'package:http/http.dart' as http;
-
 abstract class MovieMother {
-  static get base {
+  static Movie get base {
     return Movie(
       (b) => b
         ..id = 1
@@ -19,7 +18,7 @@ abstract class MovieMother {
         ..genres = ListBuilder(['Action', 'Crime', 'Drama', 'Thriller']
             .map((g) => Genre((b) => b..name = g)))
         ..overview =
-            'Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as the Joker.'
+            'Batman raises the stakes in his war on crime. With the help of Lt.'
         ..releaseDate = null
         ..languages = ListBuilder(
           ['English', 'Mandarin'].map((l) => Language((b) => b..name = l)),
@@ -34,7 +33,7 @@ abstract class MovieMother {
         'https://image.tmdb.org/t/p/w500/1hRoyzDtpgMU7Dz4JF22RANzQO7.jpg',
     List<String> genres = const ['Action', 'Crime', 'Drama', 'Thriller'],
     String overview =
-        'Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as the Joker.',
+        'Batman raises the stakes in his war on crime. With the help of Lt.',
     DateTime? releaseDate,
     List<String> languages = const ['English', 'Mandarin'],
   }) {
@@ -54,7 +53,7 @@ abstract class MovieMother {
 }
 
 abstract class MovieSummaryMother {
-  static get base {
+  static MovieSummary get base {
     return MovieSummary(
       (b) => b
         ..movieId = 1

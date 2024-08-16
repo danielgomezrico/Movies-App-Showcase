@@ -29,7 +29,7 @@ void main() {
     group('with a failure response', () {
       test('returns a failure result', () async {
         final result = await subject().responseToResult(() {
-          return Future.value(ResponseMother.failure());
+          return Future.value(ResponseMother.failure<dynamic>());
         });
 
         expect(result.isFailure, isTrue);
@@ -39,7 +39,7 @@ void main() {
     group('throwing an error', () {
       for (final error in ApiErrorMother.errors) {
         test('returns a failure result with a ${error.runtimeType}', () async {
-          final result = await subject().responseToResult(() {
+          final result = await subject().responseToResult<dynamic>(() {
             throw error;
           });
 

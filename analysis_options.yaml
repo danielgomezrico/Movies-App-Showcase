@@ -1,28 +1,97 @@
-# This file configures the analyzer, which statically analyzes Dart code to
-# check for errors, warnings, and lints.
-#
-# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
-# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
-# invoked from the command line by running `flutter analyze`.
-
-# The following line activates a set of recommended lints for Flutter apps,
-# packages, and plugins designed to encourage good coding practices.
-include: package:flutter_lints/flutter.yaml
+include: package:very_good_analysis/analysis_options.yaml
 
 linter:
-  # The lint rules applied to this project can be customized in the
-  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
-  # included above or to enable additional rules. A list of all available lints
-  # and their documentation is published at https://dart.dev/lints.
-  #
-  # Instead of disabling a lint rule for the entire project in the
-  # section below, it can also be suppressed for a single line of code
-  # or a specific dart file by using the `// ignore: name_of_lint` and
-  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
-  # producing the lint.
   rules:
-    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
-    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    - camel_case_types
+    - file_names
+    - exhaustive_cases
+    - sort_constructors_first
+    - sort_unnamed_constructors_first
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
+analyzer:
+  exclude:
+    - lib/**.g.dart
+    - lib/**.chopper.dart
+
+  errors:
+    always_use_package_imports: false
+    avoid_function_literals_in_foreach_calls: false
+    avoid_positional_boolean_parameters: false
+    avoid_redundant_argument_values: false
+    avoid_returning_null_for_void: warning
+    camel_case_types: warning
+    cascade_invocations: false
+    dead_null_aware_expression: warning
+    exhaustive_cases: warning
+    file_names: warning
+    invalid_use_of_visible_for_testing_member: warning
+    missing_required_param: warning
+    missing_return: warning
+    prefer_final_locals: warning
+    prefer_function_declarations_over_variables: false
+    prefer_typing_uninitialized_variables: warning
+    public_member_api_docs: false
+    require_trailing_commas: false
+    sdk_version_since: warning # Analyzer gives incorrect "Since" warnings on 3.0.*, this rule avoids that problem
+    sort_child_properties_last: warning
+    todo: warning
+    unawaited_futures: false # Avoid awaiting router push and replace results always
+    unnecessary_getters_setters: warning
+    unnecessary_import: warning
+    unnecessary_non_null_assertion: warning
+    unnecessary_null_comparison: warning
+    unrelated_type_equality_checks: warning
+    unused_field: warning
+    unused_import: warning
+    unused_local_variable: warning
+
+  plugins:
+    - dart_code_linter
+
+dart_code_linter:
+  anti-patterns:
+    - long-method
+    #- long-parameter-list
+  metrics:
+    cyclomatic-complexity: 4
+    number-of-parameters: 4
+    maximum-nesting-level: 5
+    halstead-volume: 150
+    maintainability-index: 50
+    weight-of-class: 0.33
+  rules-exclude:
+    - '**.g.dart'
+    - '**state.dart'
+  metrics-exclude:
+    - '**.g.dart'
+    - '**state.dart'
+  rules:
+    - always-remove-listener
+    - avoid-cascade-after-if-null
+    - avoid-redundant-async
+    - avoid-unnecessary-type-assertions
+    - avoid-unnecessary-type-casts
+    - avoid-unrelated-type-assertions
+    - avoid-unused-parameters
+    - avoid-nested-conditional-expressions
+    - avoid-double-slash-imports
+    - avoid-duplicate-exports
+    - avoid-global-state
+    - avoid-unnecessary-conditionals
+    - avoid-unnecessary-type-assertions
+    - avoid-unnecessary-type-casts
+    - newline-before-return
+    - no-boolean-literal-compare
+    - no-empty-block
+    - no-equal-then-else
+    - no-empty-block
+    - no-equal-then-else
+    - prefer-commenting-analyzer-ignores
+    - prefer-correct-test-file-name
+    - prefer-match-file-name:
+        exclude:
+          - lib/common/extension/*
+          - lib/common/route/routes.dart
+          - lib/common/log.dart
+          - lib/main.dart
+          - test/**/stubs.dart

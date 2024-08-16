@@ -8,7 +8,7 @@ import 'package:movie_flutter/features/movie_detail/movie_detail_view_model.dart
 import 'package:movie_flutter/widgets/image_frame.dart';
 
 class MovieDetailPage extends StatefulWidget {
-  const MovieDetailPage({super.key, required this.movieSummary});
+  const MovieDetailPage({required this.movieSummary, super.key});
 
   final MovieSummary movieSummary;
 
@@ -59,15 +59,16 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       delegate: SliverChildListDelegate(
         [
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 _body(status),
-                const SizedBox(height: 16.0),
-                status.isLoadingVisible
-                    ? const Center(child: CircularProgressIndicator())
-                    : _MovieSummary(status: status),
+                const SizedBox(height: 16),
+                if (status.isLoadingVisible)
+                  const Center(child: CircularProgressIndicator())
+                else
+                  _MovieSummary(status: status),
               ],
             ),
           ),
@@ -79,20 +80,20 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   Row _body(MovieDetailStatus status) {
     return Row(
       children: [
-        const Icon(Icons.star, color: Colors.amber, size: 24.0),
-        const SizedBox(width: 4.0),
+        const Icon(Icons.star, color: Colors.amber, size: 24),
+        const SizedBox(width: 4),
         Text(
           status.voteAverage ?? '---',
           style: const TextStyle(
-            fontSize: 18.0,
+            fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
         ),
-        const SizedBox(width: 8.0),
+        const SizedBox(width: 8),
         Text(
           status.voteCount != null ? status.voteCount! : 'Unknown votes',
           style: TextStyle(
-            fontSize: 16.0,
+            fontSize: 16,
             color: Colors.grey[700],
           ),
         ),
@@ -117,7 +118,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
           status.title,
-          style: const TextStyle(fontSize: 16.0, color: Colors.white),
+          style: const TextStyle(fontSize: 16, color: Colors.white),
         ),
         background: Stack(
           fit: StackFit.expand,
@@ -153,8 +154,8 @@ class _MovieSummary extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Wrap(
-          spacing: 8.0,
-          runSpacing: 4.0,
+          spacing: 8,
+          runSpacing: 4,
           children: status.genres.map((genre) {
             return Chip(
               label: Text(genre),
@@ -163,41 +164,41 @@ class _MovieSummary extends StatelessWidget {
             );
           }).toList(),
         ),
-        const SizedBox(height: 16.0),
+        const SizedBox(height: 16),
         const Text(
           'Overview',
           style: TextStyle(
-            fontSize: 22.0,
+            fontSize: 22,
             fontWeight: FontWeight.bold,
             color: Colors.deepPurple,
           ),
         ),
-        const SizedBox(height: 8.0),
+        const SizedBox(height: 8),
         Text(
           status.overview != null ? status.overview! : '---',
           style: TextStyle(
-            fontSize: 16.0,
+            fontSize: 16,
             height: 1.5,
             color: Colors.grey[800],
           ),
         ),
-        const SizedBox(height: 16.0),
+        const SizedBox(height: 16),
         Text(
           status.releaseDate != null
               ? status.releaseDate!
               : 'Release Date: Unknown',
           style: TextStyle(
-            fontSize: 16.0,
+            fontSize: 16,
             color: Colors.grey[700],
           ),
         ),
-        const SizedBox(height: 8.0),
+        const SizedBox(height: 8),
         Text(
           status.language != null
               ? 'Languages: ${status.language}'
               : 'Languages: Unknown',
           style: TextStyle(
-            fontSize: 16.0,
+            fontSize: 16,
             color: Colors.grey[700],
           ),
         ),

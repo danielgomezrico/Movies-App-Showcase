@@ -5,10 +5,11 @@ part 'favorite_movies_status.g.dart';
 
 abstract class FavoriteMoviesStatus
     implements Built<FavoriteMoviesStatus, FavoriteMoviesStatusBuilder> {
-  FavoriteMoviesStatus._();
   factory FavoriteMoviesStatus(
           [void Function(FavoriteMoviesStatusBuilder) updates]) =
       _$FavoriteMoviesStatus;
+
+  FavoriteMoviesStatus._();
 
   List<MovieSummary> get items;
 
