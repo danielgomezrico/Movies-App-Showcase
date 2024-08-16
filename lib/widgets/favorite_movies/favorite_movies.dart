@@ -35,41 +35,45 @@ class _FavoriteMoviesState extends State<FavoriteMovies> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierValue(
-      value: _viewModel,
-      builder: (_, viewModel) {
-        if (viewModel.status.isLoadingVisible) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (viewModel.status.isEmptyVisible) {
-          return const Center(child: Text('No favorite movies found :)'));
-        } else if (viewModel.status.errorMessage != null) {
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: RetryError(
-                message: 'Error: ${viewModel.status.errorMessage}',
-                onRetry: viewModel.onInit,
+    return Scaffold(
+      appBar: AppBar(
+        shadowColor: Colors.black,
+        title: const Text('Favorite Movies'),
+      ),
+      body: ChangeNotifierValue(
+        value: _viewModel,
+        builder: (_, viewModel) {
+          if (viewModel.status.isLoadingVisible) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (viewModel.status.isEmptyVisible) {
+            return const Center(child: Text('No favorite movies found :)'));
+          } else if (viewModel.status.errorMessage != null) {
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: RetryError(
+                  message: 'Error: ${viewModel.status.errorMessage}',
+                  onRetry: viewModel.onInit,
+                ),
               ),
-            ),
-          );
-        } else {
-          return _body(viewModel);
-        }
-      },
+            );
+          } else {
+            return movies(viewModel);
+          }
+        },
+      ),
     );
   }
 
-  Widget _body(FavoriteMoviesViewModel viewModel) {
-    return SingleChildScrollView(
-      child: ListView.separated(
-        shrinkWrap: true,
-        itemCount: viewModel.status.items.length,
-        separatorBuilder: (_, __) => const SizedBox(height: 8),
-        itemBuilder: (_, index) {
-          final item = viewModel.status.items[index];
-          return MovieSummaryItem(movieSummary: item);
-        },
-      ),
+  Widget movies(FavoriteMoviesViewModel viewModel) {
+    return ListView.separated(
+      shrinkWrap: true,
+      itemCount: viewModel.status.items.length,
+      separatorBuilder: (_, __) => const SizedBox(height: 8),
+      itemBuilder: (_, index) {
+        final item = viewModel.status.items[index];
+        return MovieSummaryItem(movieSummary: item);
+      },
     );
   }
 }
