@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movie_flutter/widgets/favorite_movies/favorite_movies.dart';
 import 'package:movie_flutter/widgets/movie_showcase/movie_showcase.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,8 +30,16 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: const MovieShowcase(),
+      body: _body(),
     );
+  }
+
+  Widget _body() {
+    if (_selectedIndex == 0) {
+      return const MovieShowcase();
+    } else {
+      return const FavoriteMovies();
+    }
   }
 
   void _onItemTapped(int index) {

@@ -65,6 +65,7 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
     );
   }
 
+  // TODO: Add tests
   void onSaveFavorite() async {
     var movie = _movie;
     if (movie == null) {
