@@ -6,6 +6,7 @@ import 'package:movie_flutter/common/di/modules.dart';
 import 'package:movie_flutter/widgets/drop_down_selector.dart';
 import 'package:movie_flutter/widgets/movie_summary_item/movie_summary_item.dart';
 import 'package:movie_flutter/widgets/movie_showcase/movie_showcase_view_model.dart';
+import 'package:movie_flutter/widgets/retry_error.dart';
 
 class MovieShowcase extends StatefulWidget {
   const MovieShowcase({super.key});
@@ -53,7 +54,10 @@ class _MovieShowcaseState extends State<MovieShowcase> {
           return Center(
             child: Padding(
               padding: const EdgeInsets.all(16),
-              child: Text('Error: ${viewModel.status.errorMessage}'),
+              child: RetryError(
+                message: 'Error: ${viewModel.status.errorMessage}',
+                onRetry: viewModel.onInit,
+              ),
             ),
           );
         } else {
