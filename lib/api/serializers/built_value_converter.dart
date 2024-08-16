@@ -55,7 +55,10 @@ class BuiltValueConverter extends JsonConverter {
     } else if (element is Map<String, dynamic>?) {
       return _deserialize<SingleItemType>(element);
     } else {
-      log.e('Unknown response body type: $element');
+      log.e(
+        'Unknown response body type: $element',
+        stackTrace: StackTrace.current,
+      );
 
       return null;
     }

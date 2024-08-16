@@ -60,7 +60,11 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
         _showMovie(movie);
       },
       onError: (error) {
-        log.e('[vm] Error getting movie: $error');
+        log.e(
+          '[vm] Error getting movie: $error',
+          error: error,
+          stackTrace: StackTrace.current,
+        );
         status = status.rebuild((b) => b..isLoadingVisible = false);
       },
     );

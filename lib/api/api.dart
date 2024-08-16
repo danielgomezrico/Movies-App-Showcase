@@ -41,6 +41,9 @@ class Api {
   }
 
   static MoviesRepository moviesRepository() {
-    return MoviesRepository(_getService<MoviesRemoteService>());
+    return MoviesRepository(
+      _getService<MoviesRemoteService>(),
+      CommonModule.favoriteMovieStorage(),
+    );
   }
 }

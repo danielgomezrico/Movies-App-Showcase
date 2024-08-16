@@ -71,7 +71,11 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
         );
       },
       onError: (error) {
-        log.e('[vm] Error fetching movies: $error');
+        log.e(
+          '[vm] Error fetching movies',
+          error: error,
+          stackTrace: StackTrace.current,
+        );
 
         status = status.rebuild(
           (b) => b
