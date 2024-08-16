@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:movie_flutter/api/repositories/models/movie_sort.dart';
 import 'package:movie_flutter/widgets/movie_showcase/movie_showcase_status.dart';
 import 'package:movie_flutter/widgets/movie_showcase/movie_showcase_view_model.dart';
 
@@ -90,8 +91,8 @@ void main() {
 
         final status = viewModel.statusChanges();
 
-        await viewModel.showNextMovies();
-        await viewModel.showNextMovies();
+        await viewModel.showNextMovies(MovieSort.titleAsc);
+        await viewModel.showNextMovies(MovieSort.titleAsc);
 
         expect(
           status,
@@ -199,7 +200,7 @@ void main() {
         final viewModel = subject();
         final status = viewModel.statusChanges();
 
-        await viewModel.showNextMovies();
+        await viewModel.showNextMovies(MovieSort.titleAsc);
 
         expect(
           status,
@@ -209,6 +210,47 @@ void main() {
               .having((s) => s.isEmptyVisible, 'isEmptyVisible', isFalse)),
         );
       });
+    });
+  });
+
+  group('.onSortChanged', () {
+    MovieShowcaseViewModelOnSortChanges subject() {
+      return MovieShowcaseViewModelOnSortChanges(moviesRepository);
+    }
+
+    late Stream<_Status> status;
+    late MovieShowcaseViewModelOnSortChanges viewModel;
+
+    setUpAll(() async {
+      viewModel = subject();
+      status = viewModel.statusChanges();
+
+      await viewModel.onSortChanged(MovieSort.titleAsc);
+    });
+
+    test('shown next movies', () {
+      expect(viewModel.showNextMoviesCount, 1);
+    });
+
+    test('updates the current sorting', () {
+      expect(viewModel.sort, MovieSort.titleAsc);
+    });
+
+    test('reset the current page', () {
+      expect(viewModel.page, 1);
+    });
+
+    test('updates the status', () {
+      expect(
+        status,
+        emits(
+          isA<_Status>()
+              .having((s) => s.isLoadingVisible, 'isLoadingVisible', isTrue)
+              .having((s) => s.isEmptyVisible, 'isEmptyVisible', isFalse)
+              .having((s) => s.errorMessage, 'errorMessage', isNull)
+              .having((s) => s.items, 'items', isEmpty),
+        ),
+      );
     });
   });
 }

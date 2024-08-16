@@ -6,7 +6,7 @@ import 'package:movie_flutter/common/result.dart';
 import 'package:movie_flutter/common/view_model.dart';
 import 'package:movie_flutter/widgets/movie_showcase/movie_showcase_status.dart';
 
-const defaultPage = 1;
+const _initialPageIndex = 1;
 
 class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
   MovieShowcaseViewModel(this._moviesRepository) {
@@ -14,13 +14,16 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
       (b) => b
         ..isLoadingVisible = true
         ..isEmptyVisible = false
-        ..sort = MovieSort.titleAsc
         ..items = [],
     );
   }
 
   final MoviesRepository _moviesRepository;
-  int _page = defaultPage;
+
+  @visibleForTesting
+  int page = _initialPageIndex;
+  @visibleForTesting
+  MovieSort sort = MovieSort.titleAsc;
 
   Future<void> onInit() async {
     status = status.rebuild(
@@ -30,33 +33,33 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
         ..errorMessage = null,
     );
 
-    await showNextMovies(status.sort);
+    await showNextMovies(sort);
   }
 
   Future<void> onBottomReached() async {
-    await showNextMovies(status.sort);
+    await showNextMovies(sort);
   }
 
-  Future<void> onSortChanged(MovieSort sort) async {
-    _page = defaultPage;
+  Future<void> onSortChanged(MovieSort movieSort) async {
+    page = _initialPageIndex;
+    sort = movieSort;
 
     status = status.rebuild(
       (b) => b
-        ..sort = sort
         ..items = []
         ..isLoadingVisible = true
         ..isEmptyVisible = false
         ..errorMessage = null,
     );
 
-    await showNextMovies(sort);
+    await showNextMovies(movieSort);
   }
 
   @visibleForTesting
   Future<void> showNextMovies(MovieSort sort) async {
-    await _moviesRepository.getMovies(_page, sort).match(
+    await _moviesRepository.getMovies(page, sort).match(
       onSuccess: (data) {
-        _page++;
+        page++;
 
         final allItems = List.of(status.items)..addAll(data.payload);
 

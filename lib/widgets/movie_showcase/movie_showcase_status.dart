@@ -1,5 +1,4 @@
 import 'package:built_value/built_value.dart';
-import 'package:movie_flutter/api/repositories/models/movie_sort.dart';
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
 
 part 'movie_showcase_status.g.dart';
@@ -18,6 +17,4 @@ abstract class MovieShowcaseStatus
   bool get isEmptyVisible;
 
   String? get errorMessage;
-
-  MovieSort get sort;
 }

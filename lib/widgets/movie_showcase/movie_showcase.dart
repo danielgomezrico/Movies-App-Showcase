@@ -73,9 +73,7 @@ class _MovieShowcaseState extends State<MovieShowcase> {
                 DropDownSelector(
                   labels: MovieSort.values.map(_mapToLabel).toList(),
                   values: MovieSort.values.toList(),
-                  onSelected: (sort) {
-                    viewModel.onSortChanged(sort);
-                  },
+                  onSelected: viewModel.onSortChanged,
                 ),
               ],
             ),
