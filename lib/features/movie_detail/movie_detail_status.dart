@@ -13,7 +13,7 @@ abstract class MovieDetailStatus
 
   String get title;
 
-  String get imageUrl;
+  String? get imageUrl;
 
   String? get overview;
 

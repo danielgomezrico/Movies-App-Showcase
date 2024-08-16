@@ -25,9 +25,11 @@ abstract class MovieSummary
   int get voteCount;
 
   @BuiltValueField(wireName: 'poster_path')
-  String get imagePath;
+  String? get imagePath;
 
-  String get url {
+  String? get url {
+    if (imagePath == null) return null;
+
     // TODO: use different sizes for different devices
     return 'https://image.tmdb.org/t/p/w500$imagePath';
   }

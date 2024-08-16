@@ -5,6 +5,9 @@ import 'package:movie_flutter/api/repositories/movies_repository.dart';
 import 'package:movie_flutter/api/serializers.dart';
 import 'package:movie_flutter/api/serializers/built_value_converter.dart';
 import 'package:movie_flutter/common/di/common_module.dart';
+import 'package:movie_flutter/common/log.dart';
+
+import 'interceptors/log_curl_request_interceptor.dart';
 
 class Api {
   const Api._();
@@ -26,6 +29,7 @@ class Api {
       ],
       interceptors: [
         AttachApiKeyInterceptor(CommonModule.config().apiKey()),
+        LogCurlRequestInterceptor(log),
       ],
     );
   }

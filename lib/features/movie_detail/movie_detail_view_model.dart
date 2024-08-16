@@ -47,7 +47,7 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
         if (movie.languages.isEmpty) {
           language = 'Unknown';
         } else {
-          language = movie.languages.join(', ');
+          language = movie.languages.map((l) => l.name).join(', ');
         }
 
         final genres = movie.genres.map((g) => g.name).toList();

@@ -5,17 +5,18 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i5;
 
-import 'package:chopper/chopper.dart' as _i9;
+import 'package:chopper/chopper.dart' as _i10;
 import 'package:flutter/material.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:mockito/src/dummies.dart' as _i11;
-import 'package:movie_flutter/api/repositories/models/movie.dart' as _i8;
+import 'package:mockito/src/dummies.dart' as _i12;
+import 'package:movie_flutter/api/repositories/models/movie.dart' as _i9;
+import 'package:movie_flutter/api/repositories/models/movie_sort.dart' as _i8;
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart'
     as _i7;
 import 'package:movie_flutter/api/repositories/movies_repository.dart' as _i4;
 import 'package:movie_flutter/common/result.dart' as _i6;
-import 'package:movie_flutter/common/router/router.dart' as _i10;
-import 'package:movie_flutter/common/router/site.dart' as _i12;
+import 'package:movie_flutter/common/router/router.dart' as _i11;
+import 'package:movie_flutter/common/router/site.dart' as _i13;
 import 'package:result_monad/src/result_monad_base.dart' as _i2;
 
 // ignore_for_file: type=lint
@@ -63,11 +64,16 @@ class MockMoviesRepository extends _i1.Mock implements _i4.MoviesRepository {
   @override
   _i5.Future<
       _i2.Result<_i6.PagedContent<List<_i7.MovieSummary>>, dynamic>> getMovies(
-          int? currentPage) =>
+    int? page,
+    _i8.MovieSort? sort,
+  ) =>
       (super.noSuchMethod(
         Invocation.method(
           #getMovies,
-          [currentPage],
+          [
+            page,
+            sort,
+          ],
         ),
         returnValue: _i5.Future<
                 _i2.Result<_i6.PagedContent<List<_i7.MovieSummary>>,
@@ -76,31 +82,34 @@ class MockMoviesRepository extends _i1.Mock implements _i4.MoviesRepository {
           this,
           Invocation.method(
             #getMovies,
-            [currentPage],
+            [
+              page,
+              sort,
+            ],
           ),
         )),
       ) as _i5.Future<
           _i2.Result<_i6.PagedContent<List<_i7.MovieSummary>>, dynamic>>);
 
   @override
-  _i5.Future<_i2.Result<_i8.Movie, dynamic>> get(int? movieId) =>
+  _i5.Future<_i2.Result<_i9.Movie, dynamic>> get(int? movieId) =>
       (super.noSuchMethod(
         Invocation.method(
           #get,
           [movieId],
         ),
-        returnValue: _i5.Future<_i2.Result<_i8.Movie, dynamic>>.value(
-            _FakeResult_0<_i8.Movie, dynamic>(
+        returnValue: _i5.Future<_i2.Result<_i9.Movie, dynamic>>.value(
+            _FakeResult_0<_i9.Movie, dynamic>(
           this,
           Invocation.method(
             #get,
             [movieId],
           ),
         )),
-      ) as _i5.Future<_i2.Result<_i8.Movie, dynamic>>);
+      ) as _i5.Future<_i2.Result<_i9.Movie, dynamic>>);
 
   @override
-  _i2.Result<T, dynamic> toResult<T>(_i9.Response<T>? response) =>
+  _i2.Result<T, dynamic> toResult<T>(_i10.Response<T>? response) =>
       (super.noSuchMethod(
         Invocation.method(
           #toResult,
@@ -135,7 +144,7 @@ class MockMoviesRepository extends _i1.Mock implements _i4.MoviesRepository {
 
   @override
   _i5.Future<_i2.Result<T, dynamic>> responseToResult<T>(
-          _i5.Future<_i9.Response<T>> Function()? doRequest) =>
+          _i5.Future<_i10.Response<T>> Function()? doRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #responseToResult,
@@ -155,7 +164,7 @@ class MockMoviesRepository extends _i1.Mock implements _i4.MoviesRepository {
 /// A class which mocks [Router].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRouter extends _i1.Mock implements _i10.Router {
+class MockRouter extends _i1.Mock implements _i11.Router {
   MockRouter() {
     _i1.throwOnMissingStub(this);
   }
@@ -172,14 +181,14 @@ class MockRouter extends _i1.Mock implements _i10.Router {
   @override
   String get initialRoute => (super.noSuchMethod(
         Invocation.getter(#initialRoute),
-        returnValue: _i11.dummyValue<String>(
+        returnValue: _i12.dummyValue<String>(
           this,
           Invocation.getter(#initialRoute),
         ),
       ) as String);
 
   @override
-  _i5.Future<T?> pushTo<T extends _i12.SiteResult?>(_i12.Site<T>? site) =>
+  _i5.Future<T?> pushTo<T extends _i13.SiteResult?>(_i13.Site<T>? site) =>
       (super.noSuchMethod(
         Invocation.method(
           #pushTo,
@@ -189,8 +198,8 @@ class MockRouter extends _i1.Mock implements _i10.Router {
       ) as _i5.Future<T?>);
 
   @override
-  _i5.Future<_i2.Result<T?, dynamic>> replaceTo<T extends _i12.SiteResult>(
-          _i12.Site<T>? route) =>
+  _i5.Future<_i2.Result<T?, dynamic>> replaceTo<T extends _i13.SiteResult>(
+          _i13.Site<T>? route) =>
       (super.noSuchMethod(
         Invocation.method(
           #replaceTo,

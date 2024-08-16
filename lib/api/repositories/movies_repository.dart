@@ -1,5 +1,6 @@
 import 'package:movie_flutter/api/mixins/result_to_response.dart';
 import 'package:movie_flutter/api/repositories/models/movie.dart';
+import 'package:movie_flutter/api/repositories/models/movie_sort.dart';
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
 import 'package:movie_flutter/api/repositories/movies_remote_service.dart';
 import 'package:movie_flutter/common/result.dart';
@@ -9,9 +10,13 @@ class MoviesRepository with ResultToResponse {
 
   final MoviesRemoteService _service;
 
-  Future<PagedResult<List<MovieSummary>>> getMovies(int currentPage) async {
-    return responseToResult(() => _service.fetchMovies(currentPage))
-        .mapValue((value) {
+  Future<PagedResult<List<MovieSummary>>> getMovies(
+    int page,
+    MovieSort sort,
+  ) async {
+    return responseToResult(
+      () => _service.fetchMovies(page, sort),
+    ).mapValue((value) {
       return PagedContent(
         payload: value.results.toList(),
         page: value.page,

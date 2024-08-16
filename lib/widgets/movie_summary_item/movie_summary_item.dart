@@ -3,6 +3,7 @@ import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
 import 'package:movie_flutter/common/change_notifier/change_notifier_watcher.dart';
 import 'package:movie_flutter/common/di/modules.dart';
 import 'package:movie_flutter/widgets/image_frame.dart';
+import 'package:movie_flutter/widgets/movie_summary_item/movie_summary_item_view_model.dart';
 
 // TODO: move this simple logic into viewmodel and test it
 class MovieSummaryItem extends StatelessWidget {
@@ -20,18 +21,13 @@ class MovieSummaryItem extends StatelessWidget {
       builder: (_, viewModel) {
         return Padding(
           padding: const EdgeInsets.all(8),
-          child: Material(
-            color: Colors.blueAccent, // Make sure the material is transparent
-            borderRadius:
-                BorderRadius.circular(12), // Optional: match the border radius
-            child: InkWell(
-              onTap: viewModel.onTap,
-              child: Stack(
-                children: [
-                  _image(),
-                  _details(),
-                ],
-              ),
+          child: InkWell(
+            onTap: viewModel.onTap,
+            child: Stack(
+              children: [
+                _image(viewModel),
+                _details(viewModel),
+              ],
             ),
           ),
         );
@@ -39,7 +35,7 @@ class MovieSummaryItem extends StatelessWidget {
     );
   }
 
-  Widget _details() {
+  Widget _details(MovieSummaryItemViewModel viewModel) {
     return Positioned(
       bottom: 20,
       left: 20,
@@ -54,7 +50,7 @@ class MovieSummaryItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              _movieSummary.title,
+              viewModel.status.title,
               style: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
@@ -67,7 +63,7 @@ class MovieSummaryItem extends StatelessWidget {
                 const Icon(Icons.star, color: Colors.yellow, size: 16),
                 const SizedBox(width: 5),
                 Text(
-                  _movieSummary.voteAverage.toString(),
+                  viewModel.status.voteAverage,
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -81,7 +77,7 @@ class MovieSummaryItem extends StatelessWidget {
     );
   }
 
-  Widget _image() {
+  Widget _image(MovieSummaryItemViewModel viewModel) {
     return Transform.scale(
       scale: 1.1, // Slight zoom effect
       child: ColorFiltered(
@@ -89,7 +85,7 @@ class MovieSummaryItem extends StatelessWidget {
           Colors.black.withOpacity(0.3), // Shadow effect
           BlendMode.darken,
         ),
-        child: ImageFrame(imageUrl: _movieSummary.url),
+        child: ImageFrame(imageUrl: viewModel.status.imageUrl),
       ),
     );
   }

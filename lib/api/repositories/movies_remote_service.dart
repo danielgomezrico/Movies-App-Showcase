@@ -1,5 +1,6 @@
 import 'package:chopper/chopper.dart';
 import 'package:movie_flutter/api/repositories/models/movie.dart';
+import 'package:movie_flutter/api/repositories/models/movie_sort.dart';
 import 'package:movie_flutter/api/repositories/models/movie_summary_response.dart';
 
 part 'movies_remote_service.chopper.dart';
@@ -14,6 +15,9 @@ abstract class MoviesRemoteService extends ChopperService {
 
   @Get(
       path:
-          '/discover/movie?include_adult=true&include_video=false&language=en-US&sort_by=popularity.desc')
-  Future<Response<MovieSummaryResponse>> fetchMovies(@Query('page') int page);
+          '/discover/movie?include_adult=true&include_video=false&language=en-US')
+  Future<Response<MovieSummaryResponse>> fetchMovies(
+    @Query('page') int page,
+    @Query('sort_by') MovieSort sort,
+  );
 }

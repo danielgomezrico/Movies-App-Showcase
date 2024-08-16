@@ -13,5 +13,5 @@ abstract class MovieSummaryStatus
 
   String get voteAverage;
 
-  String get imageUrl;
+  String? get imageUrl;
 }
