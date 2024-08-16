@@ -13,17 +13,22 @@ abstract class MovieMother {
   static get base {
     return Movie(
       (b) => b
+        ..id = 1
         ..name = 'The Dark Knight'
         ..posterPath = '/1hRoyzDtpgMU7Dz4JF22RANzQO7.jpg'
-        ..genres = ListBuilder(['Action', 'Crime', 'Drama', 'Thriller'])
+        ..genres = ListBuilder(['Action', 'Crime', 'Drama', 'Thriller']
+            .map((g) => Genre((b) => b..name = g)))
         ..overview =
             'Batman raises the stakes in his war on crime. With the help of Lt. Jim Gordon and District Attorney Harvey Dent, Batman sets out to dismantle the remaining criminal organizations that plague the streets. The partnership proves to be effective, but they soon find themselves prey to a reign of chaos unleashed by a rising criminal mastermind known to the terrified citizens of Gotham as the Joker.'
         ..releaseDate = null
-        ..languages = ListBuilder(['English', 'Mandarin']),
+        ..languages = ListBuilder(
+          ['English', 'Mandarin'].map((l) => Language((b) => b..name = l)),
+        ),
     );
   }
 
   static Movie build({
+    int id = 1,
     String name = 'The Dark Knight',
     String posterUrl =
         'https://image.tmdb.org/t/p/w500/1hRoyzDtpgMU7Dz4JF22RANzQO7.jpg',
@@ -35,12 +40,15 @@ abstract class MovieMother {
   }) {
     return Movie(
       (b) => b
+        ..id = id
         ..name = name
         ..posterPath = posterUrl
-        ..genres = ListBuilder(genres)
+        ..genres = ListBuilder(genres.map((g) => Genre((b) => b..name = g)))
         ..overview = overview
         ..releaseDate = releaseDate
-        ..languages = ListBuilder(languages),
+        ..languages = ListBuilder(
+          languages.map((l) => Language((b) => b..name = l)),
+        ),
     );
   }
 }

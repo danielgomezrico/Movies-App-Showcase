@@ -3,6 +3,7 @@
 
 import 'package:mockito/annotations.dart';
 import 'package:movie_flutter/api/repositories/movies_repository.dart';
+import 'package:movie_flutter/common/database/storage.dart';
 import 'package:movie_flutter/common/router/router.dart';
 
 export 'package:mockito/mockito.dart';
@@ -17,7 +18,15 @@ export 'mocks.mocks.dart';
     MoviesRepository,
     Router,
   ],
+  customMocks: [
+    MockSpec<Storage>(
+      onMissingStub: OnMissingStub.returnDefault,
+      fallbackGenerators: {#name: name},
+    ),
+  ],
 )
 // not required for mocks
 // ignore: no-empty-block
 void main() {}
+
+String name() => 'mock-name';

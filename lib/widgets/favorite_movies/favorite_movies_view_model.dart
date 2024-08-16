@@ -1,5 +1,5 @@
 import 'package:movie_flutter/common/result.dart';
-import 'package:movie_flutter/common/use_case/find_favorite_movies_use_case.dart';
+import 'package:movie_flutter/common/use_case/find_favorite_movie_summaries_use_case.dart';
 import 'package:movie_flutter/common/view_model.dart';
 import 'package:movie_flutter/widgets/favorite_movies/favorite_movies_status.dart';
 
@@ -13,7 +13,7 @@ class FavoriteMoviesViewModel extends ViewModel<FavoriteMoviesStatus> {
     );
   }
 
-  final FindFavoriteMoviesUseCase _findFavoriteMovies;
+  final FindFavoriteMovieSummariesUseCase _findFavoriteMovies;
 
   void onInit() async {
     status = status.rebuild((b) => b
@@ -21,9 +21,7 @@ class FavoriteMoviesViewModel extends ViewModel<FavoriteMoviesStatus> {
       ..isEmptyVisible = false);
 
     await _findFavoriteMovies().match(
-      onSuccess: (favoriteContent) {
-        final movieSummaries = favoriteContent.$2;
-
+      onSuccess: (movieSummaries) {
         status = status.rebuild(
           (b) => b
             ..isLoadingVisible = false

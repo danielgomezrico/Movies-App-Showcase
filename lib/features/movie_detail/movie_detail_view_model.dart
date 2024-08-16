@@ -60,6 +60,7 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
         _showMovie(movie);
       },
       onError: (error) {
+        log.e('[vm] Error getting movie: $error');
         status = status.rebuild((b) => b..isLoadingVisible = false);
       },
     );
@@ -78,13 +79,18 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
       status = status.rebuild((b) => b..isFavorite = false);
 
       final result = await _removeFavoriteMovie(movie, _movieSummary);
+      log.d('[vm] removing a favorite movie: $result');
+
       isFavorite = !result.isSuccess;
     } else {
       status = status.rebuild((b) => b..isFavorite = true);
 
       final result = await _saveFavoriteMovie(movie, _movieSummary);
+      log.d('[vm] saving a favorite movie: $result');
+
       isFavorite = result.isSuccess;
     }
+
     status = status.rebuild((b) => b..isFavorite = isFavorite);
   }
 

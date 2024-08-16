@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:movie_flutter/api/api.dart';
+import 'package:movie_flutter/common/database/database.dart';
 import 'package:movie_flutter/common/di/modules.dart';
 
-void main() {
+Future<void> main() async {
   Api.setup(CommonModule.config().apiBaseUrl());
+  await Database.initialize(CommonModule.storages());
 
   runApp(const MyApp());
 }

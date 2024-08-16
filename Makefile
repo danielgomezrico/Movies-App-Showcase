@@ -19,3 +19,6 @@ auto_format: ## Autoformat the code base following lint rules
 check_linters: ## Run all linters
 	flutter analyze
 	flutter format --set-exit-if-changed lib/ test/
+
+app_uninstall: ## Uninstall app from android device for tests
+	adb uninstall com.movie.movie_flutter

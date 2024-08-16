@@ -14,10 +14,13 @@ import 'package:movie_flutter/api/repositories/models/movie_sort.dart' as _i8;
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart'
     as _i7;
 import 'package:movie_flutter/api/repositories/movies_repository.dart' as _i4;
+import 'package:movie_flutter/common/database/storage.dart' as _i14;
 import 'package:movie_flutter/common/result.dart' as _i6;
 import 'package:movie_flutter/common/router/router.dart' as _i11;
 import 'package:movie_flutter/common/router/site.dart' as _i13;
 import 'package:result_monad/src/result_monad_base.dart' as _i2;
+
+import 'mocks.dart' as _i15;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -196,4 +199,52 @@ class MockRouter extends _i1.Mock implements _i11.Router {
         #onGenerateRoute,
         [settings],
       )) as _i3.Route<dynamic>?);
+}
+
+/// A class which mocks [Storage].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockStorage extends _i1.Mock implements _i14.Storage {
+  @override
+  String get name => (super.noSuchMethod(
+        Invocation.getter(#name),
+        returnValue: _i15.name(),
+        returnValueForMissingStub: _i15.name(),
+      ) as String);
+
+  @override
+  _i5.Future<void> initialize() => (super.noSuchMethod(
+        Invocation.method(
+          #initialize,
+          [],
+        ),
+        returnValue: _i5.Future<void>.value(),
+        returnValueForMissingStub: _i5.Future<void>.value(),
+      ) as _i5.Future<void>);
+
+  @override
+  _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>> deleteAll() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteAll,
+          [],
+        ),
+        returnValue: _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>>.value(
+            _FakeResult_0<_i6.EmptyContent, dynamic>(
+          this,
+          Invocation.method(
+            #deleteAll,
+            [],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>>.value(
+                _FakeResult_0<_i6.EmptyContent, dynamic>(
+          this,
+          Invocation.method(
+            #deleteAll,
+            [],
+          ),
+        )),
+      ) as _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>>);
 }

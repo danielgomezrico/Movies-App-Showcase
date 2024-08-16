@@ -46,18 +46,18 @@ void main() async {
 
   group('.formatDate', () {
     final months = {
-      1: 'Ene',
+      1: 'Jan',
       2: 'Feb',
       3: 'Mar',
-      4: 'Abr',
+      4: 'Apr',
       5: 'May',
       6: 'Jun',
       7: 'Jul',
-      8: 'Ago',
+      8: 'Aug',
       9: 'Sep',
       10: 'Oct',
       11: 'Nov',
-      12: 'Dic',
+      12: 'Dec',
     };
 
     months.forEach((monthNumber, value) {

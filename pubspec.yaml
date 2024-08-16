@@ -21,6 +21,12 @@ dependencies:
   http: 1.2.2
   logger: 2.0.2+1
   shimmer: 3.0.0
+  hive_built_value_flutter:
+    # Adding from git because the author has not made the update to pub.dev
+    git:
+      url: git@github.com:martipello/hive_built_value.git
+      path: hive_built_value_flutter
+      ref: 3daa1858effbbd94b0aa5b87b8277d3871a75152
 
 dev_dependencies:
   flutter_test:
@@ -33,6 +39,13 @@ dev_dependencies:
   collection: 1.18.0
   intl_utils: 2.8.7
   timezone: 0.9.4
+  hive_built_value_generator:
+    # Adding from git because the author has not made the update to pub.dev
+    git:
+      url: git@github.com:martipello/hive_built_value.git
+      path: hive_built_value_generator
+      ref: 3daa1858effbbd94b0aa5b87b8277d3871a75152
+  uuid: 4.4.2
 
 flutter:
   uses-material-design: true
