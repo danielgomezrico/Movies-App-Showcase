@@ -2,14 +2,17 @@ help:
 	@egrep -h '\s##\s' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m  %-30s\033[0m %s\n", $$1, $$2}'
 
 test: ## Run tests
-	make prepare
+	make autogenerate
 	flutter test
 
-run:
-	make prepare
+run: ## Run the project on device
+	make autogenerate
 	flutter run
 
-prepare: ## Auto generate files
+lint: ## Run all linters
+	./scripts/validate-lint.sh
+
+autogenerate: ## Auto generate files
 	dart run build_runner build
 
 prepare_watch: ## Auto generate files

@@ -1,3 +1,6 @@
+// Group all factories in one file
+// ignore_for_file: prefer-correct-test-file-name
+
 import 'dart:io';
 
 import 'package:built_collection/built_collection.dart';

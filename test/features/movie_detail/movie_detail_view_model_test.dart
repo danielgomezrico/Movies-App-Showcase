@@ -260,14 +260,125 @@ void main() {
 
   group('.onSaveFavorite', () {
     group('having a favorite movie', () {
-      setUpAll(() async {
-        final viewModel = subject();
-        viewModel.movie = MovieMother.base;
+      group('with an ok removing the favorite', () {
+        late Stream<_Status> status;
 
-        viewModel.onSaveFavorite();
+        setUpAll(() async {
+          when(removeFavoriteMovie.call(any, any)).thenOk();
+
+          final viewModel = subject();
+          viewModel.movie = MovieMother.base;
+          viewModel.status =
+              viewModel.status.rebuild((b) => b..isFavorite = true);
+          status = viewModel.statusChanges();
+
+          await viewModel.onSaveFavorite();
+        });
+
+        test('remove movie from favorites', () {
+          verify(removeFavoriteMovie.call(any, any));
+        });
+
+        test('emits the status', () {
+          expect(
+            status,
+            emits(
+              isA<_Status>().having((s) => s.isFavorite, 'isFavorite', isFalse),
+            ),
+          );
+        });
       });
 
-      test('remove movie from favorites', () {});
+      group('with an error removing the favorite', () {
+        late Stream<_Status> status;
+
+        setUpAll(() async {
+          when(removeFavoriteMovie.call(any, any)).thenError();
+
+          final viewModel = subject();
+          viewModel.movie = MovieMother.base;
+          viewModel.status =
+              viewModel.status.rebuild((b) => b..isFavorite = true);
+          status = viewModel.statusChanges();
+
+          await viewModel.onSaveFavorite();
+        });
+
+        test('remove movie from favorites', () {
+          verify(removeFavoriteMovie.call(any, any));
+        });
+
+        test('restores the original status', () {
+          expect(
+            status,
+            emitsInOrder([
+              isA<_Status>().having((s) => s.isFavorite, 'isFavorite', isFalse),
+              isA<_Status>().having((s) => s.isFavorite, 'isFavorite', isTrue),
+            ]),
+          );
+        });
+      });
+    });
+
+    group('without having a favorite movie', () {
+      group('with an ok saving the favorite', () {
+        late Stream<_Status> status;
+
+        setUpAll(() async {
+          when(saveFavoriteMovie.call(any, any)).thenOk();
+
+          final viewModel = subject();
+          viewModel.movie = MovieMother.base;
+          viewModel.status =
+              viewModel.status.rebuild((b) => b..isFavorite = false);
+          status = viewModel.statusChanges();
+
+          await viewModel.onSaveFavorite();
+        });
+
+        test('save movie as favorites', () {
+          verify(saveFavoriteMovie.call(any, any));
+        });
+
+        test('emits the status', () {
+          expect(
+            status,
+            emits(
+              isA<_Status>().having((s) => s.isFavorite, 'isFavorite', isTrue),
+            ),
+          );
+        });
+      });
+
+      group('with an error saving the favorite', () {
+        late Stream<_Status> status;
+
+        setUpAll(() async {
+          when(saveFavoriteMovie.call(any, any)).thenError();
+
+          final viewModel = subject();
+          viewModel.movie = MovieMother.base;
+          viewModel.status =
+              viewModel.status.rebuild((b) => b..isFavorite = false);
+          status = viewModel.statusChanges();
+
+          await viewModel.onSaveFavorite();
+        });
+
+        test('save movie as favorites', () {
+          verify(saveFavoriteMovie.call(any, any));
+        });
+
+        test('restores the original status', () {
+          expect(
+            status,
+            emitsInOrder([
+              isA<_Status>().having((s) => s.isFavorite, 'isFavorite', isTrue),
+              isA<_Status>().having((s) => s.isFavorite, 'isFavorite', isFalse),
+            ]),
+          );
+        });
+      });
     });
   });
 }

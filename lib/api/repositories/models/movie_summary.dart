@@ -42,4 +42,10 @@ abstract class MovieSummary
     // TODO(danielgomezrico): use different sizes for different devices
     return 'https://image.tmdb.org/t/p/w500$imagePath';
   }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('MovieSummary')..add('id', movieId))
+        .toString();
+  }
 }

@@ -1,3 +1,6 @@
+// Group all extensions in one file
+// ignore_for_file: prefer-correct-test-file-name
+
 import 'dart:async';
 
 import 'package:movie_flutter/common/view_model.dart';

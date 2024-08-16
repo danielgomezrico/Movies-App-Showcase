@@ -13,7 +13,7 @@ class SaveFavoriteMovieUseCase {
   final FavoriteMovieStorage _favoriteMovieStorage;
   final FavoriteMovieSummaryStorage _favoriteMovieSummaryStorage;
 
-  Future<EmptyResult> call(Movie movie, MovieSummary summary) async {
+  Future<EmptyResult> call(Movie movie, MovieSummary summary) {
     return _favoriteMovieStorage
         .append(movie)
         .mapValue((_) => _favoriteMovieSummaryStorage.append(summary))

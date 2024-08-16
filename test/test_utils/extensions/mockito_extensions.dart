@@ -1,3 +1,6 @@
+// Group all extensions in one file
+// ignore_for_file: prefer-correct-test-file-name
+
 import 'dart:collection';
 
 import 'package:mockito/mockito.dart';
@@ -12,6 +15,20 @@ extension ResultMock<T> on PostExpectation<Future<Result<T>>> {
 
   void thenError({String message = 'error'}) {
     final result = Result<T>.error(message);
+
+    thenAnswer((_) => Future.value(result));
+  }
+}
+
+extension EmptyResultMock on PostExpectation<Future<Result<EmptyContent>>> {
+  void thenOk() {
+    final result = Result.ok(const EmptyContent());
+
+    thenAnswer((_) => Future.value(result));
+  }
+
+  void thenError({String message = 'error'}) {
+    final result = Result<EmptyContent>.error(message);
 
     thenAnswer((_) => Future.value(result));
   }

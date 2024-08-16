@@ -7,7 +7,7 @@ class IsMovieFavoriteUseCase {
 
   final FavoriteMovieSummaryStorage _favoriteMoviesRepository;
 
-  Future<Result<bool>> call(Movie movie) async {
+  Future<Result<bool>> call(Movie movie) {
     return _favoriteMoviesRepository
         .get(movie.id)
         .mapValue((movie) => true)

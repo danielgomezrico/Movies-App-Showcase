@@ -1,5 +1,5 @@
 import 'package:chopper/chopper.dart';
-import 'package:movie_flutter/api/interceptors/attach_api_key_header_interceptor.dart';
+import 'package:movie_flutter/api/interceptors/attach_api_key_interceptor.dart';
 import 'package:movie_flutter/api/repositories/movies_remote_service.dart';
 import 'package:movie_flutter/api/repositories/movies_repository.dart';
 import 'package:movie_flutter/api/serializers.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_flutter/api/api.dart';
 import 'package:movie_flutter/common/database/database.dart';
 import 'package:movie_flutter/common/di/modules.dart';
-import 'package:movie_flutter/common/theme.dart';
+import 'package:movie_flutter/common/custom_theme.dart';
 
 Future<void> main() async {
   Api.setup(CommonModule.config().apiBaseUrl());

@@ -14,7 +14,7 @@ class RemoveFavoriteMovieUseCase {
   final FavoriteMovieStorage _favoriteMovieStorage;
   final FavoriteMovieSummaryStorage _favoriteMovieSummaryStorage;
 
-  Future<EmptyResult> call(Movie movie, MovieSummary summary) async {
+  Future<EmptyResult> call(Movie movie, MovieSummary summary) {
     return _favoriteMovieStorage
         .delete(movie)
         .mapValue((_) => _favoriteMovieSummaryStorage.delete(summary))
