@@ -5,6 +5,12 @@ test: ## Run tests
 	make autogenerate
 	flutter test
 
+test_with_coverage: ## Run tests with coverage
+	make autogenerate
+	flutter test --coverage --no-pub
+	genhtml coverage/lcov.info -o coverage/html
+	@echo "--> Check coverage report at coverage/html/index.html"
+
 run: ## Run the project on device
 	make autogenerate
 	flutter run

@@ -46,10 +46,10 @@ mixin ResultToResponse {
       // ignore: avoid_catching_errors
     } on DeserializationError catch (e, stack) {
       log.e('Error deserializing a response', error: e, stackTrace: stack);
-      return Result.error('Error with our services, try again later');
+      return Result.error('Error with our services, try again later.');
     } on FormatException catch (e, stack) {
       log.e('Error formatting a response', error: e, stackTrace: stack);
-      return Result.error('Error with our services, try again later');
+      return Result.error('Error with our services, try again later.');
     } on TimeoutException catch (_) {
       return Result.error('It looks like you do not have network connection.');
     } on SocketException catch (_) {

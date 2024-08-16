@@ -36,14 +36,32 @@ void main() {
       });
     });
 
-    group('throwing an error', () {
-      for (final error in ApiErrorMother.errors) {
+    group('throwing a network error', () {
+      for (final error in ApiErrorMother.networkErrors) {
         test('returns a failure result with a ${error.runtimeType}', () async {
           final result = await subject().responseToResult<dynamic>(() {
             throw error;
           });
 
-          expect(result.error, error);
+          expect(
+            result.error,
+            'It looks like you do not have network connection.',
+          );
+        });
+      }
+    });
+
+    group('throwing a network error', () {
+      for (final error in ApiErrorMother.deserializationErrors) {
+        test('returns a failure result with a ${error.runtimeType}', () async {
+          final result = await subject().responseToResult<dynamic>(() {
+            throw error;
+          });
+
+          expect(
+            result.error,
+            'Error with our services, try again later.',
+          );
         });
       }
     });
