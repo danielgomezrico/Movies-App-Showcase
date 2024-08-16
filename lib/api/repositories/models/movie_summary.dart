@@ -8,7 +8,7 @@ part 'movie_summary.g.dart';
 abstract class MovieSummary
     implements Built<MovieSummary, MovieSummaryBuilder> {
   factory MovieSummary([void Function(MovieSummaryBuilder) updates]) =
-  _$MovieSummary;
+      _$MovieSummary;
 
   MovieSummary._();
 
