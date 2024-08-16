@@ -1,14 +1,19 @@
 help:
 	@egrep -h '\s##\s' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m  %-30s\033[0m %s\n", $$1, $$2}'
 
-unit-test: ## Run tests
+test: ## Run tests
+	make prepare
 	flutter test
 
+run:
+	make prepare
+	flutter run
+
 prepare: ## Auto generate files
-	dart run build_runner build --delete-conflicting-outputs
+	dart run build_runner build
 
 prepare_watch: ## Auto generate files
-	dart run build_runner watch --delete-conflicting-outputs
+	dart run build_runner watch
 
 build_android: ## Build android
 	flutter build apk --release
