@@ -28,7 +28,7 @@ abstract class Movie implements Built<Movie, MovieBuilder> {
   @BuiltValueField(wireName: 'release_date')
   DateTime? get releaseDate;
 
-  @BuiltValue(wireName: 'spoken_languages')
+  @BuiltValueField(wireName: 'spoken_languages')
   BuiltList<Language> get languages;
 }
 
