@@ -41,11 +41,12 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       value: _viewModel,
       builder: (_, __) {
         final status = _viewModel.status;
+        final textTheme = Theme.of(context).textTheme;
 
         return Scaffold(
           body: CustomScrollView(
             slivers: [
-              _appBar(status),
+              _appBar(status, textTheme),
               _detail(status),
             ],
           ),
@@ -63,7 +64,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _body(status),
+                _body(status, context),
                 const SizedBox(height: 16),
                 if (status.isLoadingVisible)
                   const Center(child: CircularProgressIndicator())
@@ -77,31 +78,24 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
     );
   }
 
-  Row _body(MovieDetailStatus status) {
+  Row _body(MovieDetailStatus status, BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Row(
       children: [
         const Icon(Icons.star, color: Colors.amber, size: 24),
         const SizedBox(width: 4),
-        Text(
-          status.voteAverage ?? '---',
-          style: const TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        Text(status.voteAverage ?? '---', style: textTheme.bodyMedium),
         const SizedBox(width: 8),
         Text(
           status.voteCount != null ? status.voteCount! : 'Unknown votes',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey[700],
-          ),
+          style: textTheme.bodyMedium,
         ),
       ],
     );
   }
 
-  SliverAppBar _appBar(MovieDetailStatus status) {
+  SliverAppBar _appBar(MovieDetailStatus status, TextTheme textTheme) {
     return SliverAppBar(
       expandedHeight: 400,
       pinned: true,
@@ -111,14 +105,14 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           IconButton(
             icon: _viewModel.status.isFavorite ?? false
                 ? const Icon(Icons.favorite, color: Colors.red)
-                : const Icon(Icons.favorite, color: Colors.white),
+                : const Icon(Icons.favorite_border, color: Colors.white),
             onPressed: _viewModel.onSaveFavorite,
           ),
       ],
       flexibleSpace: FlexibleSpaceBar(
         title: Text(
           status.title,
-          style: const TextStyle(fontSize: 16, color: Colors.white),
+          style: textTheme.titleSmall?.copyWith(color: Colors.white),
         ),
         background: Stack(
           fit: StackFit.expand,
@@ -150,9 +144,13 @@ class _MovieSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text('Genres', style: textTheme.titleSmall),
+        const SizedBox(height: 8),
         Wrap(
           spacing: 8,
           runSpacing: 4,
@@ -160,47 +158,30 @@ class _MovieSummary extends StatelessWidget {
             return Chip(
               label: Text(genre),
               backgroundColor: Colors.deepPurpleAccent.withOpacity(0.7),
-              labelStyle: const TextStyle(color: Colors.white),
+              labelStyle: textTheme.labelLarge?.copyWith(color: Colors.white),
             );
           }).toList(),
         ),
         const SizedBox(height: 16),
-        const Text(
-          'Overview',
-          style: TextStyle(
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-            color: Colors.deepPurple,
-          ),
-        ),
+        Text('Overview', style: textTheme.titleSmall),
         const SizedBox(height: 8),
         Text(
           status.overview != null ? status.overview! : '---',
-          style: TextStyle(
-            fontSize: 16,
-            height: 1.5,
-            color: Colors.grey[800],
-          ),
+          style: textTheme.bodyMedium,
         ),
         const SizedBox(height: 16),
         Text(
           status.releaseDate != null
               ? status.releaseDate!
               : 'Release Date: Unknown',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey[700],
-          ),
+          style: textTheme.labelSmall,
         ),
         const SizedBox(height: 8),
         Text(
           status.language != null
               ? 'Languages: ${status.language}'
               : 'Languages: Unknown',
-          style: TextStyle(
-            fontSize: 16,
-            color: Colors.grey[700],
-          ),
+          style: textTheme.bodySmall,
         ),
       ],
     );

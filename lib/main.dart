@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movie_flutter/api/api.dart';
 import 'package:movie_flutter/common/database/database.dart';
 import 'package:movie_flutter/common/di/modules.dart';
+import 'package:movie_flutter/common/theme.dart';
 
 Future<void> main() async {
   Api.setup(CommonModule.config().apiBaseUrl());
@@ -19,10 +20,7 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'Movies App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
-        useMaterial3: true,
-      ),
+      theme: CustomTheme.light,
       navigatorKey: router.navigatorKey,
       initialRoute: router.initialRoute,
       onGenerateRoute: router.onGenerateRoute,

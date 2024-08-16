@@ -26,7 +26,7 @@ class MovieSummaryItem extends StatelessWidget {
             child: Stack(
               children: [
                 _image(viewModel),
-                _details(viewModel),
+                _details(viewModel, context),
               ],
             ),
           ),
@@ -35,7 +35,9 @@ class MovieSummaryItem extends StatelessWidget {
     );
   }
 
-  Widget _details(MovieSummaryItemViewModel viewModel) {
+  Widget _details(MovieSummaryItemViewModel viewModel, BuildContext context) {
+    final textStyle = Theme.of(context).textTheme;
+
     return Positioned(
       bottom: 20,
       left: 20,
@@ -51,11 +53,7 @@ class MovieSummaryItem extends StatelessWidget {
           children: [
             Text(
               viewModel.status.title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+              style: textStyle.titleSmall?.copyWith(color: Colors.white),
             ),
             const SizedBox(height: 8),
             Row(
@@ -64,10 +62,7 @@ class MovieSummaryItem extends StatelessWidget {
                 const SizedBox(width: 5),
                 Text(
                   viewModel.status.voteAverage,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
+                  style: textStyle.bodySmall?.copyWith(color: Colors.white),
                 ),
               ],
             ),
