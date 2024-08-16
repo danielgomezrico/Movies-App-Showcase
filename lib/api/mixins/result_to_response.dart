@@ -5,6 +5,7 @@ import 'package:built_value/serializer.dart';
 import 'package:chopper/chopper.dart';
 
 import 'package:http/http.dart' show ClientException;
+import 'package:movie_flutter/common/log.dart';
 import 'package:movie_flutter/common/result.dart';
 
 mixin ResultToResponse {
@@ -43,18 +44,20 @@ mixin ResultToResponse {
 
       // Ignore exists because of this issue https://github.com/google/built_value.dart/issues/1293
       // ignore: avoid_catching_errors
-    } on DeserializationError catch (e) {
-      return Result.error(e);
-    } on FormatException catch (e) {
-      return Result.error(e);
-    } on TimeoutException catch (e) {
-      return Result.error(e);
-    } on SocketException catch (e) {
-      return Result.error(e);
-    } on HandshakeException catch (e) {
-      return Result.error(e);
-    } on ClientException catch (e) {
-      return Result.error(e);
+    } on DeserializationError catch (e, stack) {
+      log.e('Error deserializing a response', error: e, stackTrace: stack);
+      return Result.error('Error with our services, try again later');
+    } on FormatException catch (e, stack) {
+      log.e('Error formatting a response', error: e, stackTrace: stack);
+      return Result.error('Error with our services, try again later');
+    } on TimeoutException catch (_) {
+      return Result.error('It looks like you do not have network connection.');
+    } on SocketException catch (_) {
+      return Result.error('It looks like you do not have network connection.');
+    } on HandshakeException catch (_) {
+      return Result.error('It looks like you do not have network connection.');
+    } on ClientException catch (_) {
+      return Result.error('It looks like you do not have network connection.');
     }
   }
 }
