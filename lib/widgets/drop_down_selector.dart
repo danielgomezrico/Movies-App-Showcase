@@ -7,7 +7,7 @@ class DropDownSelector<T> extends StatefulWidget {
     required this.onSelected,
     super.key,
   }) : assert(labels.length == values.length,
-  'labels and values lists must have the same length');
+            'labels and values lists must have the same length');
 
   final List<String> labels;
   final List<T> values;

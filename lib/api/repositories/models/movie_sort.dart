@@ -12,7 +12,6 @@ class MovieSort extends EnumClass {
 
   static Serializer<MovieSort> get serializer => _$movieSortSerializer;
 
-
   @BuiltValueEnumConst(wireName: 'original_title.asc')
   static const MovieSort titleAsc = _$titleAsc;
 
@@ -26,7 +25,7 @@ class MovieSort extends EnumClass {
   static const MovieSort releaseDateDesc = _$releaseDateDesc;
 
   String wiredValue() {
-    switch(this) {
+    switch (this) {
       case MovieSort.titleAsc:
         return 'original_title.asc';
       case MovieSort.titleDesc:

@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:chopper/chopper.dart';
@@ -13,8 +12,8 @@ class LogCurlRequestInterceptor implements Interceptor {
 
   @override
   FutureOr<Response<BodyType>> intercept<BodyType>(
-      Chain<BodyType> chain,
-      ) async {
+    Chain<BodyType> chain,
+  ) async {
     final baseRequest = await chain.request.toBaseRequest();
     final curlParts = ['curl -v -X ${baseRequest.method}'];
 
