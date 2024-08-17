@@ -41,7 +41,7 @@ abstract class MovieMother {
     String overview =
         'Batman raises the stakes in his war on crime. With the help of Lt.',
     DateTime? releaseDate,
-    double popularity= 2.0,
+    double popularity = 2.0,
     List<String> languages = const ['English', 'Mandarin'],
   }) {
     return Movie(

@@ -17,7 +17,7 @@ class MoviesRepository with ResultToResponse {
     int page,
     MovieSort sort,
     MovieCategory category,
-  ) async {
+  ) {
     switch (category) {
       case MovieCategory.popular:
         return _fetchPopularMovies(page, sort);
@@ -37,11 +37,11 @@ class MoviesRepository with ResultToResponse {
   }
 
   FutureResult<PagedContent<List<MovieSummary>>, dynamic> _fetchPopularMovies(
-      int page,
-      MovieSort sort,
-      ) {
+    int page,
+    MovieSort sort,
+  ) {
     return responseToResult(
-          () => _service.fetchMovies(page, sort),
+      () => _service.fetchMovies(page, sort),
     ).mapValue((value) {
       return PagedContent(
         payload: value.results.toList(),
@@ -53,14 +53,14 @@ class MoviesRepository with ResultToResponse {
   }
 
   Future<PagedResult<List<MovieSummary>>> _getMoviesPlayingNow(
-      int page,
-      MovieSort sort,
-      ) {
+    int page,
+    MovieSort sort,
+  ) {
     final maxDate = DateTime.now();
     final minDate = maxDate.subtract(const Duration(days: 1));
 
     return responseToResult(
-          () {
+      () {
         return _service.fetchMoviesInReleaseDate(
           page,
           sort,

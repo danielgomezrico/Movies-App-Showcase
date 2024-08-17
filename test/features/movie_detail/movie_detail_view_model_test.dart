@@ -260,7 +260,7 @@ void main() {
         final movie = MovieMother.build(
           languages: ['language', 'language2'],
           genres: ['genre', 'genre2'],
-          popularity: 3.0,
+          popularity: 3,
           releaseDate: DateTime(2021, 1, 1),
         );
         when(dateFormatter.formatDate(any)).thenReturn('Jan 1, 2021');

@@ -53,6 +53,7 @@ $ make test_with_covereage
   - `api/`: contains all logic to communicate with the API
 - Tests:
   - Mostly of what is being tested is the business logic, we want to have a lot of these because they run fast.
+  - One integration test was added to show the use of mockito and UI Robots pattern.
 - `Favorite feature`: is using a positive UI strategy to show faster the feedback to the user.
 - `EventBus`: used to update the list of favorites if the user changed it.
 - `Router`: is a simple custom implementation that allows us to have type safety when navigating between pages:
