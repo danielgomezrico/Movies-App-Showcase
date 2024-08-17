@@ -10,7 +10,7 @@ autogenerate: ## Auto generate files
 autogenerate_watching: ## Auto generate files
 	dart run build_runner watch
 
-test: ## Run tests with coverage
+tests: ## Run tests with coverage
 	./scripts/test-with-coverage.sh
 
 run: ## Run the project on device

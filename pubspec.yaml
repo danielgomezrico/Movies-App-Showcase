@@ -46,6 +46,8 @@ dev_dependencies:
       url: git@github.com:martipello/hive_built_value.git
       path: hive_built_value_generator
       ref: 3daa1858effbbd94b0aa5b87b8277d3871a75152
+  integration_test:
+    sdk: flutter
   intl_utils: 2.8.7
   mockito: 5.4.4
   timezone: 0.9.4
@@ -54,6 +56,7 @@ dev_dependencies:
 
 dependency_overrides:
   file: ^7.0.0 # avoid conflict with dart_code_linter and cached_network_image
+  process: 5.0.2 # avoid conflict with dart_code_linter and integration_test
 
 flutter:
   uses-material-design: true

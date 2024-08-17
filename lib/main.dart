@@ -7,6 +7,12 @@ import 'package:movie_flutter/common/log.dart';
 import 'package:movie_flutter/common/result.dart';
 
 Future<void> main() async {
+  await setupServices();
+
+  runApp(const MyApp());
+}
+
+Future<void> setupServices() async {
   await CommonModule.config().setup().onError((e, s) {
     log.e('[main] Error initializing .env', error: e, stackTrace: s);
     return Result.error(e);
@@ -18,8 +24,6 @@ Future<void> main() async {
     log.e('[main] Error initializing database', error: e, stackTrace: s);
     return Result.error(e);
   });
-
-  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

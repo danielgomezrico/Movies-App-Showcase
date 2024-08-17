@@ -22,10 +22,12 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.movie_filter),
             label: 'Discover',
+            key: ValueKey('tab.discover'),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
             label: 'Favorites',
+            key: ValueKey('tab.favorites'),
           ),
         ],
       ),
