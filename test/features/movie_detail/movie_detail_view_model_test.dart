@@ -181,6 +181,29 @@ void main() {
       });
     });
 
+    group('with a error checking favorite movie', () {
+      test('emits it', () {
+        when(isMovieFavorite(any)).thenError();
+
+        final viewModel = subject();
+        viewModel.status =
+            viewModel.status.rebuild((b) => b..isFavorite = false);
+
+        final status = viewModel.statusChanges();
+
+        viewModel.showMovie(MovieMother.base);
+
+        expect(
+          status,
+          emits(
+            isA<_Status>()
+                .having((s) => s.isFavoriteVisible, 'isFavoriteVisible', isTrue)
+                .having((s) => s.isFavorite, 'isFavorite', false),
+          ),
+        );
+      });
+    });
+
     group('with a movie with empty genres', () {
       test('emits it', () {
         final movie = MovieMother.build(genres: []);
@@ -384,31 +407,44 @@ void main() {
       });
     });
 
-    group('.onBackTap', () {
-      group('with a non favorite movie', () {
-        test('pops with site result', () {
-          final viewModel = subject();
-          viewModel.status =
-              viewModel.status.rebuild((b) => b..isFavorite = false);
+    group('without a movie', () {
+      test('does nothing', () async {
+        final viewModel = subject();
+        final statusController = viewModel.statusChangesController();
 
-          viewModel.onBackTap();
+        await viewModel.onSaveFavorite();
 
-          verify(
-            router.pop<SiteResult>(argThat(isA<MovieRemovedFromFavorite>())),
-          );
-        });
+        statusController.close();
+
+        expect(statusController.stream, neverEmits(anything));
       });
+    });
+  });
 
-      group('with a favorite movie', () {
-        test('pops without a site result', () {
-          final viewModel = subject();
-          viewModel.status =
-              viewModel.status.rebuild((b) => b..isFavorite = true);
+  group('.onBackTap', () {
+    group('with a non favorite movie', () {
+      test('pops with site result', () {
+        final viewModel = subject();
+        viewModel.status =
+            viewModel.status.rebuild((b) => b..isFavorite = false);
 
-          viewModel.onBackTap();
+        viewModel.onBackTap();
 
-          verify(router.pop<SiteResult>());
-        });
+        verify(
+          router.pop<SiteResult>(argThat(isA<MovieRemovedFromFavorite>())),
+        );
+      });
+    });
+
+    group('with a favorite movie', () {
+      test('pops without a site result', () {
+        final viewModel = subject();
+        viewModel.status =
+            viewModel.status.rebuild((b) => b..isFavorite = true);
+
+        viewModel.onBackTap();
+
+        verify(router.pop<SiteResult>());
       });
     });
   });
