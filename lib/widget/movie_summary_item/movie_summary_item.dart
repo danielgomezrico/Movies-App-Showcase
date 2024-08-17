@@ -18,19 +18,16 @@ class MovieSummaryItem extends StatelessWidget {
     return ChangeNotifierWatcher(
       create: () => ViewModelModule.moveSummaryItemViewModel(_movieSummary),
       builder: (_, viewModel) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 16),
-          child: InkWell(
-            onTap: viewModel.onTap,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: Stack(
-                children: [
-                  _image(viewModel),
-                  _gradientOverlay(),
-                  _details(viewModel, context),
-                ],
-              ),
+        return InkWell(
+          onTap: viewModel.onTap,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Stack(
+              children: [
+                _image(viewModel),
+                _gradientOverlay(),
+                _details(viewModel, context),
+              ],
             ),
           ),
         );

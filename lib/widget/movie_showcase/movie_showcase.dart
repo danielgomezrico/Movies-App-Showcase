@@ -235,7 +235,10 @@ class _MovieShowcaseState extends State<MovieShowcase> {
         itemCount: viewModel.status.items.length,
         itemBuilder: (_, index) {
           final item = viewModel.status.items[index];
-          return MovieSummaryItem(movieSummary: item);
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+            child: MovieSummaryItem(movieSummary: item),
+          );
         },
       );
     } else {
@@ -244,7 +247,10 @@ class _MovieShowcaseState extends State<MovieShowcase> {
         separatorBuilder: (_, __) => const SizedBox(height: 8),
         itemBuilder: (_, index) {
           final item = viewModel.status.items[index];
-          return MovieSummaryItem(movieSummary: item);
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+            child: MovieSummaryItem(movieSummary: item),
+          );
         },
       );
     }
