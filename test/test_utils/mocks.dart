@@ -4,6 +4,8 @@
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:movie_flutter/api/repositories/movies_repository.dart';
+import 'package:movie_flutter/api/repositories/storages/favorite_movie_storage.dart';
+import 'package:movie_flutter/api/repositories/storages/favorite_movie_summary_storage.dart';
 import 'package:movie_flutter/common/database/storage.dart';
 import 'package:movie_flutter/common/date_formatter.dart';
 import 'package:movie_flutter/common/event_bus.dart';
@@ -25,6 +27,8 @@ export 'mocks.mocks.dart';
     MoviesRepository,
     EventBus,
     DateFormatter,
+    FavoriteMovieSummaryStorage,
+    FavoriteMovieStorage,
     SaveFavoriteMovieUseCase,
     IsMovieFavoriteUseCase,
     RemoveFavoriteMovieUseCase,
