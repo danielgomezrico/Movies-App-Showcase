@@ -10,12 +10,12 @@ abstract class MoviesRemoteService extends ChopperService {
   static MoviesRemoteService create([ChopperClient? client]) =>
       _$MoviesRemoteService(client);
 
-  @Get(path: '/movie/{id}')
+  @Get(path: 'movie/{id}')
   Future<Response<Movie>> fetchMovie(@Path() int id);
 
   @Get(
     path:
-        '/discover/movie?include_adult=true&include_video=false&language=en-US&with_release_type=2|3',
+        'discover/movie?include_adult=true&include_video=false&language=en-US&with_release_type=2|3',
   )
   Future<Response<MovieSummaryResponse>> fetchMovies(
     @Query('page') int page,

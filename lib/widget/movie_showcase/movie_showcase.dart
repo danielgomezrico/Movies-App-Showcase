@@ -4,13 +4,12 @@ import 'package:movie_flutter/api/repositories/models/movie_category.dart';
 import 'package:movie_flutter/api/repositories/models/movie_sort.dart';
 import 'package:movie_flutter/common/change_notifier/change_notifier_value.dart';
 import 'package:movie_flutter/common/di/modules.dart';
+import 'package:movie_flutter/common/shadow_sliver_app_bar_delegate.dart';
 import 'package:movie_flutter/widget/animated_icon_button.dart';
 import 'package:movie_flutter/widget/drop_down_selector.dart';
 import 'package:movie_flutter/widget/movie_showcase/movie_showcase_view_model.dart';
 import 'package:movie_flutter/widget/movie_summary_item/movie_summary_item.dart';
 import 'package:movie_flutter/widget/retry_error.dart';
-
-import '../../common/shadow_sliver_app_bar_delegate.dart';
 
 class MovieShowcase extends StatefulWidget {
   const MovieShowcase({super.key});
@@ -23,12 +22,14 @@ class _MovieShowcaseState extends State<MovieShowcase> {
   late MovieShowcaseViewModel _viewModel;
   late ScrollController _scrollController;
 
-  // TODO(danielgomezrico): Move to the viewmodel
   bool _showMoviesOnGrid = false;
   bool _isSettingsVisible = false;
+  bool _showShadowOnActions = false;
 
   @override
   void initState() {
+    super.initState();
+
     _scrollController = ScrollController();
     _viewModel = ViewModelModule.movieShowcaseViewModel();
 
@@ -37,15 +38,12 @@ class _MovieShowcaseState extends State<MovieShowcase> {
     });
 
     _scrollController.addListener(_onScroll);
-
-    super.initState();
   }
 
   @override
   void dispose() {
     _scrollController.dispose();
     _viewModel.dispose();
-
     super.dispose();
   }
 
@@ -54,38 +52,37 @@ class _MovieShowcaseState extends State<MovieShowcase> {
     return ChangeNotifierValue(
       value: _viewModel,
       builder: (_, viewModel) {
-        if (viewModel.status.isEmptyVisible) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (viewModel.status.isEmptyVisible) {
-          return const Center(child: Text('No movies found'));
-        } else if (viewModel.status.errorMessage != null) {
-          return Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: RetryError(
-                message: 'Error: ${viewModel.status.errorMessage}',
-                onRetry: viewModel.onInit,
-              ),
-            ),
-          );
-        } else {
-          return _body(viewModel);
-        }
+        return _body(viewModel);
       },
     );
   }
 
   Widget _body(MovieShowcaseViewModel viewModel) {
+    final theme = Theme.of(context);
+
     return SafeArea(
       child: CustomScrollView(
         controller: _scrollController,
         slivers: [
-          _appBar(),
+          _appBar(theme),
           _actions(viewModel),
-          _settings(viewModel),
+          if (_isSettingsVisible) _settings(viewModel),
+          if (viewModel.status.isLoadingVisible) _progress(),
+          if (viewModel.status.isEmptyVisible) _empty(),
+          if (viewModel.status.errorMessage != null) _error(viewModel),
           _movies(viewModel),
         ],
       ),
+    );
+  }
+
+  SliverAppBar _appBar(ThemeData theme) {
+    return SliverAppBar(
+      title: const Text('Movies'),
+      floating: true,
+      snap: true,
+      backgroundColor: theme.colorScheme.surface,
+      surfaceTintColor: theme.colorScheme.surface,
     );
   }
 
@@ -95,37 +92,34 @@ class _MovieShowcaseState extends State<MovieShowcase> {
       delegate: ShadowSliverAppBarDelegate(
         minHeight: 40,
         maxHeight: 40,
-        isShadowEnabled: true,
+        isShadowEnabled: !_isSettingsVisible && _showShadowOnActions,
         child: ColoredBox(
           color: Theme.of(context).colorScheme.surface,
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  AnimatedIconButton(
-                    animationType: _isSettingsVisible
-                        ? AnimationType.giroRight
-                        : AnimationType.giroLeft,
-                    icon: const Icon(Icons.settings),
-                    onPressed: () {
-                      setState(() => _isSettingsVisible = !_isSettingsVisible);
-                    },
-                  ),
-                  AnimatedIconButton(
-                    animationType: AnimationType.rotate,
-                    icon: _showMoviesOnGrid
-                        ? const Icon(Icons.view_list_rounded)
-                        : const Icon(Icons.grid_on),
-                    onPressed: () {
-                      setState(() => _showMoviesOnGrid = !_showMoviesOnGrid);
-                    },
-                  )
-                ],
-              ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                AnimatedIconButton(
+                  animationType: _isSettingsVisible
+                      ? AnimationType.giroRight
+                      : AnimationType.giroLeft,
+                  icon: const Icon(Icons.settings),
+                  onPressed: () {
+                    setState(() => _isSettingsVisible = !_isSettingsVisible);
+                  },
+                ),
+                AnimatedIconButton(
+                  animationType: AnimationType.rotate,
+                  icon: _showMoviesOnGrid
+                      ? const Icon(Icons.view_list_rounded)
+                      : const Icon(Icons.grid_on),
+                  onPressed: () {
+                    setState(() => _showMoviesOnGrid = !_showMoviesOnGrid);
+                  },
+                )
+              ],
             ),
           ),
         ),
@@ -133,12 +127,101 @@ class _MovieShowcaseState extends State<MovieShowcase> {
     );
   }
 
-  SliverAppBar _appBar() {
-    return const SliverAppBar(
-      title: Text('Movies'),
-      floating: true,
-      snap: true,
-      shadowColor: Colors.black,
+  Widget _settings(MovieShowcaseViewModel viewModel) {
+    return SliverPersistentHeader(
+      pinned: true,
+      delegate: ShadowSliverAppBarDelegate(
+        minHeight: 40,
+        maxHeight: 40,
+        isShadowEnabled: true,
+        child: ColoredBox(
+          color: Theme.of(context).colorScheme.surface,
+          child: Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Row(
+                    children: [
+                      const Text('Sort by:'),
+                      const SizedBox(width: 8),
+                      DropDownSelector(
+                        labels: MovieSort.values.map(_mapToLabel).toList(),
+                        values: MovieSort.values.toList(),
+                        onSelected: viewModel.onSortChanged,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Row(
+                    children: [
+                      const Text('Category:'),
+                      const SizedBox(width: 8),
+                      DropDownSelector(
+                        labels: MovieCategory.values
+                            .map(_mapCategoryToLabel)
+                            .toList(),
+                        values: MovieCategory.values.toList(),
+                        onSelected: viewModel.onCategoryChanged,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _onScroll() {
+    if (_scrollController.offset > 0 && !_showShadowOnActions) {
+      setState(() {
+        _showShadowOnActions = true;
+      });
+    } else if (_scrollController.offset <= 0 && _showShadowOnActions) {
+      setState(() {
+        _showShadowOnActions = false;
+      });
+    }
+
+    final scrolledToEnd = _scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent;
+
+    if (scrolledToEnd) {
+      _viewModel.onBottomReached();
+    }
+  }
+
+  SliverToBoxAdapter _progress() {
+    return const SliverToBoxAdapter(
+      child: Padding(
+        padding: EdgeInsets.all(8),
+        child: Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
+    );
+  }
+
+  SliverToBoxAdapter _empty() {
+    return const SliverToBoxAdapter(
+      child: Center(child: Text('No movies found')),
+    );
+  }
+
+  SliverPadding _error(MovieShowcaseViewModel viewModel) {
+    return SliverPadding(
+      padding: const EdgeInsets.all(16),
+      sliver: RetryError(
+        message: 'Error: ${viewModel.status.errorMessage}',
+        onRetry: viewModel.onInit,
+      ),
     );
   }
 
@@ -167,15 +250,6 @@ class _MovieShowcaseState extends State<MovieShowcase> {
     }
   }
 
-  void _onScroll() {
-    final scrolledToEnd = _scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent;
-
-    if (scrolledToEnd) {
-      _viewModel.onBottomReached();
-    }
-  }
-
   String _mapToLabel(MovieSort sort) {
     switch (sort) {
       case MovieSort.titleAsc:
@@ -198,64 +272,5 @@ class _MovieShowcaseState extends State<MovieShowcase> {
       case MovieCategory.playingNow:
         return 'Playing now';
     }
-  }
-
-  Widget _settings(MovieShowcaseViewModel viewModel) {
-    if (!_isSettingsVisible) {
-      return const SliverToBoxAdapter(child: SizedBox.shrink());
-    }
-
-    return SliverPersistentHeader(
-      pinned: true,
-      delegate: ShadowSliverAppBarDelegate(
-        minHeight: 40,
-        maxHeight: 40,
-        isShadowEnabled: true,
-        child: ColoredBox(
-          color: Theme.of(context).colorScheme.surface,
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(right: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Row(
-                      children: [
-                        const Text('Sort by:'),
-                        const SizedBox(width: 8),
-                        DropDownSelector(
-                          labels: MovieSort.values.map(_mapToLabel).toList(),
-                          values: MovieSort.values.toList(),
-                          onSelected: viewModel.onSortChanged,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Row(
-                      children: [
-                        const Text('Category:'),
-                        const SizedBox(width: 8),
-                        DropDownSelector(
-                          labels: MovieCategory.values
-                              .map(_mapCategoryToLabel)
-                              .toList(),
-                          values: MovieCategory.values.toList(),
-                          onSelected: viewModel.onCategoryChanged,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 }

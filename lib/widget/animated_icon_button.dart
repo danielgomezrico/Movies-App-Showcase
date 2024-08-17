@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class AnimatedIconButton extends StatefulWidget {
@@ -10,7 +9,7 @@ class AnimatedIconButton extends StatefulWidget {
     super.key,
   });
 
-  final StatelessWidget icon;
+  final Widget icon;
   final VoidCallback onPressed;
   final AnimationType animationType;
 
@@ -32,7 +31,9 @@ class _AnimatedIconButtonState extends State<AnimatedIconButton>
       vsync: this,
     );
 
-    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
+    _animation = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
   }
 
   @override
@@ -45,36 +46,39 @@ class _AnimatedIconButtonState extends State<AnimatedIconButton>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _animation,
+      builder: (context, child) => _transform(child),
       child: IconButton(
         icon: widget.icon,
         onPressed: () {
+          if (_controller.isAnimating) return;
           widget.onPressed();
           _controller.forward(from: 0);
         },
       ),
-      builder: (context, child) {
-        switch (widget.animationType) {
-          case AnimationType.rotate:
-            return Transform(
-              transform: Matrix4.identity()
-                ..setEntry(3, 2, 0.001) // Add perspective
-                ..rotateY(_animation.value * pi),
-              alignment: Alignment.center,
-              child: child,
-            );
-          case AnimationType.giroRight:
-            return Transform.rotate(
-              angle: _animation.value * 2 * pi, // Rotate from 0 to 360 degrees
-              child: child,
-            );
-          case AnimationType.giroLeft:
-            return Transform.rotate(
-              angle: -_animation.value * 2 * pi, // Rotate from 0 to 360 degrees
-              child: child,
-            );
-        }
-      },
     );
+  }
+
+  Widget _transform(Widget? child) {
+    switch (widget.animationType) {
+      case AnimationType.rotate:
+        return Transform(
+          transform: Matrix4.identity()
+            ..setEntry(3, 2, 0.001) // Add perspective
+            ..rotateY(_animation.value * pi),
+          alignment: Alignment.center,
+          child: child,
+        );
+      case AnimationType.giroRight:
+        return Transform.rotate(
+          angle: _animation.value * 2 * pi, // Rotate from 0 to 360 degrees
+          child: child,
+        );
+      case AnimationType.giroLeft:
+        return Transform.rotate(
+          angle: -_animation.value * 2 * pi, // Rotate from 0 to 360 degrees
+          child: child,
+        );
+    }
   }
 }
 

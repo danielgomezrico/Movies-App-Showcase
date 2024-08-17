@@ -17,7 +17,7 @@ class MoviesRepository with ResultToResponse {
     int page,
     MovieSort sort,
     MovieCategory category,
-  ) async {
+  ) {
     switch (category) {
       case MovieCategory.popular:
         return _fetchPopularMovies(page, sort);
@@ -45,7 +45,7 @@ class MoviesRepository with ResultToResponse {
   Future<PagedResult<List<MovieSummary>>> _getMoviesPlayingNow(
     int page,
     MovieSort sort,
-  ) async {
+  ) {
     final maxDate = DateTime.now();
     final minDate = maxDate.subtract(const Duration(days: 1));
 
