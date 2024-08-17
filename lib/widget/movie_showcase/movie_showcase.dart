@@ -65,7 +65,7 @@ class _MovieShowcaseState extends State<MovieShowcase> {
         controller: _scrollController,
         slivers: [
           _appBar(theme),
-          _actions(viewModel),
+          _actions(),
           if (_isSettingsVisible) _settings(viewModel),
           if (viewModel.status.isLoadingVisible) _progress(),
           if (viewModel.status.isEmptyVisible) _empty(),
@@ -86,7 +86,7 @@ class _MovieShowcaseState extends State<MovieShowcase> {
     );
   }
 
-  SliverPersistentHeader _actions(MovieShowcaseViewModel viewModel) {
+  SliverPersistentHeader _actions() {
     return SliverPersistentHeader(
       pinned: true,
       delegate: ShadowSliverAppBarDelegate(
