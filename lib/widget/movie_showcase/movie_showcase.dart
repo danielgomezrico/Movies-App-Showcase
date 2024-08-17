@@ -100,29 +100,32 @@ class _MovieShowcaseState extends State<MovieShowcase> {
           color: Theme.of(context).colorScheme.surface,
           child: Align(
             alignment: Alignment.centerLeft,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                AnimatedIconButton(
-                  animationType: _isSettingsVisible
-                      ? AnimationType.giroRight
-                      : AnimationType.giroLeft,
-                  icon: const Icon(Icons.settings),
-                  onPressed: () {
-                    setState(() => _isSettingsVisible = !_isSettingsVisible);
-                  },
-                ),
-                AnimatedIconButton(
-                  animationType: AnimationType.rotate,
-                  icon: _showMoviesOnGrid
-                      ? const Icon(Icons.view_list_rounded)
-                      : const Icon(Icons.grid_on),
-                  onPressed: () {
-                    setState(() => _showMoviesOnGrid = !_showMoviesOnGrid);
-                  },
-                )
-              ],
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  AnimatedIconButton(
+                    animationType: _isSettingsVisible
+                        ? AnimationType.giroRight
+                        : AnimationType.giroLeft,
+                    icon: const Icon(Icons.settings),
+                    onPressed: () {
+                      setState(() => _isSettingsVisible = !_isSettingsVisible);
+                    },
+                  ),
+                  AnimatedIconButton(
+                    animationType: AnimationType.rotate,
+                    icon: _showMoviesOnGrid
+                        ? const Icon(Icons.view_list_rounded)
+                        : const Icon(Icons.grid_on),
+                    onPressed: () {
+                      setState(() => _showMoviesOnGrid = !_showMoviesOnGrid);
+                    },
+                  )
+                ],
+              ),
             ),
           ),
         ),
