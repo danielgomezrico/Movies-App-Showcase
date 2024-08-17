@@ -37,7 +37,9 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
           ..imageUrl = _movieSummary.url
           ..voteAverage = voteAverage
           ..voteCount = _movieSummary.voteCount.toString()
-          ..language = null;
+          ..language = null
+          ..popularity = null
+        ;
       },
     );
   }
@@ -117,7 +119,9 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
           ..isLoadingVisible = false
           ..genres = genres
           ..releaseDate = releaseDate
-          ..language = language;
+          ..language = language
+          ..popularity = movie.popularity.toString()
+        ;
       },
     );
   }

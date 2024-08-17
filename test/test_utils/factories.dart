@@ -24,6 +24,7 @@ abstract class MovieMother {
             .map((g) => Genre((b) => b..name = g)))
         ..overview =
             'Batman raises the stakes in his war on crime. With the help of Lt.'
+        ..popularity = 2.0
         ..releaseDate = null
         ..languages = ListBuilder(
           ['English', 'Mandarin'].map((l) => Language((b) => b..name = l)),
@@ -40,6 +41,7 @@ abstract class MovieMother {
     String overview =
         'Batman raises the stakes in his war on crime. With the help of Lt.',
     DateTime? releaseDate,
+    double popularity= 2.0,
     List<String> languages = const ['English', 'Mandarin'],
   }) {
     return Movie(
@@ -49,6 +51,7 @@ abstract class MovieMother {
         ..posterPath = posterUrl
         ..genres = ListBuilder(genres.map((g) => Genre((b) => b..name = g)))
         ..overview = overview
+        ..popularity = popularity
         ..releaseDate = releaseDate
         ..languages = ListBuilder(
           languages.map((l) => Language((b) => b..name = l)),

@@ -198,7 +198,9 @@ class _ReleaseInfo extends StatelessWidget {
         const SizedBox(height: 8),
         _overview(),
         const SizedBox(height: 8),
-        _genre()
+        _genre(),
+        const SizedBox(height: 8),
+        _popularity(),
       ],
     );
   }
@@ -209,7 +211,7 @@ class _ReleaseInfo extends StatelessWidget {
         const Icon(Icons.topic_outlined, size: 16),
         const SizedBox(width: 8),
         Text(
-          status.genres.join(', '),
+          'Genres: ${status.genres.join(', ')}',
           style: textTheme.bodyMedium?.copyWith(),
         ),
       ],
@@ -240,6 +242,21 @@ class _ReleaseInfo extends StatelessWidget {
           status.releaseDate != null
               ? status.releaseDate!
               : 'Release Date: Unknown',
+          style: textTheme.bodyMedium?.copyWith(),
+        ),
+      ],
+    );
+  }
+
+  Widget _popularity() {
+    return Row(
+      children: [
+        const Icon(Icons.stars, size: 16),
+        const SizedBox(width: 8),
+        Text(
+          status.popularity != null
+              ? 'Popularity: ${status.popularity}'
+              : 'Popularity: Unknown',
           style: textTheme.bodyMedium?.copyWith(),
         ),
       ],

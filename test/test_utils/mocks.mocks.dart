@@ -5,7 +5,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:chopper/src/response.dart' as _i10;
+import 'package:chopper/chopper.dart' as _i10;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i13;
 import 'package:movie_flutter/api/repositories/models/movie.dart' as _i9;

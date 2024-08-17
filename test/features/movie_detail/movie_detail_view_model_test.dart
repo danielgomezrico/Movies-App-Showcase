@@ -53,6 +53,7 @@ void main() {
             .having((s) => s.title, 'title', 'title')
             .having((s) => s.imageUrl, 'imageUrl',
                 'https://image.tmdb.org/t/p/w500/path')
+            .having((s) => s.popularity, 'popularity', isNull)
             .having((s) => s.voteAverage, 'voteAverage', '1.0')
             .having((s) => s.voteCount, 'voteCount', '1')
             .having((s) => s.language, 'language', isNull),
@@ -259,6 +260,7 @@ void main() {
         final movie = MovieMother.build(
           languages: ['language', 'language2'],
           genres: ['genre', 'genre2'],
+          popularity: 3.0,
           releaseDate: DateTime(2021, 1, 1),
         );
         when(dateFormatter.formatDate(any)).thenReturn('Jan 1, 2021');
@@ -277,6 +279,7 @@ void main() {
                 .having((s) => s.isFavorite, 'isFavorite', isTrue)
                 .having((s) => s.genres, 'genres', ['genre', 'genre2'])
                 .having((s) => s.releaseDate, 'releaseDate', 'Jan 1, 2021')
+                .having((s) => s.popularity, 'popularity', '3.0')
                 .having((s) => s.language, 'language', 'language, language2'),
           ),
         );

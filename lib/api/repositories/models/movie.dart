@@ -43,6 +43,9 @@ abstract class Movie implements Built<Movie, MovieBuilder> {
   @BuiltValueField(wireName: 'spoken_languages')
   BuiltList<Language> get languages;
 
+  @HiveField(7)
+  double get popularity;
+
   @override
   String toString() {
     return (newBuiltValueToStringHelper('Movie')..add('id', id)).toString();

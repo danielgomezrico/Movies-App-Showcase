@@ -29,5 +29,7 @@ abstract class MovieDetailStatus
 
   String? get voteAverage;
 
+  String? get popularity;
+
   String? get voteCount;
 }
