@@ -72,7 +72,10 @@ class _FavoriteMoviesState extends State<FavoriteMovies> {
       separatorBuilder: (_, __) => const SizedBox(height: 8),
       itemBuilder: (_, index) {
         final item = viewModel.status.items[index];
-        return MovieSummaryItem(movieSummary: item);
+        return MovieSummaryItem(
+          movieSummary: item,
+          key: ValueKey(item.movieId),
+        );
       },
     );
   }

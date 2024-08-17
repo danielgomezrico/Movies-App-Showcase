@@ -19,5 +19,6 @@ class MovieDetailViewModelOnInitSpy extends MovieDetailViewModel
     super.saveFavoriteMovie,
     super.isMovieFavorite,
     super.removeFavoriteMovie,
+    super.router,
   );
 }

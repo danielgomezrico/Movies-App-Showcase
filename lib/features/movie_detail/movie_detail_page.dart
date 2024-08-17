@@ -44,14 +44,66 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
         final textTheme = Theme.of(context).textTheme;
 
         return Scaffold(
-          body: CustomScrollView(
-            slivers: [
-              _appBar(status, textTheme),
-              _detail(status),
-            ],
+          body: PopScope(
+            canPop: false,
+            onPopInvoked: (didPop) {
+              if (didPop) return;
+              _viewModel.onBackTap();
+            },
+            child: CustomScrollView(
+              slivers: [
+                _appBar(status, textTheme),
+                _detail(status),
+              ],
+            ),
           ),
         );
       },
+    );
+  }
+
+  SliverAppBar _appBar(MovieDetailStatus status, TextTheme textTheme) {
+    return SliverAppBar(
+      expandedHeight: 400,
+      pinned: true,
+      iconTheme: const IconThemeData(color: Colors.white),
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: _viewModel.onBackTap,
+      ),
+      actions: [
+        if (_viewModel.status.isFavoriteVisible)
+          IconButton(
+            icon: _viewModel.status.isFavorite ?? false
+                ? const Icon(Icons.favorite, color: Colors.red)
+                : const Icon(Icons.favorite_border, color: Colors.white),
+            onPressed: _viewModel.onSaveFavorite,
+          ),
+      ],
+      flexibleSpace: FlexibleSpaceBar(
+        title: Text(
+          status.title,
+          style: textTheme.titleSmall?.copyWith(color: Colors.white),
+        ),
+        background: Stack(
+          fit: StackFit.expand,
+          children: [
+            ImageFrame(imageUrl: status.imageUrl),
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Colors.black.withOpacity(0.8),
+                    Colors.transparent,
+                  ],
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -92,47 +144,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           style: textTheme.bodyMedium,
         ),
       ],
-    );
-  }
-
-  SliverAppBar _appBar(MovieDetailStatus status, TextTheme textTheme) {
-    return SliverAppBar(
-      expandedHeight: 400,
-      pinned: true,
-      iconTheme: const IconThemeData(color: Colors.white),
-      actions: [
-        if (_viewModel.status.isFavoriteVisible)
-          IconButton(
-            icon: _viewModel.status.isFavorite ?? false
-                ? const Icon(Icons.favorite, color: Colors.red)
-                : const Icon(Icons.favorite_border, color: Colors.white),
-            onPressed: _viewModel.onSaveFavorite,
-          ),
-      ],
-      flexibleSpace: FlexibleSpaceBar(
-        title: Text(
-          status.title,
-          style: textTheme.titleSmall?.copyWith(color: Colors.white),
-        ),
-        background: Stack(
-          fit: StackFit.expand,
-          children: [
-            ImageFrame(imageUrl: status.imageUrl),
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.black.withOpacity(0.8),
-                    Colors.transparent,
-                  ],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

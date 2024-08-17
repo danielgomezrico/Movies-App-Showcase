@@ -26,7 +26,7 @@ class Router {
     return Result.ok(siteResult);
   }
 
-  void pop<T extends Result<T>>([T? result]) {
+  void pop<T extends SiteResult>([T? result]) {
     navigatorKey.currentState?.pop(result);
   }
 

@@ -22,6 +22,7 @@ abstract class ViewModelModule {
       UseCaseModule.queueFavoriteMovieUseCase(),
       UseCaseModule.isMovieFavoriteUseCase(),
       UseCaseModule.removeFavoriteMovieUseCase(),
+      CommonModule.router(),
     );
   }
 
@@ -31,12 +32,14 @@ abstract class ViewModelModule {
     return MovieSummaryItemViewModel(
       movieSummary,
       CommonModule.router(),
+      CommonModule.eventBus(),
     );
   }
 
   static FavoriteMoviesViewModel favoriteMoviesViewModel() {
     return FavoriteMoviesViewModel(
       UseCaseModule.findFavoriteMoviesUseCase(),
+      CommonModule.eventBus(),
     );
   }
 }

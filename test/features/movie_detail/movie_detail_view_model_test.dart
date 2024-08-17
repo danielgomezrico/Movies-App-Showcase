@@ -1,5 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
+import 'package:movie_flutter/common/router/router.dart';
+import 'package:movie_flutter/common/router/sites/movie_detail_site.dart';
 import 'package:movie_flutter/features/movie_detail/movie_detail_status.dart';
 import 'package:movie_flutter/features/movie_detail/movie_detail_view_model.dart';
 
@@ -10,11 +12,11 @@ typedef _Status = MovieDetailStatus;
 
 void main() {
   final moviesRepository = MockMoviesRepository();
-
   final dateFormatter = MockDateFormatter();
   final saveFavoriteMovie = MockSaveFavoriteMovieUseCase();
   final isMovieFavorite = MockIsMovieFavoriteUseCase();
   final removeFavoriteMovie = MockRemoveFavoriteMovieUseCase();
+  final router = MockRouter();
 
   MovieDetailViewModel subject({MovieSummary? movieSummary}) {
     final summary = movieSummary ?? MovieSummaryMother.base;
@@ -26,6 +28,7 @@ void main() {
       saveFavoriteMovie,
       isMovieFavorite,
       removeFavoriteMovie,
+      router,
     );
   }
 
@@ -67,6 +70,7 @@ void main() {
         saveFavoriteMovie,
         isMovieFavorite,
         removeFavoriteMovie,
+        router,
       );
     }
 
@@ -377,6 +381,34 @@ void main() {
               isA<_Status>().having((s) => s.isFavorite, 'isFavorite', isFalse),
             ]),
           );
+        });
+      });
+    });
+
+    group('.onBackTap', () {
+      group('with a non favorite movie', () {
+        test('pops with site result', () {
+          final viewModel = subject();
+          viewModel.status =
+              viewModel.status.rebuild((b) => b..isFavorite = false);
+
+          viewModel.onBackTap();
+
+          verify(
+            router.pop<SiteResult>(argThat(isA<MovieRemovedFromFavorite>())),
+          );
+        });
+      });
+
+      group('with a favorite movie', () {
+        test('pops without a site result', () {
+          final viewModel = subject();
+          viewModel.status =
+              viewModel.status.rebuild((b) => b..isFavorite = true);
+
+          viewModel.onBackTap();
+
+          verify(router.pop<SiteResult>());
         });
       });
     });

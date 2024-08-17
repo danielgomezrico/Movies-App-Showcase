@@ -21,4 +21,20 @@ extension AsStream<S> on ViewModel<S> {
 
     return controller.stream;
   }
+
+  StreamController<S> statusChangesController() {
+    final controller = StreamController<S>();
+
+    void notify() {
+      controller.add(status); // Ask stream to send counter values as event.
+    }
+
+    addListener(notify);
+    controller.onCancel = () => removeListener(notify);
+
+    Future<void>.delayed(const Duration(seconds: 5))
+        .then((_) => controller.close());
+
+    return controller;
+  }
 }

@@ -5,8 +5,6 @@ export 'package:flutter/material.dart' show Widget;
 
 export 'sites/home_site.dart';
 
-typedef NoResultSite = Site<NoSiteResult>;
-
 abstract class Site<T extends SiteResult?> {
   const Site();
 
@@ -24,8 +22,4 @@ abstract class Site<T extends SiteResult?> {
 
 abstract class SiteResult {
   const SiteResult();
-}
-
-class NoSiteResult extends SiteResult {
-  const NoSiteResult();
 }

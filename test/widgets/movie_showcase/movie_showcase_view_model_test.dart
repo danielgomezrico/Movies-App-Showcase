@@ -112,7 +112,7 @@ void main() {
 
         final status = viewModel.statusChanges();
 
-        await viewModel.onInit();
+        await viewModel.showNextMovies(MovieSort.titleAsc);
 
         expect(
           status,
@@ -139,7 +139,7 @@ void main() {
 
           final status = viewModel.statusChanges();
 
-          await viewModel.onInit();
+          await viewModel.showNextMovies(MovieSort.titleAsc);
 
           expect(
             status,
@@ -169,7 +169,7 @@ void main() {
 
           final status = viewModel.statusChanges();
 
-          await viewModel.onInit();
+          await viewModel.showNextMovies(MovieSort.titleAsc);
 
           expect(
             status,

@@ -9,7 +9,9 @@ import 'package:chopper/chopper.dart';
 import 'package:http/http.dart' as http;
 import 'package:movie_flutter/api/repositories/models/movie.dart';
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
+import 'package:movie_flutter/common/event_bus.dart';
 import 'package:movie_flutter/common/result.dart';
+import 'package:movie_flutter/common/router/sites/movie_detail_site.dart';
 
 abstract class MovieMother {
   static Movie get base {
@@ -66,6 +68,13 @@ abstract class MovieSummaryMother {
         ..voteAverage = 3.4
         ..voteCount = 24169,
     );
+  }
+
+  static List<MovieSummary> get list {
+    return [
+      build(movieId: 1),
+      build(movieId: 2),
+    ];
   }
 
   static MovieSummary build({
@@ -158,5 +167,15 @@ abstract class ApiErrorMother {
       DeserializationError(null, FullType.object, TypeError()),
       const FormatException(),
     ];
+  }
+}
+
+abstract class MovieDetailSiteMother {
+  static const result = MovieRemovedFromFavorite();
+}
+
+abstract class BusEventMother {
+  static MovieRemovedFromFavoriteEvent get movieRemovedFromFavoriteEvent {
+    return const MovieRemovedFromFavoriteEvent(1);
   }
 }

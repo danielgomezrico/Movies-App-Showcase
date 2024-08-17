@@ -4,6 +4,8 @@ import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
 import 'package:movie_flutter/api/repositories/movies_repository.dart';
 import 'package:movie_flutter/common/date_formatter.dart';
 import 'package:movie_flutter/common/result.dart';
+import 'package:movie_flutter/common/router/router.dart';
+import 'package:movie_flutter/common/router/sites/movie_detail_site.dart';
 import 'package:movie_flutter/common/use_case/is_movie_favorite_use_case.dart';
 import 'package:movie_flutter/common/use_case/remove_favorite_movie_use_case.dart';
 import 'package:movie_flutter/common/use_case/save_favorite_movie_use_case.dart';
@@ -20,6 +22,7 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
     this._saveFavoriteMovie,
     this._isMovieFavorite,
     this._removeFavoriteMovie,
+    this._router,
   ) {
     final voteAverage = '(${_movieSummary.voteAverage} votes)';
 
@@ -46,6 +49,7 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
   final SaveFavoriteMovieUseCase _saveFavoriteMovie;
   final IsMovieFavoriteUseCase _isMovieFavorite;
   final RemoveFavoriteMovieUseCase _removeFavoriteMovie;
+  final Router _router;
 
   @visibleForTesting
   Movie? movie;
@@ -144,5 +148,13 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
       language = movie.languages.map((l) => l.name).join(', ');
     }
     return language;
+  }
+
+  void onBackTap() {
+    if (status.isFavorite == false) {
+      _router.pop(const MovieRemovedFromFavorite());
+    } else {
+      _router.pop();
+    }
   }
 }

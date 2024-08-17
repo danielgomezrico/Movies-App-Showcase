@@ -69,3 +69,9 @@ extension FutureMock<T> on PostExpectation<Future<T>> {
     });
   }
 }
+
+extension StreamMock<T> on PostExpectation<Stream<T>> {
+  void thenStream(T body) {
+    thenAnswer((realInvocation) => Stream.value(body));
+  }
+}

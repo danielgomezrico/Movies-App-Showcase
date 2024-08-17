@@ -3,31 +3,31 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i4;
 
-import 'package:chopper/chopper.dart' as _i10;
-import 'package:flutter/material.dart' as _i3;
+import 'package:chopper/chopper.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i12;
-import 'package:movie_flutter/api/repositories/models/movie.dart' as _i9;
-import 'package:movie_flutter/api/repositories/models/movie_sort.dart' as _i8;
+import 'package:movie_flutter/api/repositories/models/movie.dart' as _i8;
+import 'package:movie_flutter/api/repositories/models/movie_sort.dart' as _i7;
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart'
-    as _i7;
-import 'package:movie_flutter/api/repositories/movies_repository.dart' as _i4;
-import 'package:movie_flutter/common/database/storage.dart' as _i18;
-import 'package:movie_flutter/common/date_formatter.dart' as _i14;
-import 'package:movie_flutter/common/result.dart' as _i6;
-import 'package:movie_flutter/common/router/router.dart' as _i11;
-import 'package:movie_flutter/common/router/site.dart' as _i13;
-import 'package:movie_flutter/common/use_case/is_movie_favorite_use_case.dart'
+    as _i6;
+import 'package:movie_flutter/api/repositories/movies_repository.dart' as _i3;
+import 'package:movie_flutter/common/database/storage.dart' as _i17;
+import 'package:movie_flutter/common/date_formatter.dart' as _i11;
+import 'package:movie_flutter/common/event_bus.dart' as _i10;
+import 'package:movie_flutter/common/result.dart' as _i5;
+import 'package:movie_flutter/common/use_case/find_favorite_movie_summaries_use_case.dart'
     as _i16;
+import 'package:movie_flutter/common/use_case/is_movie_favorite_use_case.dart'
+    as _i14;
 import 'package:movie_flutter/common/use_case/remove_favorite_movie_use_case.dart'
-    as _i17;
-import 'package:movie_flutter/common/use_case/save_favorite_movie_use_case.dart'
     as _i15;
+import 'package:movie_flutter/common/use_case/save_favorite_movie_use_case.dart'
+    as _i13;
 import 'package:result_monad/src/result_monad_base.dart' as _i2;
 
-import 'mocks.dart' as _i19;
+import 'mocks.dart' as _i18;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -52,30 +52,19 @@ class _FakeResult_0<T, E> extends _i1.SmartFake implements _i2.Result<T, E> {
         );
 }
 
-class _FakeGlobalKey_1<T extends _i3.State<_i3.StatefulWidget>>
-    extends _i1.SmartFake implements _i3.GlobalKey<T> {
-  _FakeGlobalKey_1(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [MoviesRepository].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMoviesRepository extends _i1.Mock implements _i4.MoviesRepository {
+class MockMoviesRepository extends _i1.Mock implements _i3.MoviesRepository {
   MockMoviesRepository() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<
-      _i2.Result<_i6.PagedContent<List<_i7.MovieSummary>>, dynamic>> getMovies(
+  _i4.Future<
+      _i2.Result<_i5.PagedContent<List<_i6.MovieSummary>>, dynamic>> getMovies(
     int? page,
-    _i8.MovieSort? sort,
+    _i7.MovieSort? sort,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -85,10 +74,10 @@ class MockMoviesRepository extends _i1.Mock implements _i4.MoviesRepository {
             sort,
           ],
         ),
-        returnValue: _i5.Future<
-                _i2.Result<_i6.PagedContent<List<_i7.MovieSummary>>,
+        returnValue: _i4.Future<
+                _i2.Result<_i5.PagedContent<List<_i6.MovieSummary>>,
                     dynamic>>.value(
-            _FakeResult_0<_i6.PagedContent<List<_i7.MovieSummary>>, dynamic>(
+            _FakeResult_0<_i5.PagedContent<List<_i6.MovieSummary>>, dynamic>(
           this,
           Invocation.method(
             #getMovies,
@@ -98,120 +87,76 @@ class MockMoviesRepository extends _i1.Mock implements _i4.MoviesRepository {
             ],
           ),
         )),
-      ) as _i5.Future<
-          _i2.Result<_i6.PagedContent<List<_i7.MovieSummary>>, dynamic>>);
+      ) as _i4.Future<
+          _i2.Result<_i5.PagedContent<List<_i6.MovieSummary>>, dynamic>>);
 
   @override
-  _i5.Future<_i2.Result<_i9.Movie, dynamic>> get(int? movieId) =>
+  _i4.Future<_i2.Result<_i8.Movie, dynamic>> get(int? movieId) =>
       (super.noSuchMethod(
         Invocation.method(
           #get,
           [movieId],
         ),
-        returnValue: _i5.Future<_i2.Result<_i9.Movie, dynamic>>.value(
-            _FakeResult_0<_i9.Movie, dynamic>(
+        returnValue: _i4.Future<_i2.Result<_i8.Movie, dynamic>>.value(
+            _FakeResult_0<_i8.Movie, dynamic>(
           this,
           Invocation.method(
             #get,
             [movieId],
           ),
         )),
-      ) as _i5.Future<_i2.Result<_i9.Movie, dynamic>>);
+      ) as _i4.Future<_i2.Result<_i8.Movie, dynamic>>);
 
   @override
-  _i5.Future<_i2.Result<T, dynamic>> responseToResult<T>(
-          _i5.Future<_i10.Response<T>> Function()? doRequest) =>
+  _i4.Future<_i2.Result<T, dynamic>> responseToResult<T>(
+          _i4.Future<_i9.Response<T>> Function()? doRequest) =>
       (super.noSuchMethod(
         Invocation.method(
           #responseToResult,
           [doRequest],
         ),
         returnValue:
-            _i5.Future<_i2.Result<T, dynamic>>.value(_FakeResult_0<T, dynamic>(
+            _i4.Future<_i2.Result<T, dynamic>>.value(_FakeResult_0<T, dynamic>(
           this,
           Invocation.method(
             #responseToResult,
             [doRequest],
           ),
         )),
-      ) as _i5.Future<_i2.Result<T, dynamic>>);
+      ) as _i4.Future<_i2.Result<T, dynamic>>);
 }
 
-/// A class which mocks [Router].
+/// A class which mocks [EventBus].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockRouter extends _i1.Mock implements _i11.Router {
-  MockRouter() {
+class MockEventBus extends _i1.Mock implements _i10.EventBus {
+  MockEventBus() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.GlobalKey<_i3.NavigatorState> get navigatorKey => (super.noSuchMethod(
-        Invocation.getter(#navigatorKey),
-        returnValue: _FakeGlobalKey_1<_i3.NavigatorState>(
-          this,
-          Invocation.getter(#navigatorKey),
-        ),
-      ) as _i3.GlobalKey<_i3.NavigatorState>);
-
-  @override
-  String get initialRoute => (super.noSuchMethod(
-        Invocation.getter(#initialRoute),
-        returnValue: _i12.dummyValue<String>(
-          this,
-          Invocation.getter(#initialRoute),
-        ),
-      ) as String);
-
-  @override
-  _i5.Future<T?> pushTo<T extends _i13.SiteResult?>(_i13.Site<T>? site) =>
-      (super.noSuchMethod(
+  _i4.Stream<T> events<T extends _i10.BusEvent>() => (super.noSuchMethod(
         Invocation.method(
-          #pushTo,
-          [site],
+          #events,
+          [],
         ),
-        returnValue: _i5.Future<T?>.value(),
-      ) as _i5.Future<T?>);
+        returnValue: _i4.Stream<T>.empty(),
+      ) as _i4.Stream<T>);
 
   @override
-  _i5.Future<_i2.Result<T?, dynamic>> replaceTo<T extends _i13.SiteResult>(
-          _i13.Site<T>? route) =>
-      (super.noSuchMethod(
+  void fire<T extends _i10.BusEvent>(T? event) => super.noSuchMethod(
         Invocation.method(
-          #replaceTo,
-          [route],
-        ),
-        returnValue: _i5.Future<_i2.Result<T?, dynamic>>.value(
-            _FakeResult_0<T?, dynamic>(
-          this,
-          Invocation.method(
-            #replaceTo,
-            [route],
-          ),
-        )),
-      ) as _i5.Future<_i2.Result<T?, dynamic>>);
-
-  @override
-  void pop<T extends _i2.Result<T, dynamic>>([T? result]) => super.noSuchMethod(
-        Invocation.method(
-          #pop,
-          [result],
+          #fire,
+          [event],
         ),
         returnValueForMissingStub: null,
       );
-
-  @override
-  _i3.Route<dynamic>? onGenerateRoute(_i3.RouteSettings? settings) =>
-      (super.noSuchMethod(Invocation.method(
-        #onGenerateRoute,
-        [settings],
-      )) as _i3.Route<dynamic>?);
 }
 
 /// A class which mocks [DateFormatter].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockDateFormatter extends _i1.Mock implements _i14.DateFormatter {
+class MockDateFormatter extends _i1.Mock implements _i11.DateFormatter {
   MockDateFormatter() {
     _i1.throwOnMissingStub(this);
   }
@@ -236,15 +181,15 @@ class MockDateFormatter extends _i1.Mock implements _i14.DateFormatter {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSaveFavoriteMovieUseCase extends _i1.Mock
-    implements _i15.SaveFavoriteMovieUseCase {
+    implements _i13.SaveFavoriteMovieUseCase {
   MockSaveFavoriteMovieUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>> call(
-    _i9.Movie? movie,
-    _i7.MovieSummary? summary,
+  _i4.Future<_i2.Result<_i5.EmptyContent, dynamic>> call(
+    _i8.Movie? movie,
+    _i6.MovieSummary? summary,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -254,8 +199,8 @@ class MockSaveFavoriteMovieUseCase extends _i1.Mock
             summary,
           ],
         ),
-        returnValue: _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>>.value(
-            _FakeResult_0<_i6.EmptyContent, dynamic>(
+        returnValue: _i4.Future<_i2.Result<_i5.EmptyContent, dynamic>>.value(
+            _FakeResult_0<_i5.EmptyContent, dynamic>(
           this,
           Invocation.method(
             #call,
@@ -265,26 +210,26 @@ class MockSaveFavoriteMovieUseCase extends _i1.Mock
             ],
           ),
         )),
-      ) as _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>>);
+      ) as _i4.Future<_i2.Result<_i5.EmptyContent, dynamic>>);
 }
 
 /// A class which mocks [IsMovieFavoriteUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockIsMovieFavoriteUseCase extends _i1.Mock
-    implements _i16.IsMovieFavoriteUseCase {
+    implements _i14.IsMovieFavoriteUseCase {
   MockIsMovieFavoriteUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<_i2.Result<bool, dynamic>> call(_i9.Movie? movie) =>
+  _i4.Future<_i2.Result<bool, dynamic>> call(_i8.Movie? movie) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [movie],
         ),
-        returnValue: _i5.Future<_i2.Result<bool, dynamic>>.value(
+        returnValue: _i4.Future<_i2.Result<bool, dynamic>>.value(
             _FakeResult_0<bool, dynamic>(
           this,
           Invocation.method(
@@ -292,22 +237,22 @@ class MockIsMovieFavoriteUseCase extends _i1.Mock
             [movie],
           ),
         )),
-      ) as _i5.Future<_i2.Result<bool, dynamic>>);
+      ) as _i4.Future<_i2.Result<bool, dynamic>>);
 }
 
 /// A class which mocks [RemoveFavoriteMovieUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockRemoveFavoriteMovieUseCase extends _i1.Mock
-    implements _i17.RemoveFavoriteMovieUseCase {
+    implements _i15.RemoveFavoriteMovieUseCase {
   MockRemoveFavoriteMovieUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>> call(
-    _i9.Movie? movie,
-    _i7.MovieSummary? summary,
+  _i4.Future<_i2.Result<_i5.EmptyContent, dynamic>> call(
+    _i8.Movie? movie,
+    _i6.MovieSummary? summary,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -317,8 +262,8 @@ class MockRemoveFavoriteMovieUseCase extends _i1.Mock
             summary,
           ],
         ),
-        returnValue: _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>>.value(
-            _FakeResult_0<_i6.EmptyContent, dynamic>(
+        returnValue: _i4.Future<_i2.Result<_i5.EmptyContent, dynamic>>.value(
+            _FakeResult_0<_i5.EmptyContent, dynamic>(
           this,
           Invocation.method(
             #call,
@@ -328,39 +273,67 @@ class MockRemoveFavoriteMovieUseCase extends _i1.Mock
             ],
           ),
         )),
-      ) as _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>>);
+      ) as _i4.Future<_i2.Result<_i5.EmptyContent, dynamic>>);
+}
+
+/// A class which mocks [FindFavoriteMovieSummariesUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockFindFavoriteMovieSummariesUseCase extends _i1.Mock
+    implements _i16.FindFavoriteMovieSummariesUseCase {
+  MockFindFavoriteMovieSummariesUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i4.Future<_i2.Result<List<_i6.MovieSummary>, dynamic>> call() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #call,
+          [],
+        ),
+        returnValue:
+            _i4.Future<_i2.Result<List<_i6.MovieSummary>, dynamic>>.value(
+                _FakeResult_0<List<_i6.MovieSummary>, dynamic>(
+          this,
+          Invocation.method(
+            #call,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i2.Result<List<_i6.MovieSummary>, dynamic>>);
 }
 
 /// A class which mocks [Storage].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockStorage extends _i1.Mock implements _i18.Storage {
+class MockStorage extends _i1.Mock implements _i17.Storage {
   @override
   String get name => (super.noSuchMethod(
         Invocation.getter(#name),
-        returnValue: _i19.name(),
-        returnValueForMissingStub: _i19.name(),
+        returnValue: _i18.name(),
+        returnValueForMissingStub: _i18.name(),
       ) as String);
 
   @override
-  _i5.Future<void> initialize() => (super.noSuchMethod(
+  _i4.Future<void> initialize() => (super.noSuchMethod(
         Invocation.method(
           #initialize,
           [],
         ),
-        returnValue: _i5.Future<void>.value(),
-        returnValueForMissingStub: _i5.Future<void>.value(),
-      ) as _i5.Future<void>);
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 
   @override
-  _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>> deleteAll() =>
+  _i4.Future<_i2.Result<_i5.EmptyContent, dynamic>> deleteAll() =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteAll,
           [],
         ),
-        returnValue: _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>>.value(
-            _FakeResult_0<_i6.EmptyContent, dynamic>(
+        returnValue: _i4.Future<_i2.Result<_i5.EmptyContent, dynamic>>.value(
+            _FakeResult_0<_i5.EmptyContent, dynamic>(
           this,
           Invocation.method(
             #deleteAll,
@@ -368,13 +341,13 @@ class MockStorage extends _i1.Mock implements _i18.Storage {
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>>.value(
-                _FakeResult_0<_i6.EmptyContent, dynamic>(
+            _i4.Future<_i2.Result<_i5.EmptyContent, dynamic>>.value(
+                _FakeResult_0<_i5.EmptyContent, dynamic>(
           this,
           Invocation.method(
             #deleteAll,
             [],
           ),
         )),
-      ) as _i5.Future<_i2.Result<_i6.EmptyContent, dynamic>>);
+      ) as _i4.Future<_i2.Result<_i5.EmptyContent, dynamic>>);
 }

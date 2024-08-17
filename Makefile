@@ -4,6 +4,12 @@ help:
 doctor: ## Run you if you have any issues starting the project
 	 ./scripts/doctor.sh
 
+autogenerate: ## Auto generate files
+	dart run build_runner build
+
+autogenerate_watching: ## Auto generate files
+	dart run build_runner watch
+
 test: ## Run tests
 	flutter test
 
@@ -18,16 +24,10 @@ run: ## Run the project on device
 lint: ## Run all linters
 	./scripts/validate-lint.sh
 
-autogenerate: ## Auto generate files
-	dart run build_runner build
-
-prepare_watch: ## Auto generate files
-	dart run build_runner watch
-
 build_android: ## Build android
 	flutter build apk --release
 
-auto_format: ## Autoformat the code base following lint rules
+format: ## Auto format the code base following lint rules
 	dart format lib/ test/
 
 check_linters: ## Run all linters
