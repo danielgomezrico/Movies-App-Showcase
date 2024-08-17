@@ -53,7 +53,9 @@ $ make test_with_covereage
   - `api/`: contains all logic to communicate with the API
 - Tests:
   - Mostly of what is being tested is the business logic, we want to have a lot of these because they run fast.
-- Router: is a simple custom implementation that allows us to have type safety when navigating between pages:
+- `Favorite feature`: is using a positive UI strategy to show faster the feedback to the user.
+- `EventBus`: used to update the list of favorites if the user changed it.
+- `Router`: is a simple custom implementation that allows us to have type safety when navigating between pages:
   - Define what attributes a page requires to start
   - Define what a page returns when it ends
   - Be able to test the navigation with unit testing
@@ -100,3 +102,23 @@ flowchart TD
     UseCase --> Models
     UseCase -.-> Repository
 ```
+
+## Screens
+
+| Movies Showcase | Favorite Movies | Movie Detail | 
+| --- | --- | --- |
+| ![](docs/1.png) | ![](docs/2.png) | ![](docs/3.png) |
+
+## Features
+
+| Clear Error Messages                   | Empty State                  | Retry                       |
+|----------------------------------------|------------------------------|-----------------------------|
+| ![](docs/clear%20error%20messages.png) | ![](docs/empty%20values.png) | ![](docs/error%20retry.gif) |
+
+| Endless Pagination                 | Sorting and show in grid or list            | 
+|------------------------------------|---------------------------------------------|
+| ![](docs/endless%20pagination.gif) | ![](docs/sorting and grid:list changer.gif) | 
+
+
+
+| remove favorite |  add favorite | see favorites offline |

@@ -14,9 +14,7 @@ test: ## Run tests
 	flutter test
 
 test_with_coverage: ## Run tests with coverage
-	flutter test --coverage --no-pub
-	genhtml coverage/lcov.info -o coverage/html
-	@echo "--> Check coverage report at coverage/html/index.html"
+	./scripts/test-with-coverage.sh
 
 run: ## Run the project on device
 	flutter run
