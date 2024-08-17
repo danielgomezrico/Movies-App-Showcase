@@ -17,7 +17,7 @@ class MoviesRepository with ResultToResponse {
     int page,
     MovieSort sort,
     MovieCategory category,
-  ) {
+  ) async {
     switch (category) {
       case MovieCategory.popular:
         return _fetchPopularMovies(page, sort);
@@ -26,12 +26,22 @@ class MoviesRepository with ResultToResponse {
     }
   }
 
+  Future<Result<Movie>> get(int movieId) async {
+    final fetch = await responseToResult(() => _service.fetchMovie(movieId));
+
+    if (fetch.isSuccess) {
+      return fetch;
+    } else {
+      return _favoriteMovieStorage.get(movieId);
+    }
+  }
+
   FutureResult<PagedContent<List<MovieSummary>>, dynamic> _fetchPopularMovies(
-    int page,
-    MovieSort sort,
-  ) {
+      int page,
+      MovieSort sort,
+      ) {
     return responseToResult(
-      () => _service.fetchMovies(page, sort),
+          () => _service.fetchMovies(page, sort),
     ).mapValue((value) {
       return PagedContent(
         payload: value.results.toList(),
@@ -43,14 +53,14 @@ class MoviesRepository with ResultToResponse {
   }
 
   Future<PagedResult<List<MovieSummary>>> _getMoviesPlayingNow(
-    int page,
-    MovieSort sort,
-  ) {
+      int page,
+      MovieSort sort,
+      ) {
     final maxDate = DateTime.now();
     final minDate = maxDate.subtract(const Duration(days: 1));
 
     return responseToResult(
-      () {
+          () {
         return _service.fetchMoviesInReleaseDate(
           page,
           sort,
@@ -66,15 +76,5 @@ class MoviesRepository with ResultToResponse {
         totalResults: value.totalResults,
       );
     });
-  }
-
-  Future<Result<Movie>> get(int movieId) async {
-    final fetch = await responseToResult(() => _service.fetchMovie(movieId));
-
-    if (fetch.isSuccess) {
-      return fetch;
-    } else {
-      return _favoriteMovieStorage.get(movieId);
-    }
   }
 }

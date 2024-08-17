@@ -6,6 +6,7 @@ import 'package:movie_flutter/common/di/modules.dart';
 import 'package:movie_flutter/feature/movie_detail/movie_detail_status.dart';
 import 'package:movie_flutter/feature/movie_detail/movie_detail_view_model.dart';
 import 'package:movie_flutter/widget/image_frame.dart';
+import 'package:movie_flutter/widget/loading.dart';
 
 class MovieDetailPage extends StatefulWidget {
   const MovieDetailPage({required this.movieSummary, super.key});
@@ -119,7 +120,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                 _body(status, context),
                 const SizedBox(height: 16),
                 if (status.isLoadingVisible)
-                  const Center(child: CircularProgressIndicator())
+                  const Center(child: Loading())
                 else
                   _MovieSummary(status: status),
               ],

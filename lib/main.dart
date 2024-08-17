@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:movie_flutter/api/api.dart';
-import 'package:movie_flutter/common/custom_theme.dart';
 import 'package:movie_flutter/common/database/database.dart';
 import 'package:movie_flutter/common/di/modules.dart';
 import 'package:movie_flutter/common/log.dart';
 import 'package:movie_flutter/common/result.dart';
+import 'package:movie_flutter/common/theme/custom_theme.dart';
 
 Future<void> main() async {
   await setupServices();

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:movie_flutter/common/change_notifier/change_notifier_value.dart';
 import 'package:movie_flutter/common/di/modules.dart';
+import 'package:movie_flutter/widget/empty.dart';
 import 'package:movie_flutter/widget/favorite_movies/favorite_movies_view_model.dart';
+import 'package:movie_flutter/widget/loading.dart';
 import 'package:movie_flutter/widget/movie_summary_item/movie_summary_item.dart';
 import 'package:movie_flutter/widget/retry_error.dart';
 
@@ -44,9 +46,9 @@ class _FavoriteMoviesState extends State<FavoriteMovies> {
         value: _viewModel,
         builder: (_, viewModel) {
           if (viewModel.status.isLoadingVisible) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: Loading());
           } else if (viewModel.status.isEmptyVisible) {
-            return const Center(child: Text('No favorite movies found :)'));
+            return const Center(child: Empty());
           } else if (viewModel.status.errorMessage != null) {
             return Center(
               child: Padding(

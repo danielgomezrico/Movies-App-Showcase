@@ -1,40 +1,6 @@
 import 'package:flutter/material.dart';
 
-abstract class CustomTheme {
-  static final ThemeData light = ThemeData.from(
-    colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent),
-    useMaterial3: true,
-  );
-
-  static final ThemeData dark = ThemeData.dark(
-    useMaterial3: true,
-  ).copyWith(
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.blueAccent,
-      brightness: Brightness.dark,
-    ),
-  );
-
-  static TextTheme create() {
-    return const TextTheme(
-      displayLarge: CustomTypography.displayLarge,
-      displayMedium: CustomTypography.displayMedium,
-      displaySmall: CustomTypography.displaySmall,
-      headlineLarge: CustomTypography.headlineLarge,
-      headlineMedium: CustomTypography.headlineMedium,
-      headlineSmall: CustomTypography.headlineSmall,
-      titleLarge: CustomTypography.titleLarge,
-      titleMedium: CustomTypography.titleMedium,
-      titleSmall: CustomTypography.titleSmall,
-      bodyLarge: CustomTypography.bodyLarge,
-      bodyMedium: CustomTypography.bodyMedium,
-      bodySmall: CustomTypography.bodySmall,
-      labelLarge: CustomTypography.labelLarge,
-      labelMedium: CustomTypography.labelMedium,
-      labelSmall: CustomTypography.labelSmall,
-    );
-  }
-}
+import 'package:movie_flutter/common/theme/custom_color.dart';
 
 abstract class CustomTypography {
   static const displayXXLarge = TextStyle(
@@ -258,10 +224,4 @@ abstract class CustomTypography {
 abstract class CustomFontWeight {
   static const regular = FontWeight.w400;
   static const semiBold = FontWeight.w600;
-}
-
-abstract class CustomColor {
-  static const Color neutral1000 = Color(0xFF000000);
-  static const Color neutral700 = Color(0xFF333333);
-  static const Color neutral500 = Color(0xFF666666);
 }

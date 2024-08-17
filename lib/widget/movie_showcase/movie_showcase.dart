@@ -7,6 +7,8 @@ import 'package:movie_flutter/common/di/modules.dart';
 import 'package:movie_flutter/common/shadow_sliver_app_bar_delegate.dart';
 import 'package:movie_flutter/widget/animated_icon_button.dart';
 import 'package:movie_flutter/widget/drop_down_selector.dart';
+import 'package:movie_flutter/widget/empty.dart';
+import 'package:movie_flutter/widget/loading.dart';
 import 'package:movie_flutter/widget/movie_showcase/movie_showcase_view_model.dart';
 import 'package:movie_flutter/widget/movie_summary_item/movie_summary_item.dart';
 import 'package:movie_flutter/widget/retry_error.dart';
@@ -67,8 +69,10 @@ class _MovieShowcaseState extends State<MovieShowcase> {
           _appBar(theme),
           _actions(),
           if (_isSettingsVisible) _settings(viewModel),
-          if (viewModel.status.isLoadingVisible) _progress(),
-          if (viewModel.status.isEmptyVisible) _empty(),
+          if (viewModel.status.isLoadingVisible)
+            const SliverFillRemaining(child: Loading()),
+          if (viewModel.status.isEmptyVisible)
+            const SliverFillRemaining(child: Empty()),
           if (viewModel.status.errorMessage != null) _error(viewModel),
           _movies(viewModel),
         ],
@@ -179,43 +183,7 @@ class _MovieShowcaseState extends State<MovieShowcase> {
     );
   }
 
-  void _onScroll() {
-    if (_scrollController.offset > 0 && !_showShadowOnActions) {
-      setState(() {
-        _showShadowOnActions = true;
-      });
-    } else if (_scrollController.offset <= 0 && _showShadowOnActions) {
-      setState(() {
-        _showShadowOnActions = false;
-      });
-    }
-
-    final scrolledToEnd = _scrollController.position.pixels ==
-        _scrollController.position.maxScrollExtent;
-
-    if (scrolledToEnd) {
-      _viewModel.onBottomReached();
-    }
-  }
-
-  SliverToBoxAdapter _progress() {
-    return const SliverToBoxAdapter(
-      child: Padding(
-        padding: EdgeInsets.all(8),
-        child: Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
-    );
-  }
-
-  SliverToBoxAdapter _empty() {
-    return const SliverToBoxAdapter(
-      child: Center(child: Text('No movies found')),
-    );
-  }
-
-  SliverPadding _error(MovieShowcaseViewModel viewModel) {
+  Widget _error(MovieShowcaseViewModel viewModel) {
     return SliverPadding(
       padding: const EdgeInsets.all(16),
       sliver: RetryError(
@@ -277,6 +245,25 @@ class _MovieShowcaseState extends State<MovieShowcase> {
         return 'Popular';
       case MovieCategory.playingNow:
         return 'Playing now';
+    }
+  }
+
+  void _onScroll() {
+    if (_scrollController.offset > 0 && !_showShadowOnActions) {
+      setState(() {
+        _showShadowOnActions = true;
+      });
+    } else if (_scrollController.offset <= 0 && _showShadowOnActions) {
+      setState(() {
+        _showShadowOnActions = false;
+      });
+    }
+
+    final scrolledToEnd = _scrollController.position.pixels ==
+        _scrollController.position.maxScrollExtent;
+
+    if (scrolledToEnd) {
+      _viewModel.onBottomReached();
     }
   }
 }

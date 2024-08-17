@@ -72,6 +72,18 @@ dart_code_linter:
     - avoid-unnecessary-conditionals
     - avoid-unnecessary-type-assertions
     - avoid-unnecessary-type-casts
+    - member-ordering:
+        order:
+          - constructors
+          - dispose-method
+          - close-method
+        widgets-order:
+          - constructor
+          - init-state-method
+          - did-change-dependencies-method
+          - did-update-widget-method
+          - dispose-method
+          - build-method
     - no-boolean-literal-compare
     - no-empty-block
     - no-equal-then-else
