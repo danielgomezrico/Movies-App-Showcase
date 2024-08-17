@@ -16,19 +16,34 @@ class HomeRobot {
 
   final WidgetTester tester;
 
-  Future<HomeRobot> tapTab(int index) async {
-    if (index == 0) {
-      await tester.tap(find.byKey(const ValueKey('tab.discover')));
-    } else {
-      await tester.tap(find.byKey(const ValueKey('tab.favorites')));
+  Future<HomeRobot> tapTab(HomeTab tab) async {
+    final Key key;
+    switch (tab) {
+      case HomeTab.discover:
+        key = const ValueKey('tab.discover');
+      case HomeTab.favorites:
+        key = const ValueKey('tab.favorites');
     }
 
+    tester.tap(find.byKey(key));
     await tester.pumpAndSettle();
+
     return this;
   }
 
-  Future<HomeRobot> checkTabVisibility(int index) async {
-    expect(find.text('Favorite Movies'), findsOneWidget);
+  Future<HomeRobot> checkTabVisibility(HomeTab tab) async {
+    final String text;
+    switch (tab) {
+      case HomeTab.discover:
+        text = 'Discover';
+      case HomeTab.favorites:
+        text = 'Favorite Movies';
+    }
+
+    expect(find.text(text), findsOneWidget);
+
     return this;
   }
 }
+
+enum HomeTab { discover, favorites }

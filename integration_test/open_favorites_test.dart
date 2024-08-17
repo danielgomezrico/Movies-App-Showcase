@@ -9,8 +9,8 @@ void main() {
   group('in the list of movies', () {
     testWidgets('can open a detail for a movie', (tester) async {
       final homeRobot = await prepareTests(tester);
-      await homeRobot.tapTab(1);
-      homeRobot.checkTabVisibility(1);
+      await homeRobot.tapTab(HomeTab.favorites);
+      homeRobot.checkTabVisibility(HomeTab.favorites);
     });
   });
 }
