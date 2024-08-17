@@ -23,7 +23,7 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
     this._removeFavoriteMovie,
     this._router,
   ) {
-    final voteAverage = '(${_movieSummary.voteAverage} votes)';
+    final voteAverage = _movieSummary.voteAverage.toString();
 
     status = MovieDetailStatus(
       (b) {

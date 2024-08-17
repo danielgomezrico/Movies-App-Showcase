@@ -53,7 +53,7 @@ void main() {
             .having((s) => s.title, 'title', 'title')
             .having((s) => s.imageUrl, 'imageUrl',
                 'https://image.tmdb.org/t/p/w500/path')
-            .having((s) => s.voteAverage, 'voteAverage', '(1.0 votes)')
+            .having((s) => s.voteAverage, 'voteAverage', '1.0')
             .having((s) => s.voteCount, 'voteCount', '1')
             .having((s) => s.language, 'language', isNull),
       );

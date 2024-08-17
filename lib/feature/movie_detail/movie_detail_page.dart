@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
 import 'package:movie_flutter/common/change_notifier/change_notifier_value.dart';
 import 'package:movie_flutter/common/di/modules.dart';
@@ -23,6 +24,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   void initState() {
     super.initState();
+
     _viewModel = ViewModelModule.movieDetailViewModel(widget.movieSummary);
 
     SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -33,6 +35,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   void dispose() {
     _viewModel.dispose();
+
     super.dispose();
   }
 
@@ -66,7 +69,11 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   SliverAppBar _appBar(MovieDetailStatus status, TextTheme textTheme) {
     return SliverAppBar(
       expandedHeight: 400,
-      pinned: true,
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.light,
+      ),
+      pinned: false,
       iconTheme: const IconThemeData(color: Colors.white),
       leading: IconButton(
         icon: const Icon(Icons.arrow_back),
@@ -117,8 +124,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _body(status, context),
-                const SizedBox(height: 16),
                 if (status.isLoadingVisible)
                   const Center(child: Loading())
                 else
@@ -130,23 +135,6 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
       ),
     );
   }
-
-  Row _body(MovieDetailStatus status, BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-
-    return Row(
-      children: [
-        const Icon(Icons.star, color: Colors.amber, size: 24),
-        const SizedBox(width: 4),
-        Text(status.voteAverage ?? '---', style: textTheme.bodyMedium),
-        const SizedBox(width: 8),
-        Text(
-          status.voteCount != null ? status.voteCount! : 'Unknown votes',
-          style: textTheme.bodyMedium,
-        ),
-      ],
-    );
-  }
 }
 
 class _MovieSummary extends StatelessWidget {
@@ -156,44 +144,103 @@ class _MovieSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Genres', style: textTheme.titleSmall),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 8,
-          runSpacing: 4,
-          children: status.genres.map((genre) {
-            return Chip(
-              label: Text(genre),
-              backgroundColor: Colors.deepPurpleAccent.withOpacity(0.7),
-              labelStyle: textTheme.labelLarge?.copyWith(color: Colors.white),
-            );
-          }).toList(),
-        ),
-        const SizedBox(height: 16),
-        Text('Overview', style: textTheme.titleSmall),
+        Text('Overview', style: textTheme.headlineSmall),
         const SizedBox(height: 8),
         Text(
           status.overview != null ? status.overview! : '---',
           style: textTheme.bodyMedium,
         ),
         const SizedBox(height: 16),
-        Text(
-          status.releaseDate != null
-              ? status.releaseDate!
-              : 'Release Date: Unknown',
-          style: textTheme.labelSmall,
+        Row(
+          children: [
+            const Icon(Icons.star, color: Colors.amber, size: 24),
+            const SizedBox(width: 4),
+            Text(status.voteAverage ?? '---', style: textTheme.bodyMedium),
+            const SizedBox(width: 8),
+            Text(
+              status.voteCount != null
+                  ? '(${status.voteCount} votes)'
+                  : '(Unknown votes)',
+              style: textTheme.bodyMedium,
+            ),
+          ],
         ),
+        const SizedBox(height: 16),
+        const Divider(),
         const SizedBox(height: 8),
+        _ReleaseInfo(status: status, textTheme: textTheme),
+      ],
+    );
+  }
+}
+
+class _ReleaseInfo extends StatelessWidget {
+  const _ReleaseInfo({
+    required this.status,
+    required this.textTheme,
+  });
+
+  final MovieDetailStatus status;
+  final TextTheme textTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _releaseDate(),
+        const SizedBox(height: 8),
+        _overview(),
+        const SizedBox(height: 8),
+        _genre()
+      ],
+    );
+  }
+
+  Row _genre() {
+    return Row(
+      children: [
+        const Icon(Icons.topic_outlined, size: 16),
+        const SizedBox(width: 8),
+        Text(
+          status.genres.join(', '),
+          style: textTheme.bodyMedium?.copyWith(),
+        ),
+      ],
+    );
+  }
+
+  Row _overview() {
+    return Row(
+      children: [
+        const Icon(Icons.language, size: 16),
+        const SizedBox(width: 8),
         Text(
           status.language != null
               ? 'Languages: ${status.language}'
               : 'Languages: Unknown',
-          style: textTheme.bodySmall,
+          style: textTheme.bodyMedium?.copyWith(),
+        ),
+      ],
+    );
+  }
+
+  Row _releaseDate() {
+    return Row(
+      children: [
+        const Icon(Icons.calendar_today, size: 16),
+        const SizedBox(width: 8),
+        Text(
+          status.releaseDate != null
+              ? status.releaseDate!
+              : 'Release Date: Unknown',
+          style: textTheme.bodyMedium?.copyWith(),
         ),
       ],
     );
