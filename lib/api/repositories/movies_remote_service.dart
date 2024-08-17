@@ -14,10 +14,22 @@ abstract class MoviesRemoteService extends ChopperService {
   Future<Response<Movie>> fetchMovie(@Path() int id);
 
   @Get(
-      path:
-          '/discover/movie?include_adult=true&include_video=false&language=en-US')
+    path:
+        '/discover/movie?include_adult=true&include_video=false&language=en-US&with_release_type=2|3',
+  )
   Future<Response<MovieSummaryResponse>> fetchMovies(
     @Query('page') int page,
     @Query('sort_by') MovieSort sort,
+  );
+
+  @Get(
+    path:
+        'discover/movie?include_adult=false&include_video=false&language=en-US&with_release_type=2|3',
+  )
+  Future<Response<MovieSummaryResponse>> fetchMoviesInReleaseDate(
+    @Query('page') int page,
+    @Query('sort_by') MovieSort sort,
+    @Query('release_date.gte') String minDate,
+    @Query('release_date.lte') String maxDate,
   );
 }

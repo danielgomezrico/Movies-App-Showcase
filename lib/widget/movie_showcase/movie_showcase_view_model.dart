@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart' show visibleForTesting;
+import 'package:movie_flutter/api/repositories/models/movie_category.dart';
 import 'package:movie_flutter/api/repositories/models/movie_sort.dart';
 import 'package:movie_flutter/api/repositories/movies_repository.dart';
 import 'package:movie_flutter/common/log.dart';
@@ -25,6 +26,9 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
   @visibleForTesting
   MovieSort sort = MovieSort.titleAsc;
 
+  @visibleForTesting
+  MovieCategory category = MovieCategory.popular;
+
   Future<void> onInit() async {
     status = status.rebuild(
       (b) => b
@@ -37,6 +41,21 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
   }
 
   Future<void> onBottomReached() async {
+    await showNextMovies(sort);
+  }
+
+  Future<void> onCategoryChanged(MovieCategory movieCategory) async {
+    page = _initialPageIndex;
+    category = movieCategory;
+
+    status = status.rebuild(
+      (b) => b
+        ..items = []
+        ..isLoadingVisible = true
+        ..isEmptyVisible = false
+        ..errorMessage = null,
+    );
+
     await showNextMovies(sort);
   }
 
@@ -57,7 +76,7 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
 
   @visibleForTesting
   Future<void> showNextMovies(MovieSort sort) async {
-    await _moviesRepository.getMovies(page, sort).match(
+    await _moviesRepository.getMovies(page, sort, category).match(
       onSuccess: (data) {
         page++;
 

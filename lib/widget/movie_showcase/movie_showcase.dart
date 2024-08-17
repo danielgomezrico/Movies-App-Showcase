@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:movie_flutter/api/repositories/models/movie_category.dart';
 import 'package:movie_flutter/api/repositories/models/movie_sort.dart';
 import 'package:movie_flutter/common/change_notifier/change_notifier_value.dart';
 import 'package:movie_flutter/common/di/modules.dart';
+import 'package:movie_flutter/widget/animated_icon_button.dart';
 import 'package:movie_flutter/widget/drop_down_selector.dart';
 import 'package:movie_flutter/widget/movie_showcase/movie_showcase_view_model.dart';
 import 'package:movie_flutter/widget/movie_summary_item/movie_summary_item.dart';
@@ -20,7 +22,10 @@ class MovieShowcase extends StatefulWidget {
 class _MovieShowcaseState extends State<MovieShowcase> {
   late MovieShowcaseViewModel _viewModel;
   late ScrollController _scrollController;
+
+  // TODO(danielgomezrico): Move to the viewmodel
   bool _showMoviesOnGrid = false;
+  bool _isSettingsVisible = false;
 
   @override
   void initState() {
@@ -77,6 +82,7 @@ class _MovieShowcaseState extends State<MovieShowcase> {
         slivers: [
           _appBar(),
           _actions(viewModel),
+          _settings(viewModel),
           _movies(viewModel),
         ],
       ),
@@ -98,21 +104,17 @@ class _MovieShowcaseState extends State<MovieShowcase> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 16),
-                  child: Row(
-                    children: [
-                      const Text('Sort by:'),
-                      const SizedBox(width: 8),
-                      DropDownSelector(
-                        labels: MovieSort.values.map(_mapToLabel).toList(),
-                        values: MovieSort.values.toList(),
-                        onSelected: viewModel.onSortChanged,
-                      ),
-                    ],
-                  ),
+                AnimatedIconButton(
+                  animationType: _isSettingsVisible
+                      ? AnimationType.giroRight
+                      : AnimationType.giroLeft,
+                  icon: const Icon(Icons.settings),
+                  onPressed: () {
+                    setState(() => _isSettingsVisible = !_isSettingsVisible);
+                  },
                 ),
-                IconButton(
+                AnimatedIconButton(
+                  animationType: AnimationType.rotate,
                   icon: _showMoviesOnGrid
                       ? const Icon(Icons.view_list_rounded)
                       : const Icon(Icons.grid_on),
@@ -184,5 +186,73 @@ class _MovieShowcaseState extends State<MovieShowcase> {
     }
 
     throw Exception('Unknown sort: $sort');
+  }
+
+  String _mapCategoryToLabel(MovieCategory category) {
+    switch (category) {
+      case MovieCategory.popular:
+        return 'Popular';
+      case MovieCategory.playingNow:
+        return 'Playing now';
+    }
+  }
+
+  Widget _settings(MovieShowcaseViewModel viewModel) {
+    if (!_isSettingsVisible) {
+      return const SliverToBoxAdapter(child: SizedBox.shrink());
+    }
+
+    return SliverPersistentHeader(
+      pinned: true,
+      delegate: ShadowSliverAppBarDelegate(
+        minHeight: 40,
+        maxHeight: 40,
+        isShadowEnabled: true,
+        child: ColoredBox(
+          color: Theme.of(context).colorScheme.surface,
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: Row(
+                      children: [
+                        const Text('Sort by:'),
+                        const SizedBox(width: 8),
+                        DropDownSelector(
+                          labels: MovieSort.values.map(_mapToLabel).toList(),
+                          values: MovieSort.values.toList(),
+                          onSelected: viewModel.onSortChanged,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: Row(
+                      children: [
+                        const Text('Category:'),
+                        const SizedBox(width: 8),
+                        DropDownSelector(
+                          labels: MovieCategory.values
+                              .map(_mapCategoryToLabel)
+                              .toList(),
+                          values: MovieCategory.values.toList(),
+                          onSelected: viewModel.onCategoryChanged,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
