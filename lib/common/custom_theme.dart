@@ -6,6 +6,15 @@ abstract class CustomTheme {
     useMaterial3: true,
   );
 
+  static final ThemeData dark = ThemeData.dark(
+    useMaterial3: true,
+  ).copyWith(
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: Colors.blueAccent,
+      brightness: Brightness.dark,
+    ),
+  );
+
   static TextTheme create() {
     return const TextTheme(
       displayLarge: CustomTypography.displayLarge,
@@ -32,238 +41,204 @@ abstract class CustomTypography {
     color: CustomColor.neutral1000,
     fontSize: 48,
     fontWeight: CustomFontWeight.semiBold,
-    letterSpacing: 0,
   );
 
   static const displayXLarge = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 40,
     fontWeight: CustomFontWeight.semiBold,
-    letterSpacing: 0,
   );
 
   static const displayLarge = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 32,
     fontWeight: CustomFontWeight.semiBold,
-    letterSpacing: 0,
   );
 
   static const displayMedium = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 28,
     fontWeight: CustomFontWeight.semiBold,
-    letterSpacing: 0,
   );
 
   static const displaySmall = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 24,
     fontWeight: CustomFontWeight.semiBold,
-    letterSpacing: 0,
   );
 
   static const headlineLarge = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 32,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 
   static const headlineMedium = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 28,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 
   static const headlineSmall = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 24,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 
   static const titleLarge = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 28,
     fontWeight: CustomFontWeight.semiBold,
-    letterSpacing: 0,
   );
 
   static const titleMedium = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 24,
     fontWeight: CustomFontWeight.semiBold,
-    letterSpacing: 0,
   );
 
   static const titleSmall = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 22,
     fontWeight: CustomFontWeight.semiBold,
-    letterSpacing: 0,
   );
 
   static const bodyXLarge = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 18,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 
   static const bodyLarge = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 16,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 
   static const bodyLarge700 = TextStyle(
     color: CustomColor.neutral700,
     fontSize: 16,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 
   static const bodyLarge500 = TextStyle(
     color: CustomColor.neutral500,
     fontSize: 16,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 
   static const bodyRegular700 = TextStyle(
     color: CustomColor.neutral700,
     fontSize: 14,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 
   static const bodyMedium = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 14,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 
   static const bodySmall = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 12,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 
   static const bodySmall500 = TextStyle(
     color: CustomColor.neutral500,
     fontSize: 12,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 
   static const bodySmall700 = TextStyle(
     color: CustomColor.neutral700,
     fontSize: 12,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 
   static const bodyXXLargeSemiBold = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 20,
     fontWeight: CustomFontWeight.semiBold,
-    letterSpacing: 0,
   );
 
   static const bodyXLargeSemiBold = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 18,
     fontWeight: CustomFontWeight.semiBold,
-    letterSpacing: 0,
   );
 
   static const bodyLargeSemiBold = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 16,
     fontWeight: CustomFontWeight.semiBold,
-    letterSpacing: 0,
   );
 
   static const bodyLargeSemiBold700 = TextStyle(
     color: CustomColor.neutral700,
     fontSize: 16,
     fontWeight: CustomFontWeight.semiBold,
-    letterSpacing: 0,
   );
 
   static const bodyMediumSemiBold = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 14,
     fontWeight: CustomFontWeight.semiBold,
-    letterSpacing: 0,
   );
 
   static const bodyMediumSemiBold700 = TextStyle(
     color: CustomColor.neutral700,
     fontSize: 14,
     fontWeight: CustomFontWeight.semiBold,
-    letterSpacing: 0,
   );
 
   static const bodySmallSemiBold = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 12,
     fontWeight: CustomFontWeight.semiBold,
-    letterSpacing: 0,
   );
 
   static const bodySmallSemiBold500 = TextStyle(
     color: CustomColor.neutral500,
     fontSize: 12,
     fontWeight: CustomFontWeight.semiBold,
-    letterSpacing: 0,
   );
 
   static const labelLarge = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 14,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 
   static const labelMedium = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 12,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 
   static const labelMedium500 = TextStyle(
     color: CustomColor.neutral500,
     fontSize: 12,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 
   static const labelSmall = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 10,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 
   static const labelSemiBold = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 12,
     fontWeight: CustomFontWeight.semiBold,
-    letterSpacing: 0,
   );
 
   static const captionLarge = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 16,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 
   static const captionMedium = TextStyle(
@@ -271,14 +246,12 @@ abstract class CustomTypography {
     fontSize: 14,
     fontWeight: CustomFontWeight.regular,
     height: 1.28,
-    letterSpacing: 0,
   );
 
   static const captionSmall = TextStyle(
     color: CustomColor.neutral1000,
     fontSize: 12,
     fontWeight: CustomFontWeight.regular,
-    letterSpacing: 0,
   );
 }
 

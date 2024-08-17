@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Movies App',
       theme: CustomTheme.light,
+      darkTheme: CustomTheme.dark,
       navigatorKey: router.navigatorKey,
       initialRoute: router.initialRoute,
       onGenerateRoute: router.onGenerateRoute,
