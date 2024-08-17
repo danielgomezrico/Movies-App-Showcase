@@ -19,7 +19,7 @@ class MovieSummaryItem extends StatelessWidget {
       create: () => ViewModelModule.moveSummaryItemViewModel(_movieSummary),
       builder: (_, viewModel) {
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 16),
           child: InkWell(
             onTap: viewModel.onTap,
             child: ClipRRect(

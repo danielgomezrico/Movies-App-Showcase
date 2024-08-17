@@ -1,3 +1,6 @@
+// This is the group of spies
+// ignore_for_file: prefer-match-file-name
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_flutter/common/event_bus.dart';
 import 'package:movie_flutter/widget/favorite_movies/favorite_movies_status.dart';

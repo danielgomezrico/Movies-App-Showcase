@@ -1,5 +1,5 @@
-// Group all factories in one file
-// ignore_for_file: prefer-correct-test-file-name
+// All factories live here
+// ignore_for_file: prefer-match-file-name
 
 import 'dart:io';
 

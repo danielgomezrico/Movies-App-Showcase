@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:movie_flutter/common/result.dart';
 import 'package:movie_flutter/common/use_case/remove_favorite_movie_use_case.dart';
 
 import '../../test_utils/mocks.dart';

@@ -1,3 +1,6 @@
+// This is the group of spies
+// ignore_for_file: prefer-match-file-name
+
 import 'package:movie_flutter/api/repositories/models/movie.dart';
 import 'package:movie_flutter/feature/movie_detail/movie_detail_view_model.dart';
 

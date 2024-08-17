@@ -1,4 +1,5 @@
 // This is the mock setup and its not required
+// ignore_for_file: prefer-match-file-name
 // ignore_for_file: prefer-correct-test-file-name
 
 import 'package:mockito/annotations.dart';

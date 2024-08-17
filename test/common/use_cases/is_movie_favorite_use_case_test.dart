@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:movie_flutter/api/repositories/models/movie.dart';
 import 'package:movie_flutter/common/use_case/is_movie_favorite_use_case.dart';
 
 import '../../test_utils/mocks.dart';

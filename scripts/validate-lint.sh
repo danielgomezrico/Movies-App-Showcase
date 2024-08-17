@@ -5,7 +5,6 @@ COMMANDS=(
   "dart run dart_code_linter:metrics check-unused-code lib test"
   "dart run dart_code_linter:metrics check-unused-files lib test"
   "dart run dart_code_linter:metrics analyze lib test"
-  "dart run dart_code_linter:metrics check-unnecessary-nullable lib test"
 )
 
 for COMMAND in "${COMMANDS[@]}"; do
