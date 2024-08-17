@@ -18,7 +18,7 @@ class LogCurlRequestInterceptor implements Interceptor {
     final curlParts = ['curl -v -X ${baseRequest.method}'];
 
     for (final header in baseRequest.headers.entries) {
-      if (header.key == 'Authorization') {
+      if (header.key == 'api_key') {
         curlParts.add("-H '${header.key}: ***'");
       } else {
         curlParts.add("-H '${header.key}: ${header.value}'");
