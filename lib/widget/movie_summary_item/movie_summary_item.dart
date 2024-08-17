@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
 import 'package:movie_flutter/common/change_notifier/change_notifier_watcher.dart';
 import 'package:movie_flutter/common/di/modules.dart';
-import 'package:movie_flutter/widgets/image_frame.dart';
-import 'package:movie_flutter/widgets/movie_summary_item/movie_summary_item_view_model.dart';
+import 'package:movie_flutter/widget/image_frame.dart';
+import 'package:movie_flutter/widget/movie_summary_item/movie_summary_item_view_model.dart';
 
 // TODO(danielgomezrico): move this simple logic into viewmodel and test it
 class MovieSummaryItem extends StatelessWidget {

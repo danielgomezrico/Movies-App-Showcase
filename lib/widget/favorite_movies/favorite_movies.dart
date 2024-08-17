@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:movie_flutter/common/change_notifier/change_notifier_value.dart';
 import 'package:movie_flutter/common/di/modules.dart';
-import 'package:movie_flutter/widgets/favorite_movies/favorite_movies_view_model.dart';
-import 'package:movie_flutter/widgets/movie_summary_item/movie_summary_item.dart';
-import 'package:movie_flutter/widgets/retry_error.dart';
+import 'package:movie_flutter/widget/favorite_movies/favorite_movies_view_model.dart';
+import 'package:movie_flutter/widget/movie_summary_item/movie_summary_item.dart';
+import 'package:movie_flutter/widget/retry_error.dart';
 
 class FavoriteMovies extends StatefulWidget {
   const FavoriteMovies({super.key});

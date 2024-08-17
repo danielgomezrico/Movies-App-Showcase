@@ -5,7 +5,7 @@ import 'package:movie_flutter/common/event_bus.dart';
 import 'package:movie_flutter/common/result.dart';
 import 'package:movie_flutter/common/use_case/find_favorite_movie_summaries_use_case.dart';
 import 'package:movie_flutter/common/view_model.dart';
-import 'package:movie_flutter/widgets/favorite_movies/favorite_movies_status.dart';
+import 'package:movie_flutter/widget/favorite_movies/favorite_movies_status.dart';
 
 class FavoriteMoviesViewModel extends ViewModel<FavoriteMoviesStatus> {
   FavoriteMoviesViewModel(this._findFavoriteMovies, this._eventBus) {
@@ -34,9 +34,12 @@ class FavoriteMoviesViewModel extends ViewModel<FavoriteMoviesStatus> {
 
   @visibleForTesting
   Future<void> showMovies() async {
-    status = status.rebuild((b) => b
-      ..isLoadingVisible = true
-      ..isEmptyVisible = false);
+    status = status.rebuild(
+      (b) => b
+        ..isLoadingVisible = true
+        ..isEmptyVisible = false
+        ..errorMessage = null,
+    );
 
     await _findFavoriteMovies().match(
       onSuccess: (movieSummaries) {
@@ -51,7 +54,7 @@ class FavoriteMoviesViewModel extends ViewModel<FavoriteMoviesStatus> {
         status = status.rebuild(
           (b) => b
             ..isLoadingVisible = false
-            ..isEmptyVisible = true
+            ..isEmptyVisible = false
             ..errorMessage = error.toString(),
         );
       },

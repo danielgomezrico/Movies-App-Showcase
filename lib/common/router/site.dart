@@ -3,7 +3,8 @@ import 'package:flutter/material.dart'
 
 export 'package:flutter/material.dart' show Widget;
 
-export 'sites/home_site.dart';
+export 'site/home_site.dart';
+export 'site/movie_detail_site.dart';
 
 abstract class Site<T extends SiteResult?> {
   const Site();

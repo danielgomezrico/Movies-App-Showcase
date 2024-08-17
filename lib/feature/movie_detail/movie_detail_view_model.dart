@@ -5,7 +5,6 @@ import 'package:movie_flutter/api/repositories/movies_repository.dart';
 import 'package:movie_flutter/common/date_formatter.dart';
 import 'package:movie_flutter/common/result.dart';
 import 'package:movie_flutter/common/router/router.dart';
-import 'package:movie_flutter/common/router/sites/movie_detail_site.dart';
 import 'package:movie_flutter/common/use_case/is_movie_favorite_use_case.dart';
 import 'package:movie_flutter/common/use_case/remove_favorite_movie_use_case.dart';
 import 'package:movie_flutter/common/use_case/save_favorite_movie_use_case.dart';

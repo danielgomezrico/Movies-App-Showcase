@@ -4,7 +4,7 @@ import 'package:movie_flutter/api/repositories/movies_repository.dart';
 import 'package:movie_flutter/common/log.dart';
 import 'package:movie_flutter/common/result.dart';
 import 'package:movie_flutter/common/view_model.dart';
-import 'package:movie_flutter/widgets/movie_showcase/movie_showcase_status.dart';
+import 'package:movie_flutter/widget/movie_showcase/movie_showcase_status.dart';
 
 const _initialPageIndex = 1;
 

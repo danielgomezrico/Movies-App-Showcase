@@ -1,5 +1,5 @@
 import 'package:movie_flutter/common/router/site.dart';
-import 'package:movie_flutter/features/home/home_page.dart';
+import 'package:movie_flutter/feature/home/home_page.dart';
 
 class HomeSite extends Site {
   const HomeSite();

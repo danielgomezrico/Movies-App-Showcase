@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_flutter/api/repositories/models/movie_sort.dart';
-import 'package:movie_flutter/widgets/movie_showcase/movie_showcase_status.dart';
-import 'package:movie_flutter/widgets/movie_showcase/movie_showcase_view_model.dart';
+import 'package:movie_flutter/widget/movie_showcase/movie_showcase_status.dart';
+import 'package:movie_flutter/widget/movie_showcase/movie_showcase_view_model.dart';
 
 import '../../test_utils/mocks.dart';
 import 'spies.dart';
@@ -116,80 +116,68 @@ void main() {
 
         expect(
           status,
-          emitsInOrder([
-            isA<_Status>()
-                .having((s) => s.isLoadingVisible, 'isLoadingVisible', isTrue)
-                .having((s) => s.isEmptyVisible, 'isEmptyVisible', isFalse),
+          emits(
             isA<_Status>()
                 .having((s) => s.isLoadingVisible, 'isLoadingVisible', isFalse)
                 .having((s) => s.items, 'items', isEmpty)
                 .having((s) => s.isEmptyVisible, 'isEmptyVisible', isTrue),
-          ]),
+          ),
         );
       });
+    });
 
-      group('after getting all items', () {
-        test('shows the items', () async {
-          when(moviesRepository.getMovies(any, any)).thenOk([
-            MovieSummaryMother.base,
-            MovieSummaryMother.base,
-          ]);
+    group('after getting all items', () {
+      test('shows the items', () async {
+        when(moviesRepository.getMovies(any, any)).thenOk([
+          MovieSummaryMother.base,
+          MovieSummaryMother.base,
+        ]);
 
-          final viewModel = subject();
+        final viewModel = subject();
 
-          final status = viewModel.statusChanges();
+        final status = viewModel.statusChanges();
 
-          await viewModel.showNextMovies(MovieSort.titleAsc);
+        await viewModel.showNextMovies(MovieSort.titleAsc);
 
-          expect(
-            status,
-            emitsInOrder([
-              isA<_Status>()
-                  .having((s) => s.isLoadingVisible, 'isLoadingVisible', isTrue)
-                  .having((s) => s.items, 'items', isEmpty)
-                  .having((s) => s.isEmptyVisible, 'isEmptyVisible', isFalse),
-              isA<_Status>()
-                  .having(
-                    (s) => s.isLoadingVisible,
-                    'isLoadingVisible',
-                    isFalse,
-                  )
-                  .having((s) => s.items, 'items', hasLength(2))
-                  .having((s) => s.isEmptyVisible, 'isEmptyVisible', isFalse),
-            ]),
-          );
-        });
+        expect(
+          status,
+          emits(
+            isA<_Status>()
+                .having(
+                  (s) => s.isLoadingVisible,
+                  'isLoadingVisible',
+                  isFalse,
+                )
+                .having((s) => s.items, 'items', hasLength(2))
+                .having((s) => s.isEmptyVisible, 'isEmptyVisible', isFalse),
+          ),
+        );
       });
+    });
 
-      group('after getting an error', () {
-        test('shows the error', () async {
-          when(moviesRepository.getMovies(any, any)).thenError();
+    group('after getting an error', () {
+      test('shows the error', () async {
+        when(moviesRepository.getMovies(any, any)).thenError();
 
-          final viewModel = subject();
+        final viewModel = subject();
 
-          final status = viewModel.statusChanges();
+        final status = viewModel.statusChanges();
 
-          await viewModel.showNextMovies(MovieSort.titleAsc);
+        await viewModel.showNextMovies(MovieSort.titleAsc);
 
-          expect(
-            status,
-            emitsInOrder([
-              isA<_Status>()
-                  .having((s) => s.isLoadingVisible, 'isLoadingVisible', isTrue)
-                  .having((s) => s.items, 'items', isEmpty)
-                  .having((s) => s.isEmptyVisible, 'isEmptyVisible', isFalse)
-                  .having((s) => s.errorMessage, 'error', isNull),
-              isA<_Status>()
-                  .having(
-                    (s) => s.isLoadingVisible,
-                    'isLoadingVisible',
-                    isFalse,
-                  )
-                  .having((s) => s.errorMessage, 'error', 'error')
-                  .having((s) => s.isEmptyVisible, 'isEmptyVisible', isFalse),
-            ]),
-          );
-        });
+        expect(
+          status,
+          emits(
+            isA<_Status>()
+                .having(
+                  (s) => s.isLoadingVisible,
+                  'isLoadingVisible',
+                  isFalse,
+                )
+                .having((s) => s.errorMessage, 'error', 'error')
+                .having((s) => s.isEmptyVisible, 'isEmptyVisible', isFalse),
+          ),
+        );
       });
     });
 

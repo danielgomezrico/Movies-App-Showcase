@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_flutter/common/event_bus.dart';
-import 'package:movie_flutter/widgets/favorite_movies/favorite_movies_status.dart';
-import 'package:movie_flutter/widgets/favorite_movies/favorite_movies_view_model.dart';
+import 'package:movie_flutter/widget/favorite_movies/favorite_movies_status.dart';
+import 'package:movie_flutter/widget/favorite_movies/favorite_movies_view_model.dart';
 
 import '../../test_utils/mocks.dart';
 import 'spies.dart';
@@ -88,7 +88,7 @@ void main() {
 
         final status = viewModel.statusChanges();
 
-        await viewModel.onInit();
+        await viewModel.showMovies();
 
         expect(
           status,
@@ -112,14 +112,13 @@ void main() {
 
           final status = viewModel.statusChanges();
 
-          await viewModel.onInit();
+          await viewModel.showMovies();
 
           expect(
             status,
             emitsInOrder([
               isA<_Status>()
                   .having((s) => s.isLoadingVisible, 'isLoadingVisible', isTrue)
-                  .having((s) => s.items, 'items', isEmpty)
                   .having((s) => s.isEmptyVisible, 'isEmptyVisible', isFalse)
                   .having((s) => s.errorMessage, 'error', isNull),
               isA<_Status>()

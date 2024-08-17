@@ -1,7 +1,7 @@
 // We group multiple spies in this file
 // ignore_for_file: prefer-match-file-name
 
-import 'package:movie_flutter/widgets/favorite_movies/favorite_movies_view_model.dart';
+import 'package:movie_flutter/widget/favorite_movies/favorite_movies_view_model.dart';
 
 mixin ShowMovies on FavoriteMoviesViewModel {
   int showMoviesCallCount = 0;

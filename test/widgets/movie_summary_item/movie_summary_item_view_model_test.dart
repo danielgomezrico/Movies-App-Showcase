@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
 import 'package:movie_flutter/common/event_bus.dart';
-import 'package:movie_flutter/common/router/sites/movie_detail_site.dart';
-import 'package:movie_flutter/widgets/movie_summary_item/movie_summary_item_view_model.dart';
-import 'package:movie_flutter/widgets/movie_summary_item/movie_summary_status.dart';
+import 'package:movie_flutter/common/router/site/movie_detail_site.dart';
+import 'package:movie_flutter/widget/movie_summary_item/movie_summary_item_view_model.dart';
+import 'package:movie_flutter/widget/movie_summary_item/movie_summary_status.dart';
 
 import '../../test_utils/mocks.dart';
 

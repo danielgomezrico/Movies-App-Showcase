@@ -3,9 +3,9 @@ import 'package:flutter/scheduler.dart';
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
 import 'package:movie_flutter/common/change_notifier/change_notifier_value.dart';
 import 'package:movie_flutter/common/di/modules.dart';
-import 'package:movie_flutter/features/movie_detail/movie_detail_status.dart';
-import 'package:movie_flutter/features/movie_detail/movie_detail_view_model.dart';
-import 'package:movie_flutter/widgets/image_frame.dart';
+import 'package:movie_flutter/feature/movie_detail/movie_detail_status.dart';
+import 'package:movie_flutter/feature/movie_detail/movie_detail_view_model.dart';
+import 'package:movie_flutter/widget/image_frame.dart';
 
 class MovieDetailPage extends StatefulWidget {
   const MovieDetailPage({required this.movieSummary, super.key});

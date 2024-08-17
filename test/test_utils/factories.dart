@@ -11,7 +11,7 @@ import 'package:movie_flutter/api/repositories/models/movie.dart';
 import 'package:movie_flutter/api/repositories/models/movie_summary.dart';
 import 'package:movie_flutter/common/event_bus.dart';
 import 'package:movie_flutter/common/result.dart';
-import 'package:movie_flutter/common/router/sites/movie_detail_site.dart';
+import 'package:movie_flutter/common/router/site/movie_detail_site.dart';
 
 abstract class MovieMother {
   static Movie get base {

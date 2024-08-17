@@ -34,8 +34,12 @@ abstract class Database {
     for (final storage in storages) {
       try {
         await storage.initialize();
-      } catch (e) {
-        return Result.error(e);
+      } catch (e, stack) {
+        log.i(
+          '$_tag Error initializing storage $storage',
+          error: e,
+          stackTrace: stack,
+        );
       }
     }
 

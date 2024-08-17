@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:movie_flutter/widgets/favorite_movies/favorite_movies.dart';
-import 'package:movie_flutter/widgets/movie_showcase/movie_showcase.dart';
+import 'package:movie_flutter/widget/favorite_movies/favorite_movies.dart';
+import 'package:movie_flutter/widget/movie_showcase/movie_showcase.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
