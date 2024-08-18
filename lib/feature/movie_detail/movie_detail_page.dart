@@ -210,10 +210,16 @@ class _ReleaseInfo extends StatelessWidget {
       children: [
         const Icon(Icons.topic_outlined, size: 16),
         const SizedBox(width: 8),
-        Text(
-          'Genres: ${status.genres.join(', ')}',
-          style: textTheme.bodyMedium?.copyWith(),
-        ),
+        if (status.genres.isEmpty)
+          Text(
+            'Genres: Unknown',
+            style: textTheme.bodyMedium,
+          )
+        else
+          Text(
+            'Genres: ${status.genres.join(', ')}',
+            style: textTheme.bodyMedium,
+          ),
       ],
     );
   }
@@ -227,7 +233,7 @@ class _ReleaseInfo extends StatelessWidget {
           status.language != null
               ? 'Languages: ${status.language}'
               : 'Languages: Unknown',
-          style: textTheme.bodyMedium?.copyWith(),
+          style: textTheme.bodyMedium,
         ),
       ],
     );
@@ -242,7 +248,7 @@ class _ReleaseInfo extends StatelessWidget {
           status.releaseDate != null
               ? status.releaseDate!
               : 'Release Date: Unknown',
-          style: textTheme.bodyMedium?.copyWith(),
+          style: textTheme.bodyMedium,
         ),
       ],
     );
@@ -257,7 +263,7 @@ class _ReleaseInfo extends StatelessWidget {
           status.popularity != null
               ? 'Popularity: ${status.popularity}'
               : 'Popularity: Unknown',
-          style: textTheme.bodyMedium?.copyWith(),
+          style: textTheme.bodyMedium,
         ),
       ],
     );
