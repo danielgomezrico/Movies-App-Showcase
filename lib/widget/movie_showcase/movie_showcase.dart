@@ -5,7 +5,6 @@ import 'package:movie_flutter/api/repositories/models/movie_sort.dart';
 import 'package:movie_flutter/common/change_notifier/change_notifier_value.dart';
 import 'package:movie_flutter/common/di/modules.dart';
 import 'package:movie_flutter/common/shadow_sliver_app_bar_delegate.dart';
-import 'package:movie_flutter/widget/animated_icon_button.dart';
 import 'package:movie_flutter/widget/drop_down_selector.dart';
 import 'package:movie_flutter/widget/empty.dart';
 import 'package:movie_flutter/widget/loading.dart';
@@ -102,18 +101,14 @@ class _MovieShowcaseState extends State<MovieShowcase> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               mainAxisSize: MainAxisSize.max,
               children: [
-                AnimatedIconButton(
-                  animationType: viewModel.status.isSettingsVisible
-                      ? AnimationType.giroRight
-                      : AnimationType.giroLeft,
-                  icon: const Icon(Icons.settings),
+                IconButton(
+                  icon: const Icon(Icons.style),
+                  onPressed: viewModel.onShowMoviesOnGridTap,
+                ),
+                IconButton(
+                  icon: const Icon(Icons.sort),
                   onPressed: viewModel.onSettingsTap,
                 ),
-                AnimatedIconButton(
-                  animationType: AnimationType.rotate,
-                  icon: const Icon(Icons.grid_on),
-                  onPressed: viewModel.onShowMoviesOnGridTap,
-                )
               ],
             ),
           ),
