@@ -111,9 +111,7 @@ class _MovieShowcaseState extends State<MovieShowcase> {
                 ),
                 AnimatedIconButton(
                   animationType: AnimationType.rotate,
-                  icon: viewModel.status.showMoviesOnGrid
-                      ? const Icon(Icons.view_list_rounded)
-                      : const Icon(Icons.grid_on),
+                  icon: const Icon(Icons.grid_on),
                   onPressed: viewModel.onShowMoviesOnGridTap,
                 )
               ],

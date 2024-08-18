@@ -16,6 +16,7 @@ class ChangeNotifierWatcher<T extends ChangeNotifier> extends StatelessWidget {
     return ChangeNotifierProvider<T>(
       create: (_) => create(),
       builder: (context, child) {
+        // TODO(danielgomezrico): Avoid a general consumer to avoid rebuilds
         return Consumer<T>(builder: (context, value, child) {
           return builder(context, value);
         });
