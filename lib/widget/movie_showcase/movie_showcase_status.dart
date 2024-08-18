@@ -18,4 +18,8 @@ abstract class MovieShowcaseStatus
   bool get isEmptyVisible;
 
   String? get errorMessage;
+
+  bool get showMoviesOnGrid;
+
+  bool get isSettingsVisible;
 }

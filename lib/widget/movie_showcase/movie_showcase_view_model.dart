@@ -15,7 +15,9 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
       (b) => b
         ..isLoadingVisible = true
         ..isEmptyVisible = false
-        ..items = [],
+        ..items = []
+        ..isSettingsVisible = false
+        ..showMoviesOnGrid = false,
     );
   }
 
@@ -72,6 +74,18 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
     );
 
     await showNextMovies(movieSort);
+  }
+
+  void onSettingsTap() {
+    status = status.rebuild(
+      (b) => b..isSettingsVisible = !status.isSettingsVisible,
+    );
+  }
+
+  void onShowMoviesOnGridTap() {
+    status = status.rebuild(
+      (b) => b..showMoviesOnGrid = !status.showMoviesOnGrid,
+    );
   }
 
   @visibleForTesting

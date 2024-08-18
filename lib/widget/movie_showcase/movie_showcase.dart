@@ -24,10 +24,6 @@ class _MovieShowcaseState extends State<MovieShowcase> {
   late MovieShowcaseViewModel _viewModel;
   late ScrollController _scrollController;
 
-  bool _showMoviesOnGrid = false;
-  bool _isSettingsVisible = false;
-  bool _showShadowOnActions = false;
-
   @override
   void initState() {
     super.initState();
@@ -67,12 +63,12 @@ class _MovieShowcaseState extends State<MovieShowcase> {
         controller: _scrollController,
         slivers: [
           _appBar(theme),
-          _actions(),
-          if (_isSettingsVisible) _settings(viewModel),
-          if (viewModel.status.isLoadingVisible)
-            const SliverFillRemaining(child: Loading()),
+          _actions(viewModel),
+          if (viewModel.status.isSettingsVisible) _settings(viewModel),
           if (viewModel.status.isEmptyVisible)
             const SliverFillRemaining(child: Empty()),
+          if (viewModel.status.isLoadingVisible)
+            const SliverFillRemaining(child: Loading()),
           if (viewModel.status.errorMessage != null) _error(viewModel),
           _movies(viewModel),
         ],
@@ -90,13 +86,13 @@ class _MovieShowcaseState extends State<MovieShowcase> {
     );
   }
 
-  SliverPersistentHeader _actions() {
+  SliverPersistentHeader _actions(MovieShowcaseViewModel viewModel) {
     return SliverPersistentHeader(
       pinned: true,
       delegate: ShadowSliverAppBarDelegate(
         minHeight: 40,
         maxHeight: 40,
-        isShadowEnabled: !_isSettingsVisible && _showShadowOnActions,
+        isShadowEnabled: false,
         child: ColoredBox(
           color: Theme.of(context).colorScheme.surface,
           child: Padding(
@@ -106,22 +102,18 @@ class _MovieShowcaseState extends State<MovieShowcase> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 AnimatedIconButton(
-                  animationType: _isSettingsVisible
+                  animationType: viewModel.status.isSettingsVisible
                       ? AnimationType.giroRight
                       : AnimationType.giroLeft,
                   icon: const Icon(Icons.settings),
-                  onPressed: () {
-                    setState(() => _isSettingsVisible = !_isSettingsVisible);
-                  },
+                  onPressed: viewModel.onSettingsTap,
                 ),
                 AnimatedIconButton(
                   animationType: AnimationType.rotate,
-                  icon: _showMoviesOnGrid
+                  icon: viewModel.status.showMoviesOnGrid
                       ? const Icon(Icons.view_list_rounded)
                       : const Icon(Icons.grid_on),
-                  onPressed: () {
-                    setState(() => _showMoviesOnGrid = !_showMoviesOnGrid);
-                  },
+                  onPressed: viewModel.onShowMoviesOnGridTap,
                 )
               ],
             ),
@@ -152,6 +144,7 @@ class _MovieShowcaseState extends State<MovieShowcase> {
                       const Text('Sort by:'),
                       const SizedBox(width: 8),
                       DropDownSelector(
+                        key: const ValueKey('list.sort'),
                         labels: MovieSort.values.map(_mapToLabel).toList(),
                         values: MovieSort.values.toList(),
                         onSelected: viewModel.onSortChanged,
@@ -166,6 +159,7 @@ class _MovieShowcaseState extends State<MovieShowcase> {
                       const Text('Category:'),
                       const SizedBox(width: 8),
                       DropDownSelector(
+                        key: const ValueKey('list.filter.category'),
                         labels: MovieCategory.values
                             .map(_mapCategoryToLabel)
                             .toList(),
@@ -194,7 +188,7 @@ class _MovieShowcaseState extends State<MovieShowcase> {
   }
 
   Widget _movies(MovieShowcaseViewModel viewModel) {
-    if (_showMoviesOnGrid) {
+    if (viewModel.status.showMoviesOnGrid) {
       return SliverGrid.builder(
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
@@ -249,16 +243,6 @@ class _MovieShowcaseState extends State<MovieShowcase> {
   }
 
   void _onScroll() {
-    if (_scrollController.offset > 0 && !_showShadowOnActions) {
-      setState(() {
-        _showShadowOnActions = true;
-      });
-    } else if (_scrollController.offset <= 0 && _showShadowOnActions) {
-      setState(() {
-        _showShadowOnActions = false;
-      });
-    }
-
     final scrolledToEnd = _scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent;
 

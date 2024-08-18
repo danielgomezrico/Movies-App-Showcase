@@ -40,23 +40,24 @@ $ make unit_test
 
 ## Architecture
 - Is a layered architecture based on Clean Architecture and SOLID principles. 
-   - The presentation layer is designed with `MVVM` and `view states` with unidirectional data flow.
+   - The presentation layer is designed with `MVVM` and `view states` with **unidirectional data flow**.
    - Environment variables should live in `assets/.env`, you must run `make doctor` to create that file.
    - Some differences with clean architecture:
-     - it is thought to show an architecture that can evolute over time based on the project/company requirements but allowing us to still apply good practices over the code. 
+     - It is thought to show an architecture that can evolute over time based on the project/company requirements but allowing us to still apply good practices over the code. 
      - Not all interfaces are created from the beginning.
      - For everything I did not create a use case, I used the repository directly.
      - I don't mean that clean architecture does not work, but that for a small  project, it is good to follow what you need and works for you and not go creating 1000x clases without having a return on that.
+     - Dependency Injection is manually implemented using factory pattern.
 - The Widgets/Pages/Flutter code is meant to be vanilla, so most of the logic remains in the ViewModel/UseCase and can be tested.
 - Folders:
-  - `features/`: contains UI components that represent a full window 
-  - `widgets/`: contains UI components that represent one small part of a window
+  - `features/`: contains UI components that represent the full window 
+  - `widgets/`: contains UI components that represent one small part of the window
   - `common/`: contains all code that can be shared over the project
   - `api/`: contains all logic to communicate with the API
 - Tests:
   - Mostly of what is being tested is the business logic, we want to have a lot of these because they run fast.
   - One integration test was added to show the use of mockito and UI Robots pattern.
-  - I implemented some extensions to add code sugaring, so it pretty easy to mock requests, futures and streams.
+  - I implemented some extensions to add code sugaring, so it is pretty easy to mock requests, futures and streams.
 - Components:
    - `Favorite feature`: is using a positive UI strategy to show faster the feedback to the user.
    - `EventBus`: used to update the list of favorites if the user changed it, it helps to decouple dependencies but must not be used for everything.
@@ -89,7 +90,7 @@ flowchart TD
     subgraph Data [Data]
         style Data fill:#ffb74d,stroke:#000,stroke-width:2px
         Storage[Storage]:::storageStyle
-        Models[Models]:::modelsStyle
+        Models[Models]:::modelsStylex 
     end
 
     %% Define node styles
@@ -129,32 +130,7 @@ flowchart TD
 
 
 
-| remove favorite |  add favorite | see favorites offline |
 
+| Remove favorite |  Add favorite | See favorites offline |
 
-
-How long did you spend on this?
-> I spent 4 days in my free time (because I am working right now) to get it done, I did try as much as I could, I tried following all the directions required.
-
-Did you complete your implementation?
-> Yes, I did it with all the required features and with some extras:
-> - Dark mode
-> - Architectural Diagram (a very simple one)
-
-
-What would you have added if you had more time?
-> - Add some animations to the movies list
-> - Add search by text
-> - Add a fast scroll at the left by letter, it's harder to scroll when the list is big
-> - Add performance optimizations avoiding shader glitches with SkSl warmup.
-> - Add firebase with remote config to enable A/B testing
-
-What was the most difficult part of the app?
-> I made multiple designs, like 4 until I found one that makes me feel more confortable and make it look a bit out of a sampel.
-
-What was your favorite part of the app?
-> I really enjoy working on UI, and Architecture part as well.
-
-Is there anything else you’d like to add?
-> It was a lot of work to do but I really enjoyed it, I did fly back to my University times when I used to have to make final projects and spent a lot of nights and coffee. I’d like to invest more time in Testability, I added just a few tests on present logic layers which I consider the most important part of any architecture.
 

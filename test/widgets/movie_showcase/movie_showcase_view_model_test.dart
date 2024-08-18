@@ -26,7 +26,9 @@ void main() {
             .having((s) => s.isLoadingVisible, 'isLoadingVisible', isTrue)
             .having((s) => s.isEmptyVisible, 'isEmptyVisible', isFalse)
             .having((s) => s.errorMessage, 'errorMessage', null)
-            .having((s) => s.items, 'items', isEmpty),
+            .having((s) => s.items, 'items', isEmpty)
+            .having((s) => s.isSettingsVisible, 'isSettingsVisible', isFalse)
+            .having((s) => s.showMoviesOnGrid, 'showMoviesOnGrid', isFalse),
       );
     });
   });
@@ -239,6 +241,65 @@ void main() {
               .having((s) => s.items, 'items', isEmpty),
         ),
       );
+    });
+
+    group('.onSettingsTap', () {
+      group('having settings visible', () {
+        test('hides settings', () {
+          final viewModel = subject();
+          viewModel.status =
+              viewModel.status.rebuild((b) => b..isSettingsVisible = true);
+
+          final status = viewModel.statusChanges();
+          viewModel.onSettingsTap();
+
+          expect(
+            status,
+            emits(
+              isA<_Status>()
+                  .having((s) => s.isSettingsVisible, 'settings', isFalse),
+            ),
+          );
+        });
+      });
+
+      group('having settings hidden', () {
+        test('shows settings', () {
+          final viewModel = subject();
+          viewModel.status =
+              viewModel.status.rebuild((b) => b..isSettingsVisible = false);
+
+          viewModel.onSettingsTap();
+
+          expect(viewModel.status.isSettingsVisible, isTrue);
+        });
+      });
+    });
+  });
+
+  group('.onShowMoviesOnGridTap', () {
+    group('with a grid', () {
+      test('shows the list', () {
+        final viewModel = subject();
+        viewModel.status =
+            viewModel.status.rebuild((b) => b..showMoviesOnGrid = true);
+
+        viewModel.onShowMoviesOnGridTap();
+
+        expect(viewModel.status.showMoviesOnGrid, isFalse);
+      });
+    });
+
+    group('without a grid', () {
+      test('shows the grid', () {
+        final viewModel = subject();
+        viewModel.status =
+            viewModel.status.rebuild((b) => b..showMoviesOnGrid = false);
+
+        viewModel.onShowMoviesOnGridTap();
+
+        expect(viewModel.status.showMoviesOnGrid, isTrue);
+      });
     });
   });
 }
