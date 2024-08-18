@@ -122,33 +122,24 @@ flowchart TD
 
 ## Screens
 
-| Movies Showcase               |              | Movie Detail |
-|-------------------------------|-----------------------------| --- |
-| ![](docs/movies-showcase.gif) || ![](docs/3.png) |
-
-## Theme
-
 | Light Mode               | Dark Mode               |
 |--------------------------|-------------------------|
 | ![](docs/mode-light.gif) | ![](docs/mode-dark.gif) |
 
-## Features
 
-| Favorite Movies | Refresh Current List After Removal | Offline Access |    
-|-----------------|------------------------------------| ---------------|
-|  ![](docs/favorite-save.gif) | ![](docs/favorite-remove.gif) | ![](docs/favorite-offline.gif) |
+## Favorites
 
-| Clear Error Messages                   | Empty State                  | Retry                       |
-|----------------------------------------|------------------------------|-----------------------------|
-| ![](docs/clear%20error%20messages.png) | ![](docs/empty%20values.png) | ![](docs/error%20retry.gif) |
+| Favorite Movies             | Refresh Current List After Removal | Offline Access                 |    
+|-----------------------------|------------------------------------|--------------------------------|
+| ![](docs/favorite-save.gif) | ![](docs/favorite-remove.gif)      | ![](docs/favorite-offline.gif) |
 
-| Endless Pagination                 | Sorting and show in grid or list            | 
-|------------------------------------|---------------------------------------------|
-| ![](docs/endless%20pagination.gif) | ![](docs/sorting and grid:list changer.gif) | 
+## States
+| Clear Error Messages           | Empty State               |
+|--------------------------------|---------------------------|
+| ![](docs/error-management.gif) | ![](docs/empty-state.gif) |
 
+## Some Features
 
-
-
-| Remove favorite |  Add favorite | See favorites offline |
-
-
+| show in grid or list |  Sort and PlayingNow/Populars | 
+|----------------------| ------------------------------|
+|    | ![](docs/sort.gif)|
