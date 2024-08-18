@@ -38,7 +38,6 @@ mixin ResultToResponse {
   Future<Result<T>> _handleResult<T>(
     Future<Result<T>> Function() doRequest,
   ) async {
-    // TODO(danielgomezrico): improve error handling
     try {
       return await doRequest();
 

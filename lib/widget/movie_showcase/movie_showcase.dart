@@ -186,11 +186,13 @@ class _MovieShowcaseState extends State<MovieShowcase> {
   }
 
   Widget _error(MovieShowcaseViewModel viewModel) {
-    return SliverPadding(
-      padding: const EdgeInsets.all(16),
-      sliver: RetryError(
-        message: 'Error: ${viewModel.status.errorMessage}',
-        onRetry: viewModel.onInit,
+    return SliverToBoxAdapter(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 70),
+        child: RetryError(
+          message: 'Error: ${viewModel.status.errorMessage}',
+          onRetry: viewModel.onInit,
+        ),
       ),
     );
   }

@@ -12,7 +12,11 @@ final _printer = PrettyPrinter(
 
 final log = Logger(
   printer: _printer,
-  output: SafeConsoleOutput(),
+  output: MultiOutput([
+    SafeConsoleOutput(),
+    FirebaseConsoleOutput(),
+    SentryConsoleOutput(),
+  ]),
 );
 
 /// Do not print logs for tests environment
@@ -25,6 +29,22 @@ class SafeConsoleOutput extends ConsoleOutput {
   @override
   void output(OutputEvent event) {
     if (_isTestEnv) return;
+    super.output(event);
+  }
+}
+
+class FirebaseConsoleOutput extends ConsoleOutput {
+  @override
+  void output(OutputEvent event) {
+    // TODO(danielgomezrico): Send errors and logs to firebase
+    super.output(event);
+  }
+}
+
+class SentryConsoleOutput extends ConsoleOutput {
+  @override
+  void output(OutputEvent event) {
+    // TODO(danielgomezrico): Send errors and logs to sentry
     super.output(event);
   }
 }

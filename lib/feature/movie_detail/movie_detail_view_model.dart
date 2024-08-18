@@ -89,16 +89,26 @@ class MovieDetailViewModel extends ViewModel<MovieDetailStatus> {
 
       final result = await _removeFavoriteMovie(movie, _movieSummary);
       if (!result.isSuccess) {
+        log.e(
+          '[vm] Error removing favorite movie: $result',
+          error: result.error,
+          stackTrace: StackTrace.current,
+        );
+
         status = status.rebuild((b) => b..isFavorite = true);
-        // TODO(danielgomezrico): show snackbar with the error
       }
     } else {
       status = status.rebuild((b) => b..isFavorite = true);
 
       final result = await _saveFavoriteMovie(movie, _movieSummary);
       if (!result.isSuccess) {
+        log.e(
+          '[vm] Error saving favorite movie: $result',
+          error: result.error,
+          stackTrace: StackTrace.current,
+        );
+
         status = status.rebuild((b) => b..isFavorite = false);
-        // TODO(danielgomezrico): show snackbar with the error
       }
     }
   }

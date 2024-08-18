@@ -21,6 +21,7 @@ void main() {
     testWidgets('can open a detail for a movie', (tester) async {
       final homeRobot = await prepareTests(tester);
 
+      // TODO(danielgomezrico): Fix
       await homeRobot.tapMovie(0).then((movieDetailRobot) {
         return movieDetailRobot.checkVisibility();
       });

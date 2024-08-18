@@ -46,7 +46,6 @@ class ImageFrame extends StatelessWidget {
         },
       );
     } else {
-      // TODO(danielgomezrico): Improve the loading indicator
       return const _EmptyImage();
     }
   }

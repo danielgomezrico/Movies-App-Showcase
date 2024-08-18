@@ -51,7 +51,9 @@ $ make unit_test
      - Dependency Injection is manually implemented using factory pattern.
    - The codebase does not have any lint warning, and it is using `flutter_lints` and `very_good_analysis` linter rules. 
 - The Widgets/Pages/Flutter code is meant to be vanilla, so most of the logic remains in the ViewModel/UseCase and can be tested.
-- **Favorite Movie** feature: is using a positive UI strategy to show faster the feedback to the user.
+- **Favorite Movie** feature: 
+   - Is using a positive UI strategy to show faster the feedback to the user.
+   - When you go to your favorites, remove one and come back, the list refreshes based on the new state of the movie.
 - Folders:
   - `features/`: contains UI components that represent the full window 
   - `widgets/`: contains UI components that represent one small part of the window
@@ -71,6 +73,7 @@ $ make unit_test
      - Define what a page returns when it ends
      - Be able to test the navigation with unit testing
   - `Result`: Error / Success handling is done using a [Result Monad](https://adambennett.dev/2020/05/the-result-monad/).
+  - `lib/common/log.dart`: all log setup with the showcase of how to append firebase or others to the hole app. 
 
 ### Architecture diagram
 ```mermaid
@@ -119,11 +122,21 @@ flowchart TD
 
 ## Screens
 
-| Movies Showcase | Favorite Movies | Movie Detail | 
-| --- | --- | --- |
-| ![](docs/1.png) | ![](docs/2.png) | ![](docs/3.png) |
+| Movies Showcase               |              | Movie Detail |
+|-------------------------------|-----------------------------| --- |
+| ![](docs/movies-showcase.gif) || ![](docs/3.png) |
+
+## Theme
+
+| Light Mode               | Dark Mode               |
+|--------------------------|-------------------------|
+| ![](docs/mode-light.gif) | ![](docs/mode-dark.gif) |
 
 ## Features
+
+| Favorite Movies | Refresh Current List After Removal | Offline Access |    
+|-----------------|------------------------------------| ---------------|
+|  ![](docs/favorite-save.gif) | ![](docs/favorite-remove.gif) | ![](docs/favorite-offline.gif) |
 
 | Clear Error Messages                   | Empty State                  | Retry                       |
 |----------------------------------------|------------------------------|-----------------------------|
