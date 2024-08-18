@@ -18,7 +18,7 @@ void main() {
   final router = MockRouter();
 
   MovieDetailViewModel subject({MovieSummary? movieSummary}) {
-    final summary = movieSummary ?? MovieSummaryMother.base;
+    final summary = movieSummary ?? MovieSummaryMother.any;
 
     return MovieDetailViewModel(
       moviesRepository,
@@ -65,7 +65,7 @@ void main() {
     MovieDetailViewModelOnInitSpy subject() {
       return MovieDetailViewModelOnInitSpy(
         moviesRepository,
-        MovieSummaryMother.base,
+        MovieSummaryMother.any,
         dateFormatter,
         saveFavoriteMovie,
         isMovieFavorite,
@@ -79,7 +79,7 @@ void main() {
       late MovieDetailViewModelOnInitSpy viewModel;
 
       setUpAll(() async {
-        when(moviesRepository.get(any)).thenOk(MovieMother.base);
+        when(moviesRepository.get(any)).thenOk(MovieMother.any);
 
         viewModel = subject();
         status = viewModel.statusChanges();
@@ -92,7 +92,7 @@ void main() {
       });
 
       test('updates the internal status', () {
-        expect(viewModel.movie, MovieMother.base);
+        expect(viewModel.movie, MovieMother.any);
       });
 
       test('emits the status', () {
@@ -149,7 +149,7 @@ void main() {
         final viewModel = subject();
         final status = viewModel.statusChanges();
 
-        viewModel.showMovie(MovieMother.base);
+        viewModel.showMovie(MovieMother.any);
 
         expect(
           status,
@@ -169,7 +169,7 @@ void main() {
         final viewModel = subject();
         final status = viewModel.statusChanges();
 
-        viewModel.showMovie(MovieMother.base);
+        viewModel.showMovie(MovieMother.any);
 
         expect(
           status,
@@ -192,7 +192,7 @@ void main() {
 
         final status = viewModel.statusChanges();
 
-        viewModel.showMovie(MovieMother.base);
+        viewModel.showMovie(MovieMother.any);
 
         expect(
           status,
@@ -296,7 +296,7 @@ void main() {
           when(removeFavoriteMovie.call(any, any)).thenOk();
 
           final viewModel = subject();
-          viewModel.movie = MovieMother.base;
+          viewModel.movie = MovieMother.any;
           viewModel.status =
               viewModel.status.rebuild((b) => b..isFavorite = true);
           status = viewModel.statusChanges();
@@ -325,7 +325,7 @@ void main() {
           when(removeFavoriteMovie.call(any, any)).thenError();
 
           final viewModel = subject();
-          viewModel.movie = MovieMother.base;
+          viewModel.movie = MovieMother.any;
           viewModel.status =
               viewModel.status.rebuild((b) => b..isFavorite = true);
           status = viewModel.statusChanges();
@@ -357,7 +357,7 @@ void main() {
           when(saveFavoriteMovie.call(any, any)).thenOk();
 
           final viewModel = subject();
-          viewModel.movie = MovieMother.base;
+          viewModel.movie = MovieMother.any;
           viewModel.status =
               viewModel.status.rebuild((b) => b..isFavorite = false);
           status = viewModel.statusChanges();
@@ -386,7 +386,7 @@ void main() {
           when(saveFavoriteMovie.call(any, any)).thenError();
 
           final viewModel = subject();
-          viewModel.movie = MovieMother.base;
+          viewModel.movie = MovieMother.any;
           viewModel.status =
               viewModel.status.rebuild((b) => b..isFavorite = false);
           status = viewModel.statusChanges();

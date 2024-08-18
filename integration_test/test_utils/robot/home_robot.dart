@@ -1,22 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:movie_flutter/main.dart';
 
-Future<HomeRobot> prepareTests(WidgetTester tester) async {
-  await setupServices();
-
-  await tester.pumpWidget(const MyApp());
-  await tester.pumpAndSettle();
-
-  return HomeRobot(tester);
-}
+import 'movie_detail_robot.dart';
 
 class HomeRobot {
-  const HomeRobot(this.tester);
+  const HomeRobot(this._tester);
 
-  final WidgetTester tester;
+  final WidgetTester _tester;
 
-  Future<HomeRobot> tapTab(HomeTab tab) async {
+  Future<HomeRobot> tapBottomBar(HomeTab tab) async {
     final Key key;
     switch (tab) {
       case HomeTab.discover:
@@ -25,10 +17,21 @@ class HomeRobot {
         key = const ValueKey('tab.favorites');
     }
 
-    tester.tap(find.byKey(key));
-    await tester.pumpAndSettle();
+    _tester.tap(find.byKey(key));
+    await _tester.pumpAndSettle();
 
     return this;
+  }
+
+  Future<MovieDetailRobot> tapMovie(int index) async {
+    final movieList = find.byKey(const ValueKey('movies.list')).evaluate();
+
+    final item = movieList.last.widget;
+
+    await _tester.tap(find.byWidget(item));
+    await _tester.pumpAndSettle();
+
+    return const MovieDetailRobot();
   }
 
   Future<HomeRobot> checkTabVisibility(HomeTab tab) async {

@@ -19,6 +19,7 @@ analyzer:
     avoid_positional_boolean_parameters: false
     avoid_redundant_argument_values: false
     avoid_returning_null_for_void: warning
+    avoid_returning_this: false
     camel_case_types: warning
     cascade_invocations: false
     dead_null_aware_expression: warning

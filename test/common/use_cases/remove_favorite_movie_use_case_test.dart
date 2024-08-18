@@ -21,7 +21,7 @@ void main() {
         when(favoriteMovieSummaryStorage.delete(any)).thenOk();
 
         final result =
-            await subject().call(MovieMother.base, MovieSummaryMother.base);
+            await subject().call(MovieMother.any, MovieSummaryMother.any);
 
         expect(result.isSuccess, isTrue);
       });
@@ -33,7 +33,7 @@ void main() {
         when(favoriteMovieSummaryStorage.delete(any)).thenOk();
 
         final result =
-            await subject().call(MovieMother.base, MovieSummaryMother.base);
+            await subject().call(MovieMother.any, MovieSummaryMother.any);
 
         expect(result.isFailure, isTrue);
       });

@@ -19,7 +19,8 @@ $ make
   doctor                         Run you if you have any issues starting the project
   autogenerate                   Auto generate files
   autogenerate_watching          Auto generate files
-  tests                          Run tests with coverage
+  test_unit                      Run tests with coverage
+  test_integration               Run integration tests
   run                            Run the project on device
   lint                           Run all linters
   build_android                  Build android
@@ -48,18 +49,21 @@ $ make unit_test
      - For everything I did not create a use case, I used the repository directly.
      - I don't mean that clean architecture does not work, but that for a small  project, it is good to follow what you need and works for you and not go creating 1000x clases without having a return on that.
      - Dependency Injection is manually implemented using factory pattern.
+   - The codebase does not have any lint warning, and it is using `flutter_lints` and `very_good_analysis` linter rules. 
 - The Widgets/Pages/Flutter code is meant to be vanilla, so most of the logic remains in the ViewModel/UseCase and can be tested.
+- **Favorite Movie** feature: is using a positive UI strategy to show faster the feedback to the user.
 - Folders:
   - `features/`: contains UI components that represent the full window 
   - `widgets/`: contains UI components that represent one small part of the window
   - `common/`: contains all code that can be shared over the project
   - `api/`: contains all logic to communicate with the API
 - Tests:
+  - I implemented some extensions to add code sugaring, so it is pretty easy to mock requests, futures and streams.
   - Mostly of what is being tested is the business logic, we want to have a lot of these because they run fast.
   - One integration test was added to show the use of mockito and UI Robots pattern.
-  - I implemented some extensions to add code sugaring, so it is pretty easy to mock requests, futures and streams.
+  - Test coverage generated from `make test_unit` **only contains** unit tests report.
+  - Test coverage generated from `make test_integration` **only contains** integration report.
 - Components:
-   - `Favorite feature`: is using a positive UI strategy to show faster the feedback to the user.
    - `EventBus`: used to update the list of favorites if the user changed it, it helps to decouple dependencies but must not be used for everything.
    - `Router`: is a simple custom implementation that allows us to have type safety when navigating between pages:
      - Define what attributes a page requires to start

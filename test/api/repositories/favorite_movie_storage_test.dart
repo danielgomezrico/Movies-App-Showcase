@@ -15,7 +15,7 @@ void main() async {
 
   test('append data then it succeed', () async {
     await runClosingDb([storage()], () async {
-      final result = await subject().append(MovieMother.base);
+      final result = await subject().append(MovieMother.any);
 
       expect(result,
           isA<EmptyResult>().having((r) => r.isSuccess, 'success', isTrue));
@@ -121,7 +121,7 @@ void main() async {
 
     test('append returns a failure', () async {
       await runClosingDb([storage()], () async {
-        final result = await storage().append(MovieMother.base);
+        final result = await storage().append(MovieMother.any);
         expect(result.isFailure, isTrue);
       });
     });
@@ -129,15 +129,15 @@ void main() async {
 
   test('when deleting data is success', () async {
     await runClosingDb([storage()], () async {
-      final result = await subject().delete(MovieMother.base);
+      final result = await subject().delete(MovieMother.any);
       expect(result.isSuccess, isTrue);
     });
   });
 
   test('deleting data it returns empty', () async {
     await runClosingDb([storage()], () async {
-      await subject().append(MovieMother.base);
-      await subject().delete(MovieMother.base);
+      await subject().append(MovieMother.any);
+      await subject().delete(MovieMother.any);
 
       final result = await subject().getAll();
 

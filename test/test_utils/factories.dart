@@ -14,7 +14,7 @@ import 'package:movie_flutter/common/result.dart';
 import 'package:movie_flutter/common/router/site/movie_detail_site.dart';
 
 abstract class MovieMother {
-  static Movie get base {
+  static Movie get any {
     return Movie(
       (b) => b
         ..id = 1
@@ -61,7 +61,7 @@ abstract class MovieMother {
 }
 
 abstract class MovieSummaryMother {
-  static MovieSummary get base {
+  static MovieSummary get any {
     return MovieSummary(
       (b) => b
         ..movieId = 1

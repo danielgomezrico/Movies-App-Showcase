@@ -8,12 +8,14 @@ class ShadowSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     required this.maxHeight,
     required this.child,
     this.isShadowEnabled = true,
-  });
+    bool shouldRebuild = false,
+  }) : _shouldRebuild = shouldRebuild;
 
   final double minHeight;
   final double maxHeight;
   final Widget child;
   final bool isShadowEnabled;
+  final bool _shouldRebuild;
 
   @override
   double get minExtent => minHeight;
@@ -41,8 +43,6 @@ class ShadowSliverAppBarDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(ShadowSliverAppBarDelegate oldDelegate) {
-    return maxHeight != oldDelegate.maxHeight ||
-        minHeight != oldDelegate.minHeight ||
-        child != oldDelegate.child;
+    return _shouldRebuild;
   }
 }

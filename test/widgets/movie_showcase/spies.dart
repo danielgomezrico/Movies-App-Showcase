@@ -33,3 +33,10 @@ class MovieShowcaseViewModelOnSortChanges extends MovieShowcaseViewModel
     super.moviesRepository,
   );
 }
+
+class MovieShowcaseViewModelOnCategoryChangedSpy extends MovieShowcaseViewModel
+    with _ShowNextMoviesSpy {
+  MovieShowcaseViewModelOnCategoryChangedSpy(
+    super.moviesRepository,
+  );
+}

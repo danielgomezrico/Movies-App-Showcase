@@ -13,9 +13,9 @@ void main() {
   group('.call', () {
     group('having the movie already stored', () {
       test('returns true', () async {
-        when(favoriteMoviesStorage.get(any)).thenOk(MovieSummaryMother.base);
+        when(favoriteMoviesStorage.get(any)).thenOk(MovieSummaryMother.any);
 
-        final result = await subject().call(MovieMother.base);
+        final result = await subject().call(MovieMother.any);
 
         expect(result.value, isTrue);
       });
@@ -25,7 +25,7 @@ void main() {
       test('returns false', () async {
         when(favoriteMoviesStorage.get(any)).thenError();
 
-        final result = await subject().call(MovieMother.base);
+        final result = await subject().call(MovieMother.any);
 
         expect(result.value, isFalse);
       });

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-flutter test --coverage --no-pub
+flutter test integration_test --coverage --no-pub
 
 echo "-> Cleaning not wanted files from coverage"
 brew install lcov

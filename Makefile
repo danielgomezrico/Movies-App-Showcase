@@ -7,27 +7,30 @@ doctor: ## Run you if you have any issues starting the project
 autogenerate: ## Auto generate files
 	dart run build_runner build
 
-autogenerate_watching: ## Auto generate files
+autogenerate_watching: ## Auto generate files and keep watching for changes
 	dart run build_runner watch
-
-tests: ## Run tests with coverage
-	./scripts/test-with-coverage.sh
 
 run: ## Run the project on device
 	flutter run
 
-lint: ## Run all linters
-	./scripts/validate-lint.sh
+test_unit: ## Run tests with coverage
+	./scripts/test-with-coverage.sh
+
+test_integration: ## Run integration tests
+	./scripts/ingration-test-with-coverage.sh
 
 build_android: ## Build android
 	flutter build apk --release
+
+lint: ## Run all linters
+	./scripts/validate-lint.sh
 
 format: ## Auto format the code base following lint rules
 	dart format lib/ test/
 
 check_linters: ## Run all linters
 	flutter analyze
-	flutter format --set-exit-if-changed lib/ test/
+	flutter format --set-exit-if-changed lib/ test/ integration_test/
 
 app_uninstall: ## Uninstall app from android device for tests
 	adb uninstall com.movie.movie_flutter

@@ -5,12 +5,14 @@ class DropDownSelector<T> extends StatefulWidget {
     required this.labels,
     required this.values,
     required this.onSelected,
+    this.initialSelectedLabel,
     super.key,
   }) : assert(labels.length == values.length,
             'labels and values lists must have the same length');
 
   final List<String> labels;
   final List<T> values;
+  final String? initialSelectedLabel;
   final void Function(T value) onSelected;
 
   @override
@@ -23,7 +25,13 @@ class _DropDownSelectorState<T> extends State<DropDownSelector<T>> {
   @override
   void initState() {
     super.initState();
-    _selectedLabel = widget.labels[0];
+
+    final initialSelectedLabel = widget.initialSelectedLabel;
+    if (initialSelectedLabel != null) {
+      _selectedLabel = initialSelectedLabel;
+    } else {
+      _selectedLabel = widget.labels[0];
+    }
   }
 
   @override

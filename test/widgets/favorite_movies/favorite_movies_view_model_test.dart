@@ -174,7 +174,7 @@ void main() {
 
         final viewModel = subject();
         viewModel.status = viewModel.status
-            .rebuild((b) => b..items = [MovieSummaryMother.base]);
+            .rebuild((b) => b..items = [MovieSummaryMother.any]);
         final status = viewModel.statusChanges();
 
         viewModel.listenEvents();

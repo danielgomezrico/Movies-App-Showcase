@@ -79,8 +79,8 @@ class _MovieShowcaseState extends State<MovieShowcase> {
   SliverAppBar _appBar(ThemeData theme) {
     return SliverAppBar(
       title: const Text('Movies'),
-      floating: true,
-      snap: true,
+      floating: false,
+      snap: false,
       backgroundColor: theme.colorScheme.surface,
       surfaceTintColor: theme.colorScheme.surface,
     );
@@ -89,6 +89,7 @@ class _MovieShowcaseState extends State<MovieShowcase> {
   SliverPersistentHeader _actions(MovieShowcaseViewModel viewModel) {
     return SliverPersistentHeader(
       pinned: true,
+      floating: false,
       delegate: ShadowSliverAppBarDelegate(
         minHeight: 40,
         maxHeight: 40,
@@ -126,6 +127,7 @@ class _MovieShowcaseState extends State<MovieShowcase> {
   Widget _settings(MovieShowcaseViewModel viewModel) {
     return SliverPersistentHeader(
       pinned: true,
+      floating: false,
       delegate: ShadowSliverAppBarDelegate(
         minHeight: 40,
         maxHeight: 40,
@@ -144,7 +146,7 @@ class _MovieShowcaseState extends State<MovieShowcase> {
                       const Text('Sort by:'),
                       const SizedBox(width: 8),
                       DropDownSelector(
-                        key: const ValueKey('list.sort'),
+                        key: const ValueKey('movie.list.sort'),
                         labels: MovieSort.values.map(_mapToLabel).toList(),
                         values: MovieSort.values.toList(),
                         onSelected: viewModel.onSortChanged,
@@ -159,12 +161,14 @@ class _MovieShowcaseState extends State<MovieShowcase> {
                       const Text('Category:'),
                       const SizedBox(width: 8),
                       DropDownSelector(
-                        key: const ValueKey('list.filter.category'),
+                        key: const ValueKey('movie.list.filter.category'),
                         labels: MovieCategory.values
                             .map(_mapCategoryToLabel)
                             .toList(),
                         values: MovieCategory.values.toList(),
                         onSelected: viewModel.onCategoryChanged,
+                        initialSelectedLabel:
+                            _mapCategoryToLabel(viewModel.status.movieCategory),
                       ),
                     ],
                   ),
@@ -190,6 +194,7 @@ class _MovieShowcaseState extends State<MovieShowcase> {
   Widget _movies(MovieShowcaseViewModel viewModel) {
     if (viewModel.status.showMoviesOnGrid) {
       return SliverGrid.builder(
+        key: const ValueKey('movies.grid'),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           childAspectRatio: 0.7,
@@ -205,6 +210,7 @@ class _MovieShowcaseState extends State<MovieShowcase> {
       );
     } else {
       return SliverList.separated(
+        key: const ValueKey('movies.list'),
         itemCount: viewModel.status.items.length,
         separatorBuilder: (_, __) => const SizedBox(height: 8),
         itemBuilder: (_, index) {

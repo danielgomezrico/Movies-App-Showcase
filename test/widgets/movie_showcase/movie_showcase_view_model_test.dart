@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:movie_flutter/api/repositories/models/movie_category.dart';
 import 'package:movie_flutter/api/repositories/models/movie_sort.dart';
 import 'package:movie_flutter/widget/movie_showcase/movie_showcase_status.dart';
 import 'package:movie_flutter/widget/movie_showcase/movie_showcase_view_model.dart';
@@ -28,7 +29,8 @@ void main() {
             .having((s) => s.errorMessage, 'errorMessage', null)
             .having((s) => s.items, 'items', isEmpty)
             .having((s) => s.isSettingsVisible, 'isSettingsVisible', isFalse)
-            .having((s) => s.showMoviesOnGrid, 'showMoviesOnGrid', isFalse),
+            .having((s) => s.showMoviesOnGrid, 'showMoviesOnGrid', isFalse)
+            .having((s) => s.movieCategory, 'category', MovieCategory.popular),
       );
     });
   });
@@ -82,10 +84,10 @@ void main() {
       test('it joins them all', () async {
         when(moviesRepository.getMovies(any, any, any)).thenFutureInOrder([
           ResultMother.okPagedResult(
-            payload: [MovieSummaryMother.base],
+            payload: [MovieSummaryMother.any],
           ),
           ResultMother.okPagedResult(
-            payload: [MovieSummaryMother.base, MovieSummaryMother.base],
+            payload: [MovieSummaryMother.any, MovieSummaryMother.any],
           ),
         ]);
 
@@ -131,8 +133,8 @@ void main() {
     group('after getting all items', () {
       test('shows the items', () async {
         when(moviesRepository.getMovies(any, any, any)).thenOk([
-          MovieSummaryMother.base,
-          MovieSummaryMother.base,
+          MovieSummaryMother.any,
+          MovieSummaryMother.any,
         ]);
 
         final viewModel = subject();
@@ -200,6 +202,49 @@ void main() {
               .having((s) => s.isEmptyVisible, 'isEmptyVisible', isFalse)),
         );
       });
+    });
+  });
+
+  group('.onCategoryChanged', () {
+    MovieShowcaseViewModelOnCategoryChangedSpy subject() {
+      return MovieShowcaseViewModelOnCategoryChangedSpy(
+        moviesRepository,
+      );
+    }
+
+    late Stream<_Status> status;
+    late MovieShowcaseViewModelOnCategoryChangedSpy viewModel;
+
+    setUpAll(() {
+      viewModel = subject();
+      viewModel.status = viewModel.status.rebuild(
+        (b) => b..movieCategory = MovieCategory.popular,
+      );
+      status = viewModel.statusChanges();
+
+      viewModel.onCategoryChanged(MovieCategory.playingNow);
+    });
+
+    test('emits the status', () {
+      expect(
+        status,
+        emits(
+          isA<_Status>()
+              .having((s) => s.isLoadingVisible, 'isLoadingVisible', isTrue)
+              .having((s) => s.isEmptyVisible, 'isEmptyVisible', isFalse)
+              .having((s) => s.errorMessage, 'errorMessage', isNull)
+              .having((s) => s.items, 'items', isEmpty)
+              .having(
+                (s) => s.movieCategory,
+                'category',
+                MovieCategory.playingNow,
+              ),
+        ),
+      );
+    });
+
+    test('shows next movies', () {
+      expect(viewModel.showNextMoviesCount, 1);
     });
   });
 
