@@ -129,17 +129,17 @@ flowchart TD
 
 ## Favorites
 
-| Favorite Movies             | Refresh Current List After Removal | Offline Access                 |    
-|-----------------------------|------------------------------------|--------------------------------|
-| ![](docs/favorite-save.gif) | ![](docs/favorite-remove.gif)      | ![](docs/favorite-offline.gif) |
+| Favorite Movies         | Refresh Current List After Removal | Offline Access                 |    
+|-------------------------|------------------------------------|--------------------------------|
+| ![](docs/favorites.gif) | ![](docs/favorite-remove.gif)      | ![](docs/favorite-offline.gif) |
 
 ## States
-| Clear Error Messages           | Empty State               |
-|--------------------------------|---------------------------|
-| ![](docs/error-management.gif) | ![](docs/empty-state.gif) |
+| Clear Error Messages          | Empty State              |
+|-------------------------------|--------------------------|
+| ![](docs/error.gif) | ![](docs/empty.gif) |
 
 ## Some Features
 
-| show in grid or list |  Sort and PlayingNow/Populars | 
-|----------------------| ------------------------------|
-|    | ![](docs/sort.gif)|
+| show in grid or list           | Sort and PlayingNow/Populars | 
+|--------------------------------|------------------------------|
+| ![](docs/movie-card-style.gif) | ![](docs/movie-sort.gif)     |
