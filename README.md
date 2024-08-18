@@ -63,6 +63,7 @@ $ make unit_test
   - One integration test was added to show the use of mockito and UI Robots pattern.
   - Test coverage generated from `make test_unit` **only contains** unit tests report.
   - Test coverage generated from `make test_integration` **only contains** integration report.
+  - I relly on `testing spies` to make tests simpler.
 - Components:
    - `EventBus`: used to update the list of favorites if the user changed it, it helps to decouple dependencies but must not be used for everything.
    - `Router`: is a simple custom implementation that allows us to have type safety when navigating between pages:

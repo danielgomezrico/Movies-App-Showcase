@@ -150,6 +150,9 @@ class _MovieShowcaseState extends State<MovieShowcase> {
                         labels: MovieSort.values.map(_mapToLabel).toList(),
                         values: MovieSort.values.toList(),
                         onSelected: viewModel.onSortChanged,
+                        initialSelectedLabel: _mapToLabel(
+                          viewModel.status.movieSort,
+                        ),
                       ),
                     ],
                   ),
@@ -167,8 +170,9 @@ class _MovieShowcaseState extends State<MovieShowcase> {
                             .toList(),
                         values: MovieCategory.values.toList(),
                         onSelected: viewModel.onCategoryChanged,
-                        initialSelectedLabel:
-                            _mapCategoryToLabel(viewModel.status.movieCategory),
+                        initialSelectedLabel: _mapCategoryToLabel(
+                          viewModel.status.movieCategory,
+                        ),
                       ),
                     ],
                   ),

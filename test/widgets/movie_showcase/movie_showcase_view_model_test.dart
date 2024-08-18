@@ -30,7 +30,8 @@ void main() {
             .having((s) => s.items, 'items', isEmpty)
             .having((s) => s.isSettingsVisible, 'isSettingsVisible', isFalse)
             .having((s) => s.showMoviesOnGrid, 'showMoviesOnGrid', isFalse)
-            .having((s) => s.movieCategory, 'category', MovieCategory.popular),
+            .having((s) => s.movieCategory, 'category', MovieCategory.popular)
+            .having((s) => s.movieSort, 'sort', MovieSort.releaseDateAsc),
       );
     });
   });
@@ -267,10 +268,6 @@ void main() {
       expect(viewModel.showNextMoviesCount, 1);
     });
 
-    test('updates the current sorting', () {
-      expect(viewModel.sort, MovieSort.titleAsc);
-    });
-
     test('reset the current page', () {
       expect(viewModel.page, 1);
     });
@@ -283,7 +280,8 @@ void main() {
               .having((s) => s.isLoadingVisible, 'isLoadingVisible', isTrue)
               .having((s) => s.isEmptyVisible, 'isEmptyVisible', isFalse)
               .having((s) => s.errorMessage, 'errorMessage', isNull)
-              .having((s) => s.items, 'items', isEmpty),
+              .having((s) => s.items, 'items', isEmpty)
+              .having((s) => s.movieSort, 'sort', MovieSort.titleAsc),
         ),
       );
     });

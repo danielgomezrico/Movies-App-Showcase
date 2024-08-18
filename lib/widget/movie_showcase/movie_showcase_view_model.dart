@@ -18,7 +18,8 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
         ..items = []
         ..isSettingsVisible = false
         ..showMoviesOnGrid = false
-        ..movieCategory = MovieCategory.popular,
+        ..movieCategory = MovieCategory.popular
+        ..movieSort = MovieSort.releaseDateAsc,
     );
   }
 
@@ -26,8 +27,6 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
 
   @visibleForTesting
   int page = _initialPageIndex;
-  @visibleForTesting
-  MovieSort sort = MovieSort.titleAsc;
 
   Future<void> onInit() async {
     status = status.rebuild(
@@ -37,11 +36,11 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
         ..errorMessage = null,
     );
 
-    await showNextMovies(sort);
+    await showNextMovies(status.movieSort);
   }
 
   Future<void> onBottomReached() async {
-    await showNextMovies(sort);
+    await showNextMovies(status.movieSort);
   }
 
   Future<void> onCategoryChanged(MovieCategory movieCategory) async {
@@ -56,19 +55,19 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
         ..movieCategory = movieCategory,
     );
 
-    await showNextMovies(sort);
+    await showNextMovies(status.movieSort);
   }
 
   Future<void> onSortChanged(MovieSort movieSort) async {
     page = _initialPageIndex;
-    sort = movieSort;
 
     status = status.rebuild(
       (b) => b
         ..items = []
         ..isLoadingVisible = true
         ..isEmptyVisible = false
-        ..errorMessage = null,
+        ..errorMessage = null
+        ..movieSort = movieSort,
     );
 
     await showNextMovies(movieSort);
@@ -87,8 +86,10 @@ class MovieShowcaseViewModel extends ViewModel<MovieShowcaseStatus> {
   }
 
   @visibleForTesting
-  Future<void> showNextMovies(MovieSort sort) async {
-    await _moviesRepository.getMovies(page, sort, status.movieCategory).match(
+  Future<void> showNextMovies(MovieSort movieSort) async {
+    await _moviesRepository
+        .getMovies(page, movieSort, status.movieCategory)
+        .match(
       onSuccess: (data) {
         page++;
 
